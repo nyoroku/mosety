@@ -112,6 +112,73 @@
 <article class="py-12 bg-cream">
   <div class="max-w-4xl mx-auto px-4 sm:px-6">
 
+  {% if post.image %}
+  "image": "{{ site.base_url }}{{ post.image.url }}",
+  {% endif %}
+  "author": {
+    "@type": "Organization",
+    "name": "Mosety Boat Rides Naivasha"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Mosety Boat Rides Naivasha",
+    "logo": {
+      "@type": "ImageObject",
+    "url": "{{ site.base_url }}{% static 'images/paradise-logo.jpeg' %}"
+    }
+  },
+  "datePublished": "{{ post.created_at|date:'c' }}",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "{{ site.base_url }}{{ request.path }}"
+  },
+  "dateModified": "{{ post.updated_at|date:'c' }}"
+}
+</script>
+
+<!-- Hero with Featured Image -->
+{% if post.image %}
+<section class="relative h-[40vh] min-h-[300px] flex items-end overflow-hidden">
+  <div class="absolute inset-0">
+    <img src="{{ post.image.url }}" alt="{{ post.title }}" class="w-full h-full object-cover">
+    <div class="absolute inset-0 bg-gradient-to-t from-navy via-navy/60 to-transparent"></div>
+  </div>
+  <div class="relative z-10 w-full pb-12">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6">
+      <!-- Breadcrumb -->
+      <nav class="mb-4" aria-label="Breadcrumb">
+        <ol class="flex items-center gap-2 text-cream/60 text-sm">
+          <li><a href="{% url 'pages:home' %}" class="hover:text-gold">Home</a></li>
+          <li><i class="fas fa-chevron-right text-xs"></i></li>
+          <li><a href="{% url 'content:journal_list' %}" class="hover:text-gold">Journal</a></li>
+          <li><i class="fas fa-chevron-right text-xs"></i></li>
+          <li class="text-cream truncate max-w-[200px]">{{ post.title }}</li>
+        </ol>
+      </nav>
+    </div>
+  </div>
+</section>
+{% else %}
+<!-- Breadcrumb without hero -->
+<section class="py-8 bg-navy">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6">
+    <nav aria-label="Breadcrumb">
+      <ol class="flex items-center gap-2 text-cream/60 text-sm">
+        <li><a href="{% url 'pages:home' %}" class="hover:text-gold">Home</a></li>
+        <li><i class="fas fa-chevron-right text-xs"></i></li>
+        <li><a href="{% url 'content:journal_list' %}" class="hover:text-gold">Journal</a></li>
+        <li><i class="fas fa-chevron-right text-xs"></i></li>
+        <li class="text-cream">{{ post.title }}</li>
+      </ol>
+    </nav>
+  </div>
+</section>
+{% endif %}
+
+<!-- Main Content -->
+<article class="py-12 bg-cream">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6">
+
     <!-- Article Header -->
     <header class="mb-10">
       <h1 class="font-serif text-3xl sm:text-4xl text-charcoal font-semibold mb-4">
@@ -119,7 +186,7 @@
       </h1>
 
       <div class="flex flex-wrap items-center gap-4 text-charcoal/60 text-sm mb-6">
-        <span>By <strong class="text-charcoal">Paradise Boat Rides Naivasha</strong></span>
+        <span>By <strong class="text-charcoal">Mosety Boat Rides Naivasha</strong></span>
         <span>•</span>
         <span>{{ post.created_at|date:"F j, Y" }}</span>
         {% if post.updated_at and post.updated_at != post.created_at %}
@@ -158,21 +225,21 @@
       <p class="text-cream/70 mb-6 max-w-lg mx-auto">
         Explore our private and group boat rides for wildlife viewing, sunset cruises and Crescent Island tours.
       </p>
-      <a href="{% url 'bookings:tour_list' %}" class="btn-gold px-8 py-4 font-bold rounded-xl inline-block">
+      <a href="{% url 'tours:tour_list' %}" class="btn-gold px-8 py-4 font-bold rounded-xl inline-block">
         View Available Boat Rides
       </a>
       {% if site.tel_url %}
       <a href="{{ site.tel_url }}" class="inline-block mt-4 sm:mt-0 sm:ml-3 text-cream font-bold underline underline-offset-4">
-        Call Paradise Boat Rides
+        Call Mosety Boat Rides
       </a>
       {% endif %}
     </div>
 
     <!-- Back to Blog -->
     <div class="mt-10 text-center">
-      <a href="{% url 'blog:post_list' %}" class="text-navy font-semibold hover:text-gold transition-colors">
+      <a href="{% url 'content:journal_list' %}" class="text-navy font-semibold hover:text-gold transition-colors">
         <i class="fas fa-arrow-left mr-2"></i>
-        Back to All Articles
+        Back to All Field Notes & Journal
       </a>
     </div>
   </div>

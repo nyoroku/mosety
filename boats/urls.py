@@ -5,7 +5,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic import RedirectView
 from django.contrib.sitemaps.views import sitemap
-from seo.sitemaps import StaticViewSitemap, BlogSitemap, LocalPageSitemap, FAQSitemap, TourSitemap
+from seo.sitemaps import StaticViewSitemap, BlogSitemap, LocalPageSitemap, FAQSitemap, TourSitemap, GuideArticleSitemap
 from resources.sitemaps import ResourceGuideSitemap, ResourceStaticSitemap
 sitemaps = {
     'static': StaticViewSitemap,
@@ -13,6 +13,7 @@ sitemaps = {
     'local': LocalPageSitemap,
     'faq': FAQSitemap,
     'tours': TourSitemap,
+    'journal': GuideArticleSitemap,
     'resources': ResourceGuideSitemap,
     'resources_static': ResourceStaticSitemap,
 }
@@ -24,11 +25,12 @@ urlpatterns = [
     path('', include('pages.urls')),
     path('', include('tours.urls')),
     path('', include('content.urls')),
+    path('bookings/', include('bookings.urls')),
     path('book/', BookLeadView.as_view(), name='book_lead'),
     path('book/<slug:slug>/', BookLeadView.as_view(), name='book_tour_lead'),
     path('tours/', RedirectView.as_view(url='/boat-rides/', permanent=True)),
     path('services/', RedirectView.as_view(url='/boat-rides/', permanent=True)),
-    path('blog/', RedirectView.as_view(url='/journal/', permanent=True)),
+    path('blog/', include('blog.urls')),
     path('dashboard/', include('dashboard.urls')),
     path('careers/', include('jobs.urls')),
     path('reviews/', include('testimonials.urls')),

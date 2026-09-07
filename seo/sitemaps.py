@@ -1,20 +1,23 @@
 from django.contrib.sitemaps import Sitemap
 from django.urls import reverse
 from blog.models import Post
-from bookings.models import Tour
+from tours.models import Tour as MosetyTour
+from content.models import GuideArticle
 from .models import LocalPage, FAQ
 
 # ---------------- Static Pages ----------------
 class StaticViewSitemap(Sitemap):
     protocol = 'https'
     priority = 0.8
-    changefreq = "weekly"
+    changefreq = 'weekly'
 
     def items(self):
         return [
-            'pages:home', 'pages:contact', 'seo:faq',
-            'seo:list', 'bookings:tour_list', 'blog:post_list',
-            'services:service_list', 'accommodation:hotel_list',
+            'pages:home', 'content:contact', 'content:about', 'content:safety',
+            'tours:tour_list', 'tours:prices', 'content:journal_list',
+            'content:reviews', 'content:questions',
+            'seo:faq', 'seo:list',
+            'accommodation:hotel_list',
         ]
 
     def location(self, item):
@@ -23,16 +26,34 @@ class StaticViewSitemap(Sitemap):
 
 # ---------------- Tours ----------------
 class TourSitemap(Sitemap):
-    changefreq = "weekly"
-    priority = 1.0  # Tours are our main product
+    changefreq = 'weekly'
+    priority = 1.0
 
     def items(self):
-        return Tour.objects.filter(is_active=True, allow_indexing=True)
+        return MosetyTour.objects.filter(is_active=True)
+
+    def location(self, obj):
+        return obj.get_absolute_url()
+
+
+# ---------------- Guide Articles / Field Journal ----------------
+class GuideArticleSitemap(Sitemap):
+    changefreq = 'weekly'
+    priority = 0.8
+
+    def items(self):
+        return GuideArticle.objects.filter(is_active=True)
+
+    def location(self, obj):
+        return obj.get_absolute_url()
+
+    def lastmod(self, obj):
+        return obj.updated_at
 
 
 # ---------------- Blog Posts ----------------
 class BlogSitemap(Sitemap):
-    changefreq = "weekly"
+    changefreq = 'weekly'
     priority = 0.7
 
     def items(self):
@@ -44,7 +65,7 @@ class BlogSitemap(Sitemap):
 
 # ---------------- Local Pages ----------------
 class LocalPageSitemap(Sitemap):
-    changefreq = "monthly"
+    changefreq = 'monthly'
     priority = 0.9
 
     def items(self):
@@ -56,7 +77,7 @@ class LocalPageSitemap(Sitemap):
 
 # ---------------- FAQ ----------------
 class FAQSitemap(Sitemap):
-    changefreq = "monthly"
+    changefreq = 'monthly'
     priority = 0.6
 
     def items(self):
