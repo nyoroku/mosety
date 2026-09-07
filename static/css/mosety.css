@@ -854,46 +854,77 @@ details[open] .faq-icon {
   }
 }
 
-
-/* ==========================================================================
-   GETYOURGUIDE UI / UX DESIGN SYSTEM PATTERNS (MOSETY RIFT GOLD PALETTE)
-   ========================================================================== */
-
-/* 1. Header Wordmark & Currency Toggle */
-.gyg-brand {
-  display: flex;
-  align-items: center;
-  gap: 0.65rem;
-  text-decoration: none;
-}
-.gyg-logo-text {
-  font-family: var(--font-body);
-  font-size: 1.65rem;
-  font-weight: 800;
-  letter-spacing: -0.04em;
-  color: var(--ink-forest);
-  line-height: 1;
+/* 1. Header Wordmark & Currency Toggle (GetYourGuide 3-Part Stacked Logo) */
+.gyg-stacked-brand {
   display: inline-flex;
-  align-items: baseline;
-}
-.gyg-logo-dot {
-  display: inline-block;
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background-color: var(--rift-gold);
-  margin-left: 1px;
-}
-.gyg-logo-tag {
-  font-size: 0.6875rem;
-  font-weight: 800;
+  flex-direction: column;
+  justify-content: center;
+  text-decoration: none;
+  line-height: 0.92;
+  font-family: var(--font-body);
+  user-select: none;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  padding-block: 2px;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: var(--lake-sage);
-  background: var(--papyrus-light);
-  padding: 3px 8px;
-  border-radius: var(--radius-pill);
-  border: 1px solid var(--border-papyrus);
+}
+.gyg-stacked-brand:hover {
+  transform: scale(1.03);
+}
+
+/* Part 1: Top - Mosety */
+.gyg-brand-part-1 {
+  font-size: 1.35rem;
+  font-weight: 900;
+  color: var(--ink-forest);
+  letter-spacing: 0.02em;
+  line-height: 0.92;
+  display: block;
+}
+
+/* Part 2: Middle - Boat Rides */
+.gyg-brand-part-2 {
+  font-size: 0.8rem;
+  font-weight: 850;
+  color: var(--rift-gold);
+  letter-spacing: 0.06em;
+  line-height: 0.95;
+  display: block;
+  margin-top: 1px;
+}
+
+/* Part 3: Bottom - Naivasha */
+.gyg-brand-part-3 {
+  font-size: 1.05rem;
+  font-weight: 900;
+  color: #FF5A00;
+  letter-spacing: 0.04em;
+  line-height: 0.92;
+  display: block;
+  margin-top: 1px;
+}
+
+/* On dark backgrounds (like site-footer) */
+.site-footer .gyg-brand-part-1 {
+  color: var(--ivory);
+}
+.site-footer .gyg-brand-part-2 {
+  color: #E5B358;
+}
+.site-footer .gyg-brand-part-3 {
+  color: #FF7252;
+}
+
+/* Responsive adjustment for mobile header */
+@media (max-width: 640px) {
+  .gyg-brand-part-1 {
+    font-size: 1.18rem;
+  }
+  .gyg-brand-part-2 {
+    font-size: 0.72rem;
+  }
+  .gyg-brand-part-3 {
+    font-size: 0.92rem;
+  }
 }
 
 .gyg-currency-switch {

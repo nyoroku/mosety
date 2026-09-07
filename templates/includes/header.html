@@ -3,10 +3,11 @@
         x-init="window.addEventListener('scroll', () => { isScrolled = window.scrollY > 20 })" 
         :class="{ 'is-scrolled': isScrolled }">
   <div class="site-container header-inner">
-    <!-- Brand Identity (GetYourGuide Styled) -->
-    <a href="/" class="gyg-brand" aria-label="{{ site.business_name }} home">
-      <span class="gyg-logo-text">mosety<span class="gyg-logo-dot"></span></span>
-      <span class="gyg-logo-tag">Lake Naivasha</span>
+    <!-- Brand Identity (GetYourGuide 3-Part Stacked Logo) -->
+    <a href="/" class="gyg-stacked-brand" aria-label="{{ site.business_name }} home">
+      <span class="gyg-brand-part-1">Mosety</span>
+      <span class="gyg-brand-part-2">Boat Rides</span>
+      <span class="gyg-brand-part-3">Naivasha</span>
     </a>
 
     <!-- Desktop Navigation -->
@@ -90,10 +91,11 @@
        x-cloak>
     
     <div class="mobile-drawer-header">
-      <div class="gyg-brand">
-        <span class="gyg-logo-text">mosety<span class="gyg-logo-dot"></span></span>
-        <span class="gyg-logo-tag">Lake Naivasha</span>
-      </div>
+      <a href="/" class="gyg-stacked-brand" @click="mobileNavOpen = false" aria-label="{{ site.business_name }} home">
+        <span class="gyg-brand-part-1">Mosety</span>
+        <span class="gyg-brand-part-2">Boat Rides</span>
+        <span class="gyg-brand-part-3">Naivasha</span>
+      </a>
       <button type="button" class="hamburger-btn" @click="mobileNavOpen = false" aria-label="Close navigation menu">
         <i data-lucide="x" style="width: 22px; height: 22px;"></i>
       </button>
