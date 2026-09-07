@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+{% load static humanize %}
+
+{% block meta_title %}{{ meta_title }}{% endblock %}
+{% block meta_description %}{{ meta_description }}{% endblock %}
+
+{% block content %}
+<section class="section-spacing" style="background: var(--ivory);">
+  <div class="site-container">
+    
+    <!-- Hero Header -->
+    <div style="max-width: 800px; margin-bottom: 3.5rem;">
+      <p class="eyebrow eyebrow-gold">Lake Naivasha Travel Authority</p>
+      <h1 class="hero-h1" style="margin-bottom: 1rem;">Plan Your Visit to Lake Naivasha</h1>
+      <p class="lead-text">
+        Everything you need to organize a smooth, safe, and memorable boat safari on Lake Naivasha. Practical advice written directly by licensed local captains who navigate these waters daily.
+      </p>
+    </div>
+
+    <!-- 4 Key Planning Pillars Grid -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 2rem; margin-bottom: 4.5rem;">
+      
+      <!-- Card 1: Getting Here -->
+      <article class="card" style="background: #ffffff; border: 1px solid var(--border-subtle); border-radius: var(--radius-card); padding: 2rem; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; justify-content: space-between;">
+        <div>
+          <div style="width: 44px; height: 44px; background: var(--papyrus-light); border-radius: 50%; display: grid; place-items: center; color: var(--rift-gold); margin-bottom: 1.25rem;">
+            <i data-lucide="map-pin" style="width: 22px; height: 22px;"></i>
+          </div>
+          <h2 style="font-size: 1.45rem; margin-bottom: 0.5rem; color: var(--ink-forest);">Getting Here</h2>
+          <p style="font-size: 0.9375rem; color: var(--body-muted); line-height: 1.6; margin-bottom: 1.5rem;">
+            Driving routes from Nairobi (Mai Mahiu vs. Flyover), road condition updates, matatu stages, and exact Karagita Beach arrival points.
+          </p>
+        </div>
+        <a href="/plan-your-visit/getting-here/" class="btn btn-sm btn-forest">
+          <span>Read Route Guide</span>
+          <i data-lucide="arrow-right" style="width: 14px; height: 14px;"></i>
+        </a>
+      </article>
+
+      <!-- Card 2: Best Time to Go -->
+      <article class="card" style="background: #ffffff; border: 1px solid var(--border-subtle); border-radius: var(--radius-card); padding: 2rem; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; justify-content: space-between;">
+        <div>
+          <div style="width: 44px; height: 44px; background: var(--papyrus-light); border-radius: 50%; display: grid; place-items: center; color: var(--rift-gold); margin-bottom: 1.25rem;">
+            <i data-lucide="sun" style="width: 22px; height: 22px;"></i>
+          </div>
+          <h2 style="font-size: 1.45rem; margin-bottom: 0.5rem; color: var(--ink-forest);">Best Time to Go</h2>
+          <p style="font-size: 0.9375rem; color: var(--body-muted); line-height: 1.6; margin-bottom: 1.5rem;">
+            Why 06:30 AM to 10:30 AM offers mirror-calm waters and active wildlife, afternoon thermal wind patterns, and seasonal wildlife migrations.
+          </p>
+        </div>
+        <a href="/plan-your-visit/best-time-to-go/" class="btn btn-sm btn-forest">
+          <span>View Timing Guide</span>
+          <i data-lucide="arrow-right" style="width: 14px; height: 14px;"></i>
+        </a>
+      </article>
+
+      <!-- Card 3: What to Bring -->
+      <article class="card" style="background: #ffffff; border: 1px solid var(--border-subtle); border-radius: var(--radius-card); padding: 2rem; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; justify-content: space-between;">
+        <div>
+          <div style="width: 44px; height: 44px; background: var(--papyrus-light); border-radius: 50%; display: grid; place-items: center; color: var(--rift-gold); margin-bottom: 1.25rem;">
+            <i data-lucide="backpack" style="width: 22px; height: 22px;"></i>
+          </div>
+          <h2 style="font-size: 1.45rem; margin-bottom: 0.5rem; color: var(--ink-forest);">What to Bring</h2>
+          <p style="font-size: 0.9375rem; color: var(--body-muted); line-height: 1.6; margin-bottom: 1.5rem;">
+            Essential packing checklist: morning layers, windbreaker jackets, UV protection, footwear for Crescent Island, and photography gear.
+          </p>
+        </div>
+        <a href="/plan-your-visit/what-to-bring/" class="btn btn-sm btn-forest">
+          <span>View Packing List</span>
+          <i data-lucide="arrow-right" style="width: 14px; height: 14px;"></i>
+        </a>
+      </article>
+
+      <!-- Card 4: Children & Families -->
+      <article class="card" style="background: #ffffff; border: 1px solid var(--border-subtle); border-radius: var(--radius-card); padding: 2rem; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; justify-content: space-between;">
+        <div>
+          <div style="width: 44px; height: 44px; background: var(--papyrus-light); border-radius: 50%; display: grid; place-items: center; color: var(--rift-gold); margin-bottom: 1.25rem;">
+            <i data-lucide="users" style="width: 22px; height: 22px;"></i>
+          </div>
+          <h2 style="font-size: 1.45rem; margin-bottom: 0.5rem; color: var(--ink-forest);">Visiting with Children</h2>
+          <p style="font-size: 0.9375rem; color: var(--body-muted); line-height: 1.6; margin-bottom: 1.5rem;">
+            Family safety on the water: fitted infant and toddler life vests, calm boarding protocols, stroller advice, and gentle guiding for kids.
+          </p>
+        </div>
+        <a href="/plan-your-visit/children/" class="btn btn-sm btn-forest">
+          <span>Read Family Guide</span>
+          <i data-lucide="arrow-right" style="width: 14px; height: 14px;"></i>
+        </a>
+      </article>
+
+    </div>
+
+    <!-- Quick Questions Banner -->
+    <div style="background: var(--papyrus-light); border-radius: var(--radius-card); padding: clamp(2rem, 4vw, 3rem); display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 2rem;">
+      <div style="max-width: 600px;">
+        <h3 style="font-size: 1.6rem; margin-bottom: 0.5rem; color: var(--ink-forest);">Have questions about rates or departure points?</h3>
+        <p style="color: var(--body-muted); font-size: 0.95rem; margin: 0; line-height: 1.6;">
+          Check our transparent rate matrix or browse our complete FAQ database.
+        </p>
+      </div>
+
+      <div class="btn-row">
+        <a href="/prices/" class="btn btn-forest">
+          <span>Check Prices & Rates</span>
+        </a>
+        <a href="/questions/" class="btn btn-outline">
+          <span>Browse All FAQs</span>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+{% endblock %}

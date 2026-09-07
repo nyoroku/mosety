@@ -1,0 +1,939 @@
+{% extends 'base.html' %}
+{% load static humanize %}
+
+{% block meta_title %}{{ site.business_name }} - See Naivasha from the Water{% endblock %}
+{% block meta_description %}Local lake experiences, clearly priced and expertly guided on Lake Naivasha. Hippo safaris, Crescent Island walking trips, sunset cruises and private boat rides.{% endblock %}
+
+{% block content %}
+<!-- ==========================================================================
+     SECTION 02: HERO
+     ========================================================================== -->
+<section class="hero-section" style="position: relative; background: var(--ivory); padding-block: clamp(3.5rem, 6vw, 6rem); border-bottom: 1px solid var(--border-subtle);">
+  <div class="site-container">
+    <div style="display: grid; grid-template-columns: 1fr; @media(min-width: 960px){ grid-template-columns: 1.15fr 0.85fr; } gap: 2.5rem; align-items: center;">
+      
+      <!-- Copy Column -->
+      <div>
+        <p class="eyebrow eyebrow-gold">Lake Naivasha, Kenya</p>
+        <h1 class="hero-h1" style="margin-bottom: 1.25rem;">
+          See Naivasha from the water.
+        </h1>
+        <p class="lead-text" style="margin-bottom: 2rem;">
+          Hippo safaris, Crescent Island trips, sunset cruises and private rides — guided by local captains with clear, direct booking.
+        </p>
+
+        <div class="btn-row" style="margin-bottom: 2.5rem;">
+          <a href="{{ whatsapp_book_url }}" target="_blank" rel="noopener" class="btn btn-primary" onclick="trackEvent('whatsapp_click', {'placement': 'hero'})">
+            <i data-lucide="message-circle" style="width: 18px; height: 18px;"></i>
+            <span>Book on WhatsApp</span>
+          </a>
+          <a href="/boat-rides/" class="btn btn-outline">
+            <span>Explore Boat Rides</span>
+            <i data-lucide="arrow-right" style="width: 16px; height: 16px;"></i>
+          </a>
+        </div>
+
+        <div style="display: flex; flex-wrap: wrap; gap: 1.5rem; font-size: 0.875rem; color: var(--lake-sage); font-weight: 600;">
+          <span style="display: flex; align-items: center; gap: 0.45rem;">
+            <i data-lucide="check-circle" style="width: 16px; height: 16px; color: var(--rift-gold);"></i>
+            Standard Dock Rates
+          </span>
+          <span style="display: flex; align-items: center; gap: 0.45rem;">
+            <i data-lucide="shield-check" style="width: 16px; height: 16px; color: var(--rift-gold);"></i>
+            Certified Life Jackets
+          </span>
+          <span style="display: flex; align-items: center; gap: 0.45rem;">
+            <i data-lucide="clock" style="width: 16px; height: 16px; color: var(--rift-gold);"></i>
+            Daily 6:30am – 6:30pm
+          </span>
+        </div>
+      </div>
+
+      <!-- Real Lake Photography Column -->
+      <div style="position: relative;">
+        <div style="border-radius: var(--radius-card); overflow: hidden; box-shadow: var(--shadow-lg); background: var(--papyrus); aspect-ratio: 4 / 3;">
+          <img src="{% static 'images/gallery/naivasha-boat-passenger.jpeg' %}" 
+               alt="Guests enjoying Lake Naivasha boat ride with local captain" 
+               width="800" height="600" 
+               fetchpriority="high"
+               style="width: 100%; height: 100%; object-fit: cover;">
+        </div>
+
+        <div style="position: absolute; bottom: -1rem; left: 1.5rem; background: var(--ink-forest); color: var(--ivory); padding: 0.75rem 1.25rem; border-radius: var(--radius-md); box-shadow: var(--shadow-card); font-size: 0.8125rem; font-weight: 600; display: flex; align-items: center; gap: 0.6rem;">
+          <i data-lucide="map-pin" style="width: 16px; height: 16px; color: var(--rift-gold);"></i>
+          <span>Departure: Karagita Public Beach Pier</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================================================
+     SECTION 03: TRUST STRIP
+     ========================================================================== -->
+<section class="trust-strip" aria-label="Trust commitments">
+  <div class="site-container">
+    <div class="trust-grid">
+      <div class="trust-item">
+        <i data-lucide="compass" style="width: 22px; height: 22px;"></i>
+        <div>
+          <div style="color: var(--ivory); font-weight: 700;">Local Captains</div>
+          <div style="font-size: 0.75rem; color: rgba(234, 225, 209, 0.7);">Expert lake navigators</div>
+        </div>
+      </div>
+
+      <div class="trust-item">
+        <i data-lucide="shield" style="width: 22px; height: 22px;"></i>
+        <div>
+          <div style="color: var(--ivory); font-weight: 700;">Safety First</div>
+          <div style="font-size: 0.75rem; color: rgba(234, 225, 209, 0.7);">Fitted vests for all ages</div>
+        </div>
+      </div>
+
+      <div class="trust-item">
+        <i data-lucide="users" style="width: 22px; height: 22px;"></i>
+        <div>
+          <div style="color: var(--ivory); font-weight: 700;">Small Groups</div>
+          <div style="font-size: 0.75rem; color: rgba(234, 225, 209, 0.7);">Unhurried wildlife viewing</div>
+        </div>
+      </div>
+
+      <div class="trust-item">
+        <i data-lucide="message-circle" style="width: 22px; height: 22px;"></i>
+        <div>
+          <div style="color: var(--ivory); font-weight: 700;">Direct Booking</div>
+          <div style="font-size: 0.75rem; color: rgba(234, 225, 209, 0.7);">Zero middleman markups</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================================================
+     SECTION 04: FIND YOUR RIDE (HTMX Recommendation Selector)
+     ========================================================================== -->
+<section class="section-spacing" style="background: var(--papyrus-light); border-bottom: 1px solid var(--border-papyrus);">
+  <div class="site-container">
+    
+    <div style="text-align: center; max-width: 680px; margin-inline: auto; margin-bottom: 2.5rem;">
+      <p class="eyebrow eyebrow-gold" style="justify-content: center;">Personalized Recommendation</p>
+      <h2>What kind of Naivasha day are you planning?</h2>
+      <p class="lead-text" style="margin-inline: auto;">
+        Tap your primary interest below to get an instant match with duration, pier rate, and best departure time.
+      </p>
+    </div>
+
+    <!-- Intent Selector Chips with Alpine State & HTMX Post -->
+    <div x-data="{ selectedIntent: 'wildlife' }" style="margin-bottom: 2.5rem;">
+      <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem; max-width: 800px; margin-inline: auto;">
+        
+        <button type="button" 
+                @click="selectedIntent = 'wildlife'" 
+                :class="{ 'btn-forest': selectedIntent === 'wildlife', 'btn-outline': selectedIntent !== 'wildlife' }" 
+                hx-post="/find-your-ride/" 
+                hx-vals='{"intent": "wildlife"}' 
+                hx-target="#ride-recommendation-panel" 
+                hx-swap="outerHTML" 
+                class="btn btn-sm">
+          <i data-lucide="fish" style="width: 15px; height: 15px;"></i>
+          <span>Wildlife & Hippos</span>
+        </button>
+
+        <button type="button" 
+                @click="selectedIntent = 'crescent_island'" 
+                :class="{ 'btn-forest': selectedIntent === 'crescent_island', 'btn-outline': selectedIntent !== 'crescent_island' }" 
+                hx-post="/find-your-ride/" 
+                hx-vals='{"intent": "crescent_island"}' 
+                hx-target="#ride-recommendation-panel" 
+                hx-swap="outerHTML" 
+                class="btn btn-sm">
+          <i data-lucide="footprints" style="width: 15px; height: 15px;"></i>
+          <span>Crescent Island Walk</span>
+        </button>
+
+        <button type="button" 
+                @click="selectedIntent = 'sunset'" 
+                :class="{ 'btn-forest': selectedIntent === 'sunset', 'btn-outline': selectedIntent !== 'sunset' }" 
+                hx-post="/find-your-ride/" 
+                hx-vals='{"intent": "sunset"}' 
+                hx-target="#ride-recommendation-panel" 
+                hx-swap="outerHTML" 
+                class="btn btn-sm">
+          <i data-lucide="sunset" style="width: 15px; height: 15px;"></i>
+          <span>Sunset Golden Hour</span>
+        </button>
+
+        <button type="button" 
+                @click="selectedIntent = 'family'" 
+                :class="{ 'btn-forest': selectedIntent === 'family', 'btn-outline': selectedIntent !== 'family' }" 
+                hx-post="/find-your-ride/" 
+                hx-vals='{"intent": "family"}' 
+                hx-target="#ride-recommendation-panel" 
+                hx-swap="outerHTML" 
+                class="btn btn-sm">
+          <i data-lucide="heart" style="width: 15px; height: 15px;"></i>
+          <span>Family & Children</span>
+        </button>
+
+        <button type="button" 
+                @click="selectedIntent = 'private'" 
+                :class="{ 'btn-forest': selectedIntent === 'private', 'btn-outline': selectedIntent !== 'private' }" 
+                hx-post="/find-your-ride/" 
+                hx-vals='{"intent": "private"}' 
+                hx-target="#ride-recommendation-panel" 
+                hx-swap="outerHTML" 
+                class="btn btn-sm">
+          <i data-lucide="user-check" style="width: 15px; height: 15px;"></i>
+          <span>Private Charter</span>
+        </button>
+
+        <button type="button" 
+                @click="selectedIntent = 'birding'" 
+                :class="{ 'btn-forest': selectedIntent === 'birding', 'btn-outline': selectedIntent !== 'birding' }" 
+                hx-post="/find-your-ride/" 
+                hx-vals='{"intent": "birding"}' 
+                hx-target="#ride-recommendation-panel" 
+                hx-swap="outerHTML" 
+                class="btn btn-sm">
+          <i data-lucide="camera" style="width: 15px; height: 15px;"></i>
+          <span>Photography / Birding</span>
+        </button>
+
+      </div>
+    </div>
+
+    <!-- Recommendation Panel (Rendered dynamically or loaded by default) -->
+    <div style="max-width: 940px; margin-inline: auto;">
+      {% if default_tour %}
+      <div class="card" style="display: grid; grid-template-columns: 1fr; @media(min-width: 768px){ grid-template-columns: 0.9fr 1.1fr; } background: #ffffff; border: 2px solid var(--border-subtle); border-radius: var(--radius-card); overflow: hidden; box-shadow: var(--shadow-card);" id="ride-recommendation-panel">
+        <div style="position: relative; background: var(--papyrus); min-height: 240px;">
+          {% if default_tour.hero_image %}
+          <img src="{{ default_tour.hero_image.url }}" alt="{{ default_tour.name }}" style="width: 100%; height: 100%; object-fit: cover;">
+          {% else %}
+          <img src="{% static 'images/gallery/naivasha-boat-passenger.jpeg' %}" alt="{{ default_tour.name }}" style="width: 100%; height: 100%; object-fit: cover;">
+          {% endif %}
+          <span class="tour-badge" style="background: var(--ink-forest); color: var(--rift-gold); border: 1px solid rgba(217, 164, 65, 0.4);">
+            Recommended For You
+          </span>
+        </div>
+
+        <div style="padding: clamp(1.5rem, 3vw, 2rem); display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.5rem;">
+              <span class="fact-chip"><i data-lucide="clock"></i> {{ default_tour.duration_display }}</span>
+              <span class="fact-chip"><i data-lucide="users"></i> Up to {{ default_tour.max_guests }} Guests</span>
+            </div>
+            <h3 style="font-size: 1.5rem; margin-bottom: 0.65rem; color: var(--ink-forest);">{{ default_tour.name }}</h3>
+            <p style="font-size: 0.95rem; color: var(--body-text); font-weight: 600; margin-bottom: 0.85rem; line-height: 1.5;">
+              Best for close observation of wild hippo pods and watching African fish eagles hunt in the shallows.
+            </p>
+            <p style="font-size: 0.875rem; color: var(--body-muted); margin-bottom: 1.25rem;">
+              {{ default_tour.summary }}
+            </p>
+          </div>
+
+          <div style="padding-top: 1rem; border-top: 1px solid var(--border-subtle); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem;">
+            <div>
+              <span style="font-size: 0.75rem; text-transform: uppercase; color: var(--lake-sage); font-weight: 700; display: block;">From</span>
+              <span style="font-family: var(--font-display); font-size: 1.45rem; font-weight: 700; color: var(--ink-forest);">
+                KES {{ default_tour.starting_price_kes|floatformat:0 }}
+              </span>
+            </div>
+            <div class="btn-row" style="gap: 0.5rem;">
+              <a href="{{ default_tour.get_absolute_url }}" class="btn btn-sm btn-forest">
+                <span>View Details</span>
+                <i data-lucide="arrow-right" style="width: 14px; height: 14px;"></i>
+              </a>
+              <a href="{{ whatsapp_book_url }}" target="_blank" rel="noopener" class="btn btn-sm btn-primary">
+                <i data-lucide="message-circle" style="width: 15px; height: 15px;"></i>
+                <span>WhatsApp</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+    </div>
+
+  </div>
+</section>
+
+<!-- ==========================================================================
+     SECTION 05: SIGNATURE EXPERIENCES & SERVICES
+     ========================================================================== -->
+<section class="section-spacing" id="tours" x-data="{ activeCategory: 'all' }">
+  <div class="site-container">
+    
+    <div style="display: flex; flex-direction: column; @media(min-width: 768px){ flex-direction: row; } justify-content: space-between; align-items: flex-start; margin-bottom: 2rem; gap: 1.5rem;">
+      <div>
+        <p class="eyebrow eyebrow-gold">Signature Experiences & Services</p>
+        <h2 style="max-width: 24ch;">Iconic water experiences on Lake Naivasha.</h2>
+      </div>
+      <p class="lead-text" style="max-width: 44ch;">
+        Every ride is backed by a verified PriceTier with transparent dock rates. No surprise surcharges or forced tip expectations.
+      </p>
+    </div>
+
+    <!-- Category Filter Pills -->
+    <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2.5rem;">
+      <button type="button" 
+              @click="activeCategory = 'all'" 
+              :class="{ 'btn-forest': activeCategory === 'all', 'btn-outline': activeCategory !== 'all' }" 
+              class="btn btn-sm">
+        All Experiences ({{ all_tours|length }})
+      </button>
+      <button type="button" 
+              @click="activeCategory = 'wildlife'" 
+              :class="{ 'btn-forest': activeCategory === 'wildlife', 'btn-outline': activeCategory !== 'wildlife' }" 
+              class="btn btn-sm">
+        Wildlife & Hippo Safaris
+      </button>
+      <button type="button" 
+              @click="activeCategory = 'crescent_island'" 
+              :class="{ 'btn-forest': activeCategory === 'crescent_island', 'btn-outline': activeCategory !== 'crescent_island' }" 
+              class="btn btn-sm">
+        Crescent Island Walking
+      </button>
+      <button type="button" 
+              @click="activeCategory = 'sunset'" 
+              :class="{ 'btn-forest': activeCategory === 'sunset', 'btn-outline': activeCategory !== 'sunset' }" 
+              class="btn btn-sm">
+        Sunset & Private Charters
+      </button>
+      <button type="button" 
+              @click="activeCategory = 'group'" 
+              :class="{ 'btn-forest': activeCategory === 'group', 'btn-outline': activeCategory !== 'group' }" 
+              class="btn btn-sm">
+        Family & Groups
+      </button>
+    </div>
+
+    <!-- Dynamic Experiences Grid -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); gap: 2rem;">
+      {% for tour in all_tours %}
+      <article class="card tour-card" 
+               x-show="activeCategory === 'all' || 
+                       (activeCategory === 'wildlife' && ('{{ tour.intent_tag }}' === 'wildlife' || '{{ tour.intent_tag }}' === 'birding')) || 
+                       (activeCategory === 'crescent_island' && '{{ tour.intent_tag }}' === 'crescent_island') || 
+                       (activeCategory === 'sunset' && ('{{ tour.intent_tag }}' === 'sunset' || '{{ tour.intent_tag }}' === 'private')) || 
+                       (activeCategory === 'group' && ('{{ tour.intent_tag }}' === 'family' || '{{ tour.intent_tag }}' === 'group'))"
+               x-transition:enter="transition ease-out duration-200"
+               x-transition:enter-start="opacity-0 transform scale-95"
+               x-transition:enter-end="opacity-100 transform scale-100">
+        <div class="tour-card-image">
+          {% if tour.hero_image %}
+          <img src="{{ tour.hero_image.url }}" alt="{{ tour.name }}" loading="lazy">
+          {% else %}
+          <img src="{% static 'images/gallery/naivasha-boat-passenger.jpeg' %}" alt="{{ tour.name }}" loading="lazy">
+          {% endif %}
+          <span class="tour-badge">{{ tour.short_name }}</span>
+        </div>
+
+        <div class="tour-card-body">
+          <div class="tour-meta-row">
+            <span class="fact-chip"><i data-lucide="clock"></i> {{ tour.duration_display }}</span>
+            <span class="fact-chip"><i data-lucide="users"></i> Max {{ tour.max_guests }}</span>
+          </div>
+
+          <h3 class="tour-title">
+            <a href="{{ tour.get_absolute_url }}">{{ tour.name }}</a>
+          </h3>
+
+          <p class="tour-summary">{{ tour.summary }}</p>
+
+          <div class="tour-card-footer">
+            <div class="tour-price-box">
+              <span class="tour-price-label">Starting From</span>
+              <span class="tour-price-value">KES {{ tour.starting_price_kes|floatformat:0|intcomma }}</span>
+            </div>
+
+            <div style="display: flex; gap: 0.4rem;">
+              <a href="{{ tour.get_absolute_url }}" class="btn btn-sm btn-forest">
+                <span>Details</span>
+                <i data-lucide="arrow-right" style="width: 13px; height: 13px;"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+
+    <div style="margin-top: 3rem; text-align: center; display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem;">
+      <a href="/boat-rides/" class="btn btn-forest">
+        <span>Compare All 7 Experiences & Rates</span>
+        <i data-lucide="arrow-right" style="width: 16px; height: 16px;"></i>
+      </a>
+      <a href="/prices/" class="btn btn-outline">
+        <span>Calculate Custom Quote</span>
+        <i data-lucide="calculator" style="width: 16px; height: 16px;"></i>
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ==========================================================================
+     SECTION 06: WILDLIFE / WHAT YOU MAY SEE
+     ========================================================================== -->
+<section class="section-spacing" style="background: var(--ivory); border-top: 1px solid var(--border-subtle); border-bottom: 1px solid var(--border-subtle);">
+  <div class="site-container">
+    <div style="display: grid; grid-template-columns: 1fr; @media(min-width: 960px){ grid-template-columns: 1fr 1fr; } gap: 3.5rem; align-items: center;">
+      
+      <!-- Oversized Wildlife Image -->
+      <div style="border-radius: var(--radius-card); overflow: hidden; box-shadow: var(--shadow-lg); background: var(--papyrus); aspect-ratio: 4 / 3;">
+        <img src="{% static 'images/gallery/naivasha-giraffe.jpeg' %}" 
+             alt="Lake Naivasha wildlife grazing along shoreline" 
+             loading="lazy"
+             style="width: 100%; height: 100%; object-fit: cover;">
+      </div>
+
+      <!-- Concise Fact Column -->
+      <div>
+        <p class="eyebrow eyebrow-gold">Living Wetland</p>
+        <h2 style="margin-bottom: 1.25rem;">The lake is never the same twice.</h2>
+        <p class="lead-text" style="margin-bottom: 1.75rem;">
+          Lake Naivasha is a dynamic freshwater ecosystem supporting over 1,500 wild hippopotamuses and 400 species of resident and migratory birds. While nature offers no guarantees, quiet morning waters provide exceptional viewing opportunities.
+        </p>
+
+        <div style="display: flex; flex-direction: column; gap: 1.25rem; margin-bottom: 2.25rem;">
+          <div style="display: flex; align-items: flex-start; gap: 1rem;">
+            <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--papyrus); display: grid; place-items: center; flex-shrink: 0; color: var(--ink-forest);">
+              <i data-lucide="waves" style="width: 20px; height: 20px; color: var(--rift-gold);"></i>
+            </div>
+            <div>
+              <strong style="color: var(--ink-forest); font-size: 1rem;">Resident Hippo Pods</strong>
+              <p style="font-size: 0.875rem; color: var(--body-muted); margin: 0.2rem 0 0;">Viewed at safe, ethical 30-50m distances while resting in daytime shallows.</p>
+            </div>
+          </div>
+
+          <div style="display: flex; align-items: flex-start; gap: 1rem;">
+            <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--papyrus); display: grid; place-items: center; flex-shrink: 0; color: var(--ink-forest);">
+              <i data-lucide="eye" style="width: 20px; height: 20px; color: var(--rift-gold);"></i>
+            </div>
+            <div>
+              <strong style="color: var(--ink-forest); font-size: 1rem;">African Fish Eagles</strong>
+              <p style="font-size: 0.875rem; color: var(--body-muted); margin: 0.2rem 0 0;">Over 100 breeding pairs roosting in shoreline yellow fever acacias.</p>
+            </div>
+          </div>
+
+          <div style="display: flex; align-items: flex-start; gap: 1rem;">
+            <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--papyrus); display: grid; place-items: center; flex-shrink: 0; color: var(--ink-forest);">
+              <i data-lucide="feather" style="width: 20px; height: 20px; color: var(--rift-gold);"></i>
+            </div>
+            <div>
+              <strong style="color: var(--ink-forest); font-size: 1rem;">Pelicans, Cormorants & Kingfishers</strong>
+              <p style="font-size: 0.875rem; color: var(--body-muted); margin: 0.2rem 0 0;">Great white pelican rafts and pied kingfishers hovering above water hyacinths.</p>
+            </div>
+          </div>
+        </div>
+
+        <a href="/naivasha-guide/wildlife/" class="btn btn-forest">
+          <span>Explore Wildlife Guide</span>
+          <i data-lucide="arrow-right" style="width: 15px; height: 15px;"></i>
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================================================
+     SECTION 07: PRICING SNAPSHOT
+     ========================================================================== -->
+<section class="section-spacing" style="background: var(--papyrus-light);">
+  <div class="site-container">
+    
+    <div style="text-align: center; max-width: 650px; margin-inline: auto; margin-bottom: 3.5rem;">
+      <p class="eyebrow eyebrow-gold" style="justify-content: center;">Transparent Dock Fares</p>
+      <h2>Clear prices before you arrive.</h2>
+      <p class="lead-text" style="margin-inline: auto;">
+        Choose your ride and group size for an instant estimate. Standard boat charters cover the full boat, fuel, licensed captain, and life jackets.
+      </p>
+    </div>
+
+    <!-- Dynamic Pricing Examples -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.75rem; margin-bottom: 3rem;">
+      {% for tour in pricing_tours %}
+      <div class="card pricing-card{% if forloop.counter == 2 %} is-featured{% endif %}" 
+           style="padding: 2.25rem 2rem; background: #ffffff; border: {% if forloop.counter == 2 %}2px solid var(--rift-gold){% else %}1px solid var(--border-subtle){% endif %}; border-radius: var(--radius-card); display: flex; flex-direction: column; justify-content: space-between; position: relative; box-shadow: {% if forloop.counter == 2 %}var(--shadow-card){% else %}var(--shadow-sm){% endif %};">
+        {% if forloop.counter == 2 %}
+        <span style="position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--rift-gold); color: var(--ink-forest); font-size: 0.75rem; font-weight: 800; padding: 0.25rem 0.85rem; border-radius: var(--radius-pill); text-transform: uppercase; letter-spacing: 0.05em;">Most Popular</span>
+        {% endif %}
+        <div>
+          <span class="tour-badge" style="position: static; display: inline-block; margin-bottom: 1rem;">{{ tour.short_name }}</span>
+          <h3 style="font-size: 1.35rem; margin-bottom: 0.5rem; color: var(--ink-forest);">{{ tour.name }}</h3>
+          <p style="font-size: 0.875rem; color: var(--body-muted); margin-bottom: 1.5rem; line-height: 1.5;">{{ tour.summary }}</p>
+          <div style="font-family: var(--font-display); font-size: 2.25rem; font-weight: 700; color: var(--ink-forest); margin-bottom: 0.25rem;">
+            KES {{ tour.starting_price_kes|floatformat:0|intcomma }}
+          </div>
+          <span style="font-size: 0.8125rem; color: var(--lake-sage); font-weight: 600;">{{ tour.pricing_mode_display }} • Up to {{ tour.max_guests }} guests</span>
+        </div>
+        <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--border-subtle); display: flex; flex-direction: column; gap: 0.5rem;">
+          <a href="{{ tour.get_absolute_url }}" class="btn btn-sm {% if forloop.counter == 2 %}btn-forest{% else %}btn-outline{% endif %}" style="width: 100%;">
+            <span>View Experience</span>
+            <i data-lucide="arrow-right" style="width: 14px; height: 14px;"></i>
+          </a>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <!-- Calculator Teaser Button -->
+    <div style="text-align: center;">
+      <a href="/prices/" class="btn btn-primary">
+        <i data-lucide="calculator" style="width: 18px; height: 18px;"></i>
+        <span>Open Interactive Price Calculator</span>
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ==========================================================================
+     SECTION 08: CRESCENT ISLAND SPOTLIGHT
+     ========================================================================== -->
+<section class="section-spacing" style="background: var(--ivory);">
+  <div class="site-container">
+    <div style="display: grid; grid-template-columns: 1fr; @media(min-width: 960px){ grid-template-columns: 0.95fr 1.05fr; } gap: 3.5rem; align-items: center;">
+      
+      <div>
+        <p class="eyebrow eyebrow-gold">Destination Highlight</p>
+        <h2 style="margin-bottom: 1rem;">Boat there. Walk among the wildlife.</h2>
+        <p class="lead-text" style="margin-bottom: 1.5rem;">
+          Crescent Island is one of the few game sanctuaries in Kenya where visitors can safely walk on foot among wild animals. Because the peninsula is predator-free, giraffes, zebras, wildebeests, and waterbucks graze peacefully in the open.
+        </p>
+
+        <div class="quick-answer" style="margin-block: 1.5rem; padding: 1.25rem;">
+          <h4 style="font-size: 0.9375rem; margin-bottom: 0.5rem; color: var(--ink-forest);">
+            How the Mosety Crescent Island Trip works:
+          </h4>
+          <ul class="quick-answer-list" style="font-size: 0.875rem;">
+            <li><strong>Boat charter:</strong> 25-minute scenic cruise from Karagita pier to the island.</li>
+            <li><strong>Waiting time:</strong> Your boat and captain wait at the pier while you take your 1.5 - 2 hour walking tour.</li>
+            <li><strong>Separate fee note:</strong> Sanctuary entry fees (KES 1,000 resident / $33 non-resident) are paid directly to the sanctuary gate upon arrival.</li>
+          </ul>
+        </div>
+
+        <a href="/boat-rides/crescent-island/" class="btn btn-forest">
+          <span>Explore Crescent Island Trip</span>
+          <i data-lucide="arrow-right" style="width: 15px; height: 15px;"></i>
+        </a>
+      </div>
+
+      <div style="border-radius: var(--radius-card); overflow: hidden; box-shadow: var(--shadow-lg); background: var(--papyrus); aspect-ratio: 4 / 3;">
+        <img src="{% static 'images/gallery/naivasha-group-boat.jpeg' %}" 
+             alt="Guests landing at Crescent Island Game Sanctuary pier" 
+             loading="lazy"
+             style="width: 100%; height: 100%; object-fit: cover;">
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================================================
+     SECTION 09: WHY MOSETY / SAFETY
+     ========================================================================== -->
+<section class="section-spacing" style="background: var(--ink-forest); color: var(--ivory);">
+  <div class="site-container">
+    <div style="max-width: 680px; margin-bottom: 3.5rem;">
+      <p class="eyebrow eyebrow-gold">Operational Rigor</p>
+      <h2 style="color: var(--ivory); margin-bottom: 1rem;">A better ride starts before the boat leaves.</h2>
+      <p style="color: var(--papyrus); font-size: 1.05rem; line-height: 1.6;">
+        Safety on the water is not an afterthought. Every departure is structured around preventative marine safety, genuine local route knowledge, and respectful wildlife observation.
+      </p>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 2rem; margin-bottom: 3rem;">
+      
+      <div style="border-top: 2px solid var(--lake-sage); padding-top: 1.5rem;">
+        <h3 style="color: var(--rift-gold); font-size: 1.25rem; margin-bottom: 0.75rem;">01. Pre-Trip Briefing</h3>
+        <p style="color: rgba(234, 225, 209, 0.8); font-size: 0.9375rem; line-height: 1.6;">
+          Your captain explains water conditions, seating balance, and hippo safety rules before pushing off from the pier.
+        </p>
+      </div>
+
+      <div style="border-top: 2px solid var(--lake-sage); padding-top: 1.5rem;">
+        <h3 style="color: var(--rift-gold); font-size: 1.25rem; margin-bottom: 0.75rem;">02. Fitted Life Jackets</h3>
+        <p style="color: rgba(234, 225, 209, 0.8); font-size: 0.9375rem; line-height: 1.6;">
+          Mandatory certified vests for every guest, including specialized junior safety collars for infants and toddlers.
+        </p>
+      </div>
+
+      <div style="border-top: 2px solid var(--lake-sage); padding-top: 1.5rem;">
+        <h3 style="color: var(--rift-gold); font-size: 1.25rem; margin-bottom: 0.75rem;">03. Weather Decisions</h3>
+        <p style="color: rgba(234, 225, 209, 0.8); font-size: 0.9375rem; line-height: 1.6;">
+          We monitor afternoon wind shifts. If waters turn rough, we adjust routes to sheltered bays or reschedule at zero cost.
+        </p>
+      </div>
+
+      <div style="border-top: 2px solid var(--lake-sage); padding-top: 1.5rem;">
+        <h3 style="color: var(--rift-gold); font-size: 1.25rem; margin-bottom: 0.75rem;">04. Strict Capacity</h3>
+        <p style="color: rgba(234, 225, 209, 0.8); font-size: 0.9375rem; line-height: 1.6;">
+          We never overload vessels. Standard private charters cap at 7 guests per boat for roll stability and comfortable views.
+        </p>
+      </div>
+
+    </div>
+
+    <a href="/safety/" class="btn btn-outline-light">
+      <span>Read Our Full Safety Standards</span>
+      <i data-lucide="arrow-right" style="width: 15px; height: 15px;"></i>
+    </a>
+  </div>
+</section>
+
+<!-- ==========================================================================
+     SECTION 10: MEET A CAPTAIN
+     ========================================================================== -->
+<section class="section-spacing" style="background: var(--ivory);">
+  <div class="site-container">
+    <div style="max-width: 650px; margin-bottom: 3.5rem;">
+      <p class="eyebrow eyebrow-gold">Local Guidance</p>
+      <h2>Meet the people who know these waters.</h2>
+      <p class="lead-text">
+        Our captains grew up on Lake Naivasha. They understand water depth patterns, seasonal bird arrivals, and individual hippo pod behavior.
+      </p>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2.5rem;">
+      {% for captain in captains %}
+      <div class="card" style="padding: 2.25rem; background: #ffffff; border: 1px solid var(--border-subtle); box-shadow: var(--shadow-sm);">
+        <div style="display: flex; align-items: center; gap: 1.25rem; margin-bottom: 1.5rem;">
+          <div style="width: 72px; height: 72px; border-radius: 50%; background: var(--papyrus); display: grid; place-items: center; font-family: var(--font-display); font-size: 1.75rem; color: var(--ink-forest); flex-shrink: 0;">
+            {{ captain.name|slice:":1" }}
+          </div>
+          <div>
+            <h3 style="font-size: 1.35rem; margin-bottom: 0.2rem; color: var(--ink-forest);">Captain {{ captain.name }}</h3>
+            <span style="font-size: 0.8125rem; color: var(--lake-sage); font-weight: 700;">
+              {{ captain.years_on_lake }} Years Navigating Lake Naivasha
+            </span>
+          </div>
+        </div>
+
+        <blockquote style="font-family: var(--font-display); font-style: italic; color: var(--ink-forest); font-size: 1.05rem; line-height: 1.5; margin-bottom: 1.25rem;">
+          “{{ captain.quote }}”
+        </blockquote>
+
+        <p style="font-size: 0.875rem; color: var(--body-muted); margin-bottom: 1.5rem; line-height: 1.6;">
+          {{ captain.short_bio }}
+        </p>
+
+        <div style="font-size: 0.8125rem; color: var(--lake-sage); border-top: 1px solid var(--border-subtle); padding-top: 1rem;">
+          <strong>Specialties:</strong> {{ captain.specialties }}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+  </div>
+</section>
+
+<!-- ==========================================================================
+     SECTION 11: GUEST STORIES
+     ========================================================================== -->
+<section class="section-spacing" style="background: var(--papyrus-light); border-top: 1px solid var(--border-papyrus);">
+  <div class="site-container">
+    <div style="text-align: center; max-width: 680px; margin-inline: auto; margin-bottom: 3.5rem;">
+      <p class="eyebrow eyebrow-gold" style="justify-content: center;">Verified Feedback</p>
+      <h2>Good days on the lake, told by our guests.</h2>
+      <p class="lead-text" style="margin-inline: auto;">
+        We believe in honest, unedited feedback from real visitors. Here is what travelers say about their time on the water.
+      </p>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+      {% for testimonial in testimonials %}
+      <div class="card" style="padding: 2.25rem; background: #ffffff; border: 1px solid var(--border-subtle); display: flex; flex-direction: column; justify-content: space-between;">
+        <div>
+          <div style="color: var(--rift-gold); margin-bottom: 1rem; font-size: 1.1rem;" aria-label="{{ testimonial.rating }} stars">
+            ★ ★ ★ ★ ★
+          </div>
+          <p style="font-size: 0.95rem; color: var(--body-text); line-height: 1.65; margin-bottom: 1.5rem;">
+            “{{ testimonial.review_text }}”
+          </p>
+        </div>
+        <div style="border-top: 1px solid var(--border-subtle); padding-top: 1rem; display: flex; justify-content: space-between; align-items: center; font-size: 0.8125rem;">
+          <strong style="color: var(--ink-forest);">{{ testimonial.display_name }}</strong>
+          <span style="color: var(--lake-sage);">{{ testimonial.source }}</span>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+  </div>
+</section>
+
+<!-- ==========================================================================
+     SECTION 12: PLAN YOUR VISIT
+     ========================================================================== -->
+<section class="section-spacing" style="background: var(--ivory);">
+  <div class="site-container">
+    <div style="margin-bottom: 3rem;">
+      <p class="eyebrow">Trip Preparation</p>
+      <h2>Arrive knowing exactly what to expect.</h2>
+      <p class="lead-text">Practical logistics to help you structure a stress-free day at Lake Naivasha.</p>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem;">
+      
+      <a href="/plan-your-visit/getting-here/" class="card" style="padding: 2rem; border: 1px solid var(--border-subtle); transition: transform 0.2s;">
+        <div style="width: 44px; height: 44px; border-radius: 50%; background: var(--papyrus); display: grid; place-items: center; margin-bottom: 1.25rem;">
+          <i data-lucide="navigation" style="color: var(--rift-gold); width: 20px; height: 20px;"></i>
+        </div>
+        <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem; color: var(--ink-forest);">Getting Here</h3>
+        <p style="font-size: 0.875rem; color: var(--body-muted); margin-bottom: 1rem;">
+          Driving directions and matatu travel times from Nairobi via the scenic escarpment road.
+        </p>
+        <span style="color: var(--rift-gold); font-size: 0.8125rem; font-weight: 700;">Read travel guide →</span>
+      </a>
+
+      <a href="/plan-your-visit/best-time-to-go/" class="card" style="padding: 2rem; border: 1px solid var(--border-subtle); transition: transform 0.2s;">
+        <div style="width: 44px; height: 44px; border-radius: 50%; background: var(--papyrus); display: grid; place-items: center; margin-bottom: 1.25rem;">
+          <i data-lucide="sun" style="color: var(--rift-gold); width: 20px; height: 20px;"></i>
+        </div>
+        <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem; color: var(--ink-forest);">Best Time to Go</h3>
+        <p style="font-size: 0.875rem; color: var(--body-muted); margin-bottom: 1rem;">
+          Morning vs. afternoon comparison: lake calmness, wildlife activity, and golden hour lighting.
+        </p>
+        <span style="color: var(--rift-gold); font-size: 0.8125rem; font-weight: 700;">Compare departure times →</span>
+      </a>
+
+      <a href="/plan-your-visit/what-to-bring/" class="card" style="padding: 2rem; border: 1px solid var(--border-subtle); transition: transform 0.2s;">
+        <div style="width: 44px; height: 44px; border-radius: 50%; background: var(--papyrus); display: grid; place-items: center; margin-bottom: 1.25rem;">
+          <i data-lucide="package" style="color: var(--rift-gold); width: 20px; height: 20px;"></i>
+        </div>
+        <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem; color: var(--ink-forest);">What to Bring</h3>
+        <p style="font-size: 0.875rem; color: var(--body-muted); margin-bottom: 1rem;">
+          Recommended clothing, footwear, sun protection, and camera equipment for open-water safety.
+        </p>
+        <span style="color: var(--rift-gold); font-size: 0.8125rem; font-weight: 700;">View packing checklist →</span>
+      </a>
+
+      <a href="/safety/" class="card" style="padding: 2rem; border: 1px solid var(--border-subtle); transition: transform 0.2s;">
+        <div style="width: 44px; height: 44px; border-radius: 50%; background: var(--papyrus); display: grid; place-items: center; margin-bottom: 1.25rem;">
+          <i data-lucide="shield" style="color: var(--rift-gold); width: 20px; height: 20px;"></i>
+        </div>
+        <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem; color: var(--ink-forest);">Safety Protocols</h3>
+        <p style="font-size: 0.875rem; color: var(--body-muted); margin-bottom: 1rem;">
+          Life jacket inspection routines, child safety collars, and captain wildlife distance training.
+        </p>
+        <span style="color: var(--rift-gold); font-size: 0.8125rem; font-weight: 700;">Review safety standards →</span>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================================================
+     SECTION 13: CAPTAINS JOURNAL & FIELD NOTES (Dynamic Blog & Field Guide)
+     ========================================================================== -->
+<section class="section-spacing" style="background: var(--papyrus-light); border-top: 1px solid var(--border-subtle); border-bottom: 1px solid var(--border-subtle);">
+  <div class="site-container">
+    <div style="display: flex; flex-direction: column; @media(min-width: 768px){ flex-direction: row; } justify-content: space-between; align-items: flex-start; margin-bottom: 3rem; gap: 1.5rem;">
+      <div>
+        <p class="eyebrow eyebrow-gold">Captains Journal & Blog</p>
+        <h2>Lake Naivasha Field Notes & Guides</h2>
+      </div>
+      <a href="/journal/" class="btn btn-outline">
+        <span>Browse All Field Notes & Journal Entries</span>
+        <i data-lucide="arrow-right" style="width: 15px; height: 15px;"></i>
+      </a>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem;">
+      {% for article in journal_articles %}
+      <article class="card journal-card" style="background: #ffffff; border-radius: var(--radius-card); overflow: hidden; border: 1px solid var(--border-subtle); box-shadow: var(--shadow-sm); display: flex; flex-direction: column; justify-content: space-between;">
+        <div>
+          <div style="aspect-ratio: 16 / 10; background: var(--papyrus); overflow: hidden; position: relative;">
+            {% if article.hero_image %}
+            <img src="{{ article.hero_image.url }}" alt="{{ article.title }}" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;">
+            {% else %}
+            <img src="{% static 'images/gallery/naivasha-boat-passenger.jpeg' %}" alt="{{ article.title }}" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;">
+            {% endif %}
+            <span class="tour-badge" style="position: absolute; top: 1rem; left: 1rem; background: var(--ink-forest); color: var(--rift-gold); border: 1px solid rgba(217, 164, 65, 0.4);">
+              {{ article.get_content_type_display|default:"Field Note" }}
+            </span>
+          </div>
+
+          <div style="padding: 1.75rem;">
+            <div style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.75rem; color: var(--lake-sage); font-weight: 700; text-transform: uppercase; margin-bottom: 0.65rem;">
+              <span>{{ article.published_at|date:"d M Y" }}</span>
+              <span>&bull;</span>
+              <span>By {{ article.author_name }}</span>
+            </div>
+            
+            <h3 style="font-size: 1.25rem; margin-bottom: 0.65rem; line-height: 1.35;">
+              <a href="{{ article.get_absolute_url }}" style="color: var(--ink-forest); text-decoration: none;">
+                {{ article.title }}
+              </a>
+            </h3>
+
+            <p style="font-size: 0.9rem; color: var(--body-muted); line-height: 1.6; margin-bottom: 1.25rem;">
+              {{ article.excerpt }}
+            </p>
+          </div>
+        </div>
+
+        <div style="padding: 0 1.75rem 1.75rem 1.75rem; border-top: 1px solid var(--border-subtle); padding-top: 1rem; display: flex; justify-content: space-between; align-items: center;">
+          <a href="{{ article.get_absolute_url }}" style="color: var(--ink-forest); font-size: 0.875rem; font-weight: 700; display: inline-flex; align-items: center; gap: 0.4rem;">
+            <span>Read Field Note</span>
+            <i data-lucide="arrow-right" style="width: 14px; height: 14px; color: var(--rift-gold);"></i>
+          </a>
+          <span style="font-size: 0.75rem; color: var(--lake-sage); font-weight: 600;">Captain Verified</span>
+        </div>
+      </article>
+      {% empty %}
+      <div style="grid-column: 1 / -1; padding: 2.5rem; background: #ffffff; border-radius: var(--radius-card); text-align: center;">
+        <p style="color: var(--body-muted);">Field notes and guides are being updated. Check back shortly.</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================================================
+     SECTION 14: DIRECTIONS & MAP
+     ========================================================================== -->
+<section class="section-spacing" style="background: var(--ivory);">
+  <div class="site-container">
+    <div style="display: grid; grid-template-columns: 1fr; @media(min-width: 960px){ grid-template-columns: 1fr 1fr; } gap: 3.5rem; align-items: center;">
+      
+      <div>
+        <p class="eyebrow eyebrow-gold">Launch Point</p>
+        <h2 style="margin-bottom: 1rem;">Easy to find. Easy to start.</h2>
+        <p class="lead-text" style="margin-bottom: 1.75rem;">
+          Mosety boat rides depart directly from Karagita Public Beach on South Lake Road. Safe private vehicle parking, marked signs, and clean amenities are on site.
+        </p>
+
+        <div style="display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2rem;">
+          <div style="display: flex; gap: 0.75rem;">
+            <i data-lucide="map-pin" style="color: var(--rift-gold); width: 20px; height: 20px; flex-shrink: 0; margin-top: 0.2rem;"></i>
+            <div>
+              <strong style="color: var(--ink-forest);">Departure Pier Address:</strong>
+              <div style="color: var(--body-muted); font-size: 0.9375rem;">{{ site.address_text }}</div>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 0.75rem;">
+            <i data-lucide="car" style="color: var(--rift-gold); width: 20px; height: 20px; flex-shrink: 0; margin-top: 0.2rem;"></i>
+            <div>
+              <strong style="color: var(--ink-forest);">From Nairobi:</strong>
+              <div style="color: var(--body-muted); font-size: 0.9375rem;">Approximately 90 minutes via Mai Mahiu road. Turn onto South Lake Road at Naivasha town interchange.</div>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 0.75rem;">
+            <i data-lucide="phone" style="color: var(--rift-gold); width: 20px; height: 20px; flex-shrink: 0; margin-top: 0.2rem;"></i>
+            <div>
+              <strong style="color: var(--ink-forest);">Arrival Contact:</strong>
+              <div style="color: var(--body-muted); font-size: 0.9375rem;">Call or WhatsApp {{ site.phone }} when turning onto South Lake Road for gate guidance.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="btn-row">
+          <a href="{{ site.directions_url }}" target="_blank" rel="noopener" class="btn btn-forest">
+            <i data-lucide="map" style="width: 17px; height: 17px;"></i>
+            <span>Open in Google Maps</span>
+          </a>
+          {% if site.phone_e164 %}
+          <a href="{{ site.tel_url }}" class="btn btn-outline">
+            <i data-lucide="phone" style="width: 16px; height: 16px;"></i>
+            <span>Call for Directions</span>
+          </a>
+          {% endif %}
+        </div>
+      </div>
+
+      <!-- Departure Point Preview Card -->
+      <div class="card" style="padding: 2.5rem; background: var(--papyrus-light); border: 2px solid var(--border-papyrus); text-align: center;">
+        <div style="width: 60px; height: 60px; border-radius: 50%; background: var(--ink-forest); color: var(--rift-gold); display: grid; place-items: center; margin-inline: auto; margin-bottom: 1.25rem;">
+          <i data-lucide="anchor" style="width: 28px; height: 28px;"></i>
+        </div>
+        <h3 style="font-size: 1.45rem; margin-bottom: 0.5rem; color: var(--ink-forest);">Karagita Launch Pier</h3>
+        <p style="font-size: 0.9375rem; color: var(--body-muted); margin-bottom: 1.5rem;">
+          GPS Coordinates: {{ site.latitude }}, {{ site.longitude }}<br>
+          Operating daily from 06:30 AM to 06:30 PM.
+        </p>
+        <div style="background: #ffffff; border-radius: var(--radius-sm); padding: 1rem; font-size: 0.8125rem; color: var(--lake-sage); font-weight: 600;">
+          Safe vehicle parking available right at the departure point.
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================================================
+     SECTION 15: QUICK ANSWERS (FAQ)
+     ========================================================================== -->
+<section class="section-spacing" style="background: var(--ivory); border-top: 1px solid var(--border-subtle);">
+  <div class="site-container-narrow">
+    
+    <div style="text-align: center; margin-bottom: 3rem;">
+      <p class="eyebrow eyebrow-gold" style="justify-content: center;">Conversion FAQs</p>
+      <h2>Common questions before booking.</h2>
+      <p class="lead-text" style="margin-inline: auto;">
+        Direct, honest answers to key questions about rates, children, wildlife proximity, and booking policies.
+      </p>
+    </div>
+
+    <div style="display: flex; flex-direction: column;">
+      {% for faq in faqs %}
+      <details class="faq-accordion"{% if forloop.first %} open{% endif %}>
+        <summary class="faq-summary">
+          <span>{{ faq.question }}</span>
+          <span class="faq-icon"><i data-lucide="chevron-down" style="width: 16px; height: 16px;"></i></span>
+        </summary>
+        <div class="faq-content">
+          {{ faq.answer|linebreaks }}
+        </div>
+      </details>
+      {% endfor %}
+    </div>
+
+    <div style="margin-top: 2.5rem; text-align: center;">
+      <a href="{{ whatsapp_book_url }}" target="_blank" rel="noopener" class="btn btn-outline btn-sm">
+        <i data-lucide="message-circle" style="width: 15px; height: 15px;"></i>
+        <span>Still have questions? Ask on WhatsApp</span>
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ==========================================================================
+     SECTION 16: FINAL CONVERSION CLOSING STATEMENT
+     ========================================================================== -->
+<section style="background: var(--ink-forest); color: var(--ivory); padding-block: clamp(4.5rem, 7vw, 6.5rem); border-top: 1px solid rgba(234, 225, 209, 0.1);">
+  <div class="site-container-narrow" style="text-align: center;">
+    <p class="eyebrow eyebrow-gold" style="justify-content: center;">Reserve Your Ride</p>
+    <h2 style="color: var(--ivory); font-size: clamp(2rem, 3.5vw, 3rem); margin-bottom: 1.25rem;">
+      Your Lake Naivasha ride starts here.
+    </h2>
+    <p style="color: var(--papyrus); max-width: 52ch; margin-inline: auto; margin-bottom: 2.25rem; font-size: 1.125rem; line-height: 1.6;">
+      Tell us your date, group size and the experience you want. We will confirm availability and assign an expert local captain.
+    </p>
+
+    <div class="btn-row" style="justify-content: center; gap: 1rem;">
+      <a href="{{ whatsapp_book_url }}" target="_blank" rel="noopener" class="btn btn-primary" onclick="trackEvent('whatsapp_click', {'placement': 'closing_cta'})">
+        <i data-lucide="message-circle" style="width: 18px; height: 18px;"></i>
+        <span>Book on WhatsApp</span>
+      </a>
+      {% if site.phone_e164 %}
+      <a href="{{ site.tel_url }}" class="btn btn-outline-light" onclick="trackEvent('call_click', {'placement': 'closing_cta'})">
+        <i data-lucide="phone" style="width: 17px; height: 17px;"></i>
+        <span>Call Mosety</span>
+      </a>
+      {% endif %}
+    </div>
+
+    <div style="margin-top: 2rem; font-size: 0.8125rem; color: rgba(234, 225, 209, 0.6);">
+      Standard pier rates • No hidden dock fees • Free cancellation up to 2 hours prior
+    </div>
+  </div>
+</section>
+{% endblock %}

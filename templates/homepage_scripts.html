@@ -1,0 +1,204 @@
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+
+    // ========================================
+    // 1. HERO BACKGROUND (SAFE IMMEDIATE LOAD)
+    // ========================================
+    const hero = document.querySelector('[data-bg]');
+    if (hero && hero.dataset.bg) {
+        const bgImg = new Image();
+        bgImg.src = hero.dataset.bg;
+        bgImg.onload = () => {
+            hero.style.backgroundImage = `url('${hero.dataset.bg}')`;
+        };
+    }
+
+    // ========================================
+    // 2. HARDENED LAZY IMAGE LOADER (WEBP SAFE)
+    // ========================================
+    const lazyImages = document.querySelectorAll('img[data-src], img.lazy-load');
+
+    // Always set decoding + loading
+    lazyImages.forEach(img => {
+        img.setAttribute('decoding', 'async');
+        if (!img.hasAttribute('loading')) {
+            img.setAttribute('loading', 'lazy');
+        }
+    });
+
+    if ('IntersectionObserver' in window) {
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+
+                const img = entry.target;
+
+                // --- SRC ---
+                if (img.dataset.src && img.src !== img.dataset.src) {
+                    img.src = img.dataset.src;
+                }
+
+                // --- SRCSET (WEBP + FALLBACK SAFE) ---
+                const picture = img.closest('picture');
+                if (picture) {
+                    picture.querySelectorAll('source[data-srcset]').forEach(source => {
+                        source.srcset = source.dataset.srcset;
+                    });
+                }
+
+                // --- LOAD EVENTS ---
+                img.addEventListener('load', () => {
+                    img.classList.add('loaded');
+                }, { once: true });
+
+                img.addEventListener('error', () => {
+                    img.classList.add('loaded');
+                    console.warn('Image failed:', img.dataset.src || img.src);
+                }, { once: true });
+
+                observer.unobserve(img);
+            });
+        }, {
+            rootMargin: '200px 0px',
+            threshold: 0.01
+        });
+
+        lazyImages.forEach(img => imageObserver.observe(img));
+    } 
+    else {
+        // === HARD FALLBACK: FORCE LOAD ===
+        lazyImages.forEach(img => {
+            if (img.dataset.src) img.src = img.dataset.src;
+
+            const picture = img.closest('picture');
+            if (picture) {
+                picture.querySelectorAll('source[data-srcset]').forEach(source => {
+                    source.srcset = source.dataset.srcset;
+                });
+            }
+
+            img.classList.add('loaded');
+        });
+    }
+
+    // ========================================
+    // 3. FAQ ACCORDION (UNCHANGED)
+    // ========================================
+    const faqItems = document.querySelectorAll('.faq-item');
+
+    faqItems.forEach(item => {
+        const question = item.querySelector('.faq-question');
+
+        question.addEventListener('click', () => {
+            const isActive = item.classList.contains('is-active');
+
+            faqItems.forEach(i => {
+                i.classList.remove('is-active');
+                i.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+            });
+
+            if (!isActive) {
+                item.classList.add('is-active');
+                question.setAttribute('aria-expanded', 'true');
+            }
+        });
+    });
+
+    // ========================================
+    // 4. TESTIMONIALS CAROUSEL (FORCED IMAGE LOAD)
+    // ========================================
+    const carouselTrack = document.getElementById('testimonialTrack');
+    const carouselSlides = document.querySelectorAll('.carousel-slide');
+    const prevButton = document.getElementById('carouselPrev');
+    const nextButton = document.getElementById('carouselNext');
+    const carouselDots = document.querySelectorAll('.carousel-dot');
+
+    if (carouselTrack && carouselSlides.length) {
+        let currentIndex = 0;
+        const totalSlides = carouselSlides.length;
+
+        // FORCE LOAD ALL IMAGES INSIDE CAROUSEL
+        carouselSlides.forEach(slide => {
+            slide.querySelectorAll('img[data-src]').forEach(img => {
+                img.src = img.dataset.src;
+            });
+
+            slide.querySelectorAll('source[data-srcset]').forEach(source => {
+                source.srcset = source.dataset.srcset;
+            });
+        });
+
+        function updateCarousel() {
+            carouselTrack.style.transform = `translateX(${-currentIndex * 100}%)`;
+
+            carouselDots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === currentIndex);
+            });
+        }
+
+        nextButton?.addEventListener('click', e => {
+            e.preventDefault();
+            currentIndex = (currentIndex + 1) % totalSlides;
+            updateCarousel();
+        });
+
+        prevButton?.addEventListener('click', e => {
+            e.preventDefault();
+            currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+            updateCarousel();
+        });
+
+        carouselDots.forEach((dot, i) => {
+            dot.addEventListener('click', e => {
+                e.preventDefault();
+                currentIndex = i;
+                updateCarousel();
+            });
+        });
+
+        updateCarousel();
+    }
+
+    // ========================================
+    // 5. MOBILE NAVBAR (UNCHANGED)
+    // ========================================
+    const navbarBurger = document.querySelector('.navbar-burger');
+    const navbarMenu = document.querySelector('.navbar-menu');
+
+    if (navbarBurger && navbarMenu) {
+        navbarBurger.addEventListener('click', e => {
+            e.stopPropagation();
+            navbarBurger.classList.toggle('is-active');
+            navbarMenu.classList.toggle('is-active');
+        });
+
+        document.querySelectorAll('.navbar-menu .navbar-item').forEach(item => {
+            item.addEventListener('click', () => {
+                navbarBurger.classList.remove('is-active');
+                navbarMenu.classList.remove('is-active');
+            });
+        });
+
+        document.addEventListener('click', e => {
+            if (!navbarMenu.contains(e.target) && !navbarBurger.contains(e.target)) {
+                navbarBurger.classList.remove('is-active');
+                navbarMenu.classList.remove('is-active');
+            }
+        });
+    }
+
+    // ========================================
+    // 6. GLOBAL IMAGE SAFETY NET
+    // ========================================
+    document.querySelectorAll('img').forEach(img => {
+        if (!img.hasAttribute('decoding')) {
+            img.setAttribute('decoding', 'async');
+        }
+
+        if (img.complete && img.naturalWidth > 0) {
+            img.classList.add('loaded');
+        }
+    });
+
+});
+</script>

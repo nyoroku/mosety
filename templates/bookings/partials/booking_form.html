@@ -1,0 +1,85 @@
+<div x-data="{ 
+    numPeople: 1, 
+    pricePerPerson: {{ display_price }},
+    currencySymbol: '{{ currency_symbol }}',
+    get totalPrice() { return (this.numPeople * this.pricePerPerson).toLocaleString() }
+}" class="booking-wrap relative">
+
+    <form hx-post="{% url 'bookings:create_booking' slug=tour.slug %}" hx-target=".booking-wrap" hx-swap="outerHTML"
+        class="space-y-5">
+        {% csrf_token %}
+
+        {% if form.non_field_errors %}
+        <div class="p-3 bg-red-50 text-red-600 text-sm rounded-lg border border-red-100">
+            {{ form.non_field_errors }}
+        </div>
+        {% endif %}
+
+        {% for field in form %}
+        <div class="flex flex-col gap-1.5">
+            <label class="text-xs font-bold text-gray-dark uppercase tracking-wider flex justify-between">
+                {{ field.label }}
+                {% if field.field.required %}<span class="text-highlight">*</span>{% endif %}
+            </label>
+
+            {% if field.name == 'number_of_people' %}
+            <div class="relative">
+                <input type="number" name="{{ field.name }}" x-model.number="numPeople" min="1"
+                    max="{{ tour.max_people }}" class="{{ field.field.widget.attrs.class }}" required>
+                <div class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-light text-xs pointer-events-none">
+                    Max: {{ tour.max_people }}
+                </div>
+            </div>
+            {% else %}
+            {{ field }}
+            {% endif %}
+
+            {% if field.errors %}
+            <p class="text-[10px] text-red-500 font-medium">{{ field.errors.0 }}</p>
+            {% endif %}
+        </div>
+        {% endfor %}
+
+        <!-- Interactive Summary -->
+        <div class="p-5 bg-light-neutral rounded-2xl border border-gray-100 space-y-3">
+            <div class="flex justify-between text-sm text-gray">
+                <span><span x-text="currencySymbol"></span> <span x-text="pricePerPerson"></span> × <span
+                        x-text="numPeople">1</span> guests</span>
+                <span class="font-bold text-primary"><span x-text="currencySymbol"></span> <span
+                        x-text="totalPrice">0</span></span>
+            </div>
+            <div class="flex justify-between items-center text-lg">
+                <span class="font-bold text-gray-dark">Total Amount</span>
+                <span class="font-extrabold text-highlight"><span x-text="currencySymbol"></span> <span
+                        x-text="totalPrice">0</span></span>
+            </div>
+        </div>
+
+        <button type="submit"
+            class="w-full btn-primary py-4 rounded-xl font-bold text-lg shadow-button flex items-center justify-center gap-3 relative overflow-hidden group hx-indicator-loading">
+            <span class="group-loading:opacity-0 transition-opacity">Request Booking</span>
+            <div
+                class="absolute inset-0 flex items-center justify-center opacity-0 group-loading:opacity-100 transition-opacity">
+                <i class="fas fa-circle-notch fa-spin"></i>
+            </div>
+        </button>
+
+        <p class="text-[10px] text-center text-gray/60 italic">
+            No payment required upfront. We will contact you to confirm.
+        </p>
+    </form>
+</div>
+
+<style>
+    .htmx-request.hx-indicator-loading {
+        pointer-events: none;
+    }
+
+    .htmx-request .group-loading\:opacity-0 {
+        opacity: 0;
+    }
+
+    .htmx-request .group-loading\:opacity-100 {
+        opacity: 1;
+    }
+</style>

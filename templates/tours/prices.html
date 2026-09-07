@@ -1,0 +1,158 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="section-spacing" style="background: var(--ivory);">
+  <div class="site-container">
+    
+    <div style="text-align: center; max-width: 700px; margin-inline: auto; margin-bottom: 3.5rem;">
+      <p class="eyebrow eyebrow-gold" style="justify-content: center;">Official Pier Rates</p>
+      <h1 class="standard-h1" style="margin-bottom: 0.85rem;">Lake Naivasha Boat Ride Prices</h1>
+      <p class="lead-text" style="margin-inline: auto;">
+        Clear, dock-direct pricing with zero hidden landing fees or middleman commissions. Calculate your exact trip estimate below.
+      </p>
+    </div>
+
+    <!-- Quote Calculator Card -->
+    <div class="card" style="padding: clamp(1.75rem, 4vw, 3rem); background: #ffffff; border: 1px solid var(--border-subtle); box-shadow: var(--shadow-card); margin-bottom: 4.5rem;">
+      
+      <div style="margin-bottom: 2rem; border-bottom: 1px solid var(--border-subtle); padding-bottom: 1.25rem;">
+        <h2 style="font-size: 1.6rem; color: var(--ink-forest); margin-bottom: 0.35rem;">
+          Instant Ride Quote Calculator
+        </h2>
+        <p style="font-size: 0.9375rem; color: var(--body-muted);">
+          Select your experience and guest count to generate an immediate, verified rate.
+        </p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr; @media(min-width: 900px){ grid-template-columns: 1fr 1fr; } gap: 2.5rem; align-items: start;">
+        
+        <!-- Calculator Inputs Form -->
+        <form hx-post="/prices/estimate/" 
+              hx-target="#quote-result-target" 
+              hx-trigger="change, load" 
+              hx-swap="innerHTML" 
+              style="display: flex; flex-direction: column; gap: 1.25rem;">
+          {% csrf_token %}
+
+          <!-- Tour -->
+          <div>
+            <label for="calc-tour" style="display: block; font-size: 0.875rem; font-weight: 700; color: var(--ink-forest); margin-bottom: 0.4rem;">
+              Choose Experience
+            </label>
+            <select id="calc-tour" name="tour_id" class="form-select" style="width: 100%; padding: 0.75rem 1rem; border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); background: var(--ivory); font-weight: 600;">
+              {% for tour in tours %}
+              <option value="{{ tour.id }}"{% if forloop.first %} selected{% endif %}>
+                {{ tour.name }} ({{ tour.duration_display }})
+              </option>
+              {% endfor %}
+            </select>
+          </div>
+
+          <!-- Date -->
+          <div>
+            <label for="calc-date" style="display: block; font-size: 0.875rem; font-weight: 700; color: var(--ink-forest); margin-bottom: 0.4rem;">
+              Target Trip Date
+            </label>
+            <input type="date" id="calc-date" name="trip_date" value="{{ site.price_verified_at|date:'Y-m-d' }}" class="form-input" style="width: 100%; padding: 0.75rem 1rem; border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); background: var(--ivory);">
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <!-- Adults -->
+            <div>
+              <label for="calc-adults" style="display: block; font-size: 0.875rem; font-weight: 700; color: var(--ink-forest); margin-bottom: 0.4rem;">
+                Adults (Age 12+)
+              </label>
+              <input type="number" id="calc-adults" name="adults" min="1" max="25" value="2" class="form-input" style="width: 100%; padding: 0.75rem 1rem; border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); background: var(--ivory);">
+            </div>
+
+            <!-- Children -->
+            <div>
+              <label for="calc-children" style="display: block; font-size: 0.875rem; font-weight: 700; color: var(--ink-forest); margin-bottom: 0.4rem;">
+                Children (Under 12)
+              </label>
+              <input type="number" id="calc-children" name="children" min="0" max="15" value="0" class="form-input" style="width: 100%; padding: 0.75rem 1rem; border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); background: var(--ivory);">
+            </div>
+          </div>
+
+          <!-- Booking Type -->
+          <div>
+            <label for="calc-type" style="display: block; font-size: 0.875rem; font-weight: 700; color: var(--ink-forest); margin-bottom: 0.4rem;">
+              Preference
+            </label>
+            <select id="calc-type" name="booking_type" class="form-select" style="width: 100%; padding: 0.75rem 1rem; border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); background: var(--ivory);">
+              <option value="PRIVATE" selected>Private Boat Charter (Dedicated boat & captain)</option>
+              <option value="SHARED">Shared Ride (Per-person joining other guests)</option>
+            </select>
+          </div>
+
+        </form>
+
+        <!-- Live Estimate Output (Targeted by HTMX) -->
+        <div id="quote-result-target">
+          <div style="padding: 2rem; background: var(--papyrus-light); border-radius: var(--radius-card); text-align: center; color: var(--lake-sage);">
+            <i data-lucide="loader" style="animation: spin 1s linear infinite; margin-inline: auto; margin-bottom: 0.5rem;"></i>
+            Calculating official pier estimate...
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Complete Rate Table -->
+    <div style="margin-top: 3.5rem;">
+      <div style="margin-bottom: 2rem;">
+        <p class="eyebrow">Price Matrix</p>
+        <h2>Transparent Rates for Every Ride</h2>
+        <p class="lead-text">All prices are in Kenyan Shillings (KES). USD and international card payments accepted at prevailing bank rates.</p>
+      </div>
+
+      <div style="overflow-x: auto; background: #ffffff; border-radius: var(--radius-card); border: 1px solid var(--border-subtle); box-shadow: var(--shadow-sm);">
+        <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.9375rem;">
+          <thead>
+            <tr style="background: var(--papyrus); color: var(--ink-forest); font-family: var(--font-display); font-size: 1rem;">
+              <th style="padding: 1.15rem 1.25rem;">Experience</th>
+              <th style="padding: 1.15rem 1.25rem;">Duration</th>
+              <th style="padding: 1.15rem 1.25rem;">Capacity</th>
+              <th style="padding: 1.15rem 1.25rem;">Starting Rate</th>
+              <th style="padding: 1.15rem 1.25rem;">Included</th>
+              <th style="padding: 1.15rem 1.25rem; text-align: right;">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for tour in tours %}
+            <tr style="border-bottom: 1px solid var(--border-subtle);">
+              <td style="padding: 1.25rem; font-weight: 700; color: var(--ink-forest);">
+                <a href="{{ tour.get_absolute_url }}" style="color: var(--ink-forest); text-decoration: underline;">
+                  {{ tour.name }}
+                </a>
+              </td>
+              <td style="padding: 1.25rem; color: var(--body-muted);">{{ tour.duration_display }}</td>
+              <td style="padding: 1.25rem; color: var(--body-muted);">1 – {{ tour.max_guests }} Guests</td>
+              <td style="padding: 1.25rem; font-weight: 700; color: var(--ink-forest); font-family: var(--font-display); font-size: 1.1rem;">
+                KES {{ tour.starting_price_kes|floatformat:0 }}
+              </td>
+              <td style="padding: 1.25rem; color: var(--body-muted); font-size: 0.8125rem; max-width: 280px;">
+                Boat charter, local captain, fuel, certified life jackets.
+              </td>
+              <td style="padding: 1.25rem; text-align: right;">
+                <a href="{{ tour.get_absolute_url }}" class="btn btn-sm btn-outline">
+                  <span>Details</span>
+                </a>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+      <div style="margin-top: 1.5rem; display: flex; justify-content: space-between; align-items: center; font-size: 0.8125rem; color: var(--lake-sage);">
+        <span>All fares verified at Karagita Public Beach launch pier.</span>
+        <span>Last verified: {{ site.price_verified_at|date:"F Y" }}</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+{% endblock %}

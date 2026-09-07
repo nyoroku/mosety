@@ -1,0 +1,181 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta_title %}{{ post.title }} | Paradise Boat Rides Journal{% endblock %}
+{% block meta_description %}
+{% if post.meta_description %}
+{{ post.meta_description }}
+{% else %}
+{{ post.title }} – Expert insights, travel tips and boat ride experiences from Lake Naivasha by Paradise Boat Rides.
+{% endif %}
+{% endblock %}
+{% block canonical_url %}{{ site.base_url }}{{ request.path }}{% endblock %}
+
+{% block extra_css %}
+{% if post.tags.all %}
+<meta name="keywords"
+  content="{% for tag in post.tags.all %}{{ tag.name }}{% if not forloop.last %}, {% endif %}{% endfor %}">
+{% endif %}
+<meta property="og:title" content="{{ post.title }}">
+<meta property="og:description" content="{{ post.meta_description|default:post.title }}">
+<meta property="og:url" content="{{ site.base_url }}{{ request.path }}">
+{% if post.image %}
+<meta property="og:image" content="{{ site.base_url }}{{ post.image.url }}">
+{% endif %}
+{% endblock %}
+
+{% block content %}
+
+<!-- Blog Post Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "{{ post.title|escapejs }}",
+  "description": "{{ post.meta_description|default:post.title|escapejs }}",
+  "inLanguage": "en-KE",
+  "keywords": "{% for tag in post.tags.all %}{{ tag.name|escapejs }}{% if not forloop.last %}, {% endif %}{% endfor %}",
+  "about": {
+    "@type": "Place",
+    "name": "Lake Naivasha",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Naivasha",
+      "addressRegion": "Nakuru County",
+      "addressCountry": "KE"
+    }
+  },
+  {% if post.image %}
+  "image": "{{ site.base_url }}{{ post.image.url }}",
+  {% endif %}
+  "author": {
+    "@type": "Organization",
+    "name": "Paradise Boat Rides Naivasha"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Paradise Boat Rides Naivasha",
+    "logo": {
+      "@type": "ImageObject",
+    "url": "{{ site.base_url }}{% static 'images/paradise-logo.jpeg' %}"
+    }
+  },
+  "datePublished": "{{ post.created_at|date:'c' }}",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "{{ site.base_url }}{{ request.path }}"
+  },
+  "dateModified": "{{ post.updated_at|date:'c' }}"
+}
+</script>
+
+<!-- Hero with Featured Image -->
+{% if post.image %}
+<section class="relative h-[40vh] min-h-[300px] flex items-end overflow-hidden">
+  <div class="absolute inset-0">
+    <img src="{{ post.image.url }}" alt="{{ post.title }}" class="w-full h-full object-cover">
+    <div class="absolute inset-0 bg-gradient-to-t from-navy via-navy/60 to-transparent"></div>
+  </div>
+  <div class="relative z-10 w-full pb-12">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6">
+      <!-- Breadcrumb -->
+      <nav class="mb-4" aria-label="Breadcrumb">
+        <ol class="flex items-center gap-2 text-cream/60 text-sm">
+          <li><a href="{% url 'pages:home' %}" class="hover:text-gold">Home</a></li>
+          <li><i class="fas fa-chevron-right text-xs"></i></li>
+          <li><a href="{% url 'blog:post_list' %}" class="hover:text-gold">Blog</a></li>
+          <li><i class="fas fa-chevron-right text-xs"></i></li>
+          <li class="text-cream truncate max-w-[200px]">{{ post.title }}</li>
+        </ol>
+      </nav>
+    </div>
+  </div>
+</section>
+{% else %}
+<!-- Breadcrumb without hero -->
+<section class="py-8 bg-navy">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6">
+    <nav aria-label="Breadcrumb">
+      <ol class="flex items-center gap-2 text-cream/60 text-sm">
+        <li><a href="{% url 'pages:home' %}" class="hover:text-gold">Home</a></li>
+        <li><i class="fas fa-chevron-right text-xs"></i></li>
+        <li><a href="{% url 'blog:post_list' %}" class="hover:text-gold">Blog</a></li>
+        <li><i class="fas fa-chevron-right text-xs"></i></li>
+        <li class="text-cream">{{ post.title }}</li>
+      </ol>
+    </nav>
+  </div>
+</section>
+{% endif %}
+
+<!-- Main Content -->
+<article class="py-12 bg-cream">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6">
+
+    <!-- Article Header -->
+    <header class="mb-10">
+      <h1 class="font-serif text-3xl sm:text-4xl text-charcoal font-semibold mb-4">
+        {{ post.title }}
+      </h1>
+
+      <div class="flex flex-wrap items-center gap-4 text-charcoal/60 text-sm mb-6">
+        <span>By <strong class="text-charcoal">Paradise Boat Rides Naivasha</strong></span>
+        <span>•</span>
+        <span>{{ post.created_at|date:"F j, Y" }}</span>
+        {% if post.updated_at and post.updated_at != post.created_at %}
+        <span>•</span>
+        <span>Updated {{ post.updated_at|date:"F j, Y" }}</span>
+        {% endif %}
+      </div>
+
+      <!-- Tags -->
+      {% if post.tags.all %}
+      <div class="flex flex-wrap gap-2">
+        {% for tag in post.tags.all %}
+        <span class="text-sm font-medium px-3 py-1 bg-navy/10 text-navy rounded-full">
+          {{ tag.name }}
+        </span>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </header>
+
+    <!-- Article Body -->
+    <div class="bg-white rounded-2xl p-8 sm:p-10 shadow-premium">
+      <div class="prose prose-lg max-w-none text-charcoal/80 leading-relaxed 
+                        prose-headings:font-serif prose-headings:text-charcoal prose-headings:font-semibold
+                        prose-a:text-navy prose-a:no-underline hover:prose-a:text-gold
+                        prose-img:rounded-xl">
+        {{ post.linked_content }}
+      </div>
+    </div>
+
+    <!-- CTA Box -->
+    <div class="mt-10 bg-navy rounded-2xl p-8 text-center">
+      <h3 class="font-serif text-2xl text-cream font-semibold mb-3">
+        Planning a Boat Ride in Naivasha?
+      </h3>
+      <p class="text-cream/70 mb-6 max-w-lg mx-auto">
+        Explore our private and group boat rides for wildlife viewing, sunset cruises and Crescent Island tours.
+      </p>
+      <a href="{% url 'bookings:tour_list' %}" class="btn-gold px-8 py-4 font-bold rounded-xl inline-block">
+        View Available Boat Rides
+      </a>
+      {% if site.tel_url %}
+      <a href="{{ site.tel_url }}" class="inline-block mt-4 sm:mt-0 sm:ml-3 text-cream font-bold underline underline-offset-4">
+        Call Paradise Boat Rides
+      </a>
+      {% endif %}
+    </div>
+
+    <!-- Back to Blog -->
+    <div class="mt-10 text-center">
+      <a href="{% url 'blog:post_list' %}" class="text-navy font-semibold hover:text-gold transition-colors">
+        <i class="fas fa-arrow-left mr-2"></i>
+        Back to All Articles
+      </a>
+    </div>
+  </div>
+</article>
+
+{% endblock %}

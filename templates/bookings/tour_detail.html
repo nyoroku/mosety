@@ -1,0 +1,266 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta_title %}{{ tour.effective_seo_title }}{% endblock %}
+{% block meta_description %}{{ tour.meta_description|default:tour.description|truncatewords:30 }}{% endblock %}
+
+{% block content %}
+
+<!-- Hero with Tour Image -->
+<section class="relative h-[50vh] min-h-[400px] flex items-end overflow-hidden">
+    <!-- Background Image -->
+    <div class="absolute inset-0">
+        {% if tour.image %}
+        <picture>
+            {% if tour.webp_mobile %}
+            <source srcset="{{ tour.webp_mobile.url }}" media="(max-width: 480px)" type="image/webp">
+            {% endif %}
+            {% if tour.webp_image %}
+            <source srcset="{{ tour.webp_image.url }}" type="image/webp">
+            {% endif %}
+            <img src="{{ tour.image.url }}" alt="{{ tour.name }}" class="w-full h-full object-cover">
+        </picture>
+        {% else %}
+        <div class="w-full h-full bg-gradient-to-br from-primary to-highlight"></div>
+        {% endif %}
+        <!-- Deep Blue Gradient Overlay -->
+        <div class="absolute inset-0 bg-gradient-to-t from-primary via-primary/60 to-transparent"></div>
+    </div>
+
+    <!-- Hero Content -->
+    <div class="relative z-10 w-full">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+            <!-- Breadcrumb -->
+            <nav class="mb-4" aria-label="Breadcrumb">
+                <ol class="flex items-center gap-2 text-white/60 text-sm">
+                    <li><a href="{% url 'pages:home' %}" class="hover:text-highlight transition-colors">Home</a></li>
+                    <li><i class="fas fa-chevron-right text-xs"></i></li>
+                    <li><a href="{% url 'bookings:tour_list' %}" class="hover:text-highlight transition-colors">Tours</a>
+                    </li>
+                    <li><i class="fas fa-chevron-right text-xs"></i></li>
+                    <li class="text-white">{{ tour.name }}</li>
+                </ol>
+            </nav>
+
+            <h1 class="text-3xl sm:text-4xl md:text-5xl text-white font-bold mb-3">
+                {{ tour.name }}
+            </h1>
+
+            <div class="flex flex-wrap items-center gap-4 text-white/80">
+                <span class="flex items-center gap-2">
+                    <i class="fas fa-clock text-highlight"></i>
+                    {{ tour.duration_hours }} Hour Tour
+                </span>
+                <span class="flex items-center gap-2">
+                    <i class="fas fa-map-marker-alt text-highlight"></i>
+                    {{ tour.location }}
+                </span>
+                <span class="flex items-center gap-2">
+                    <i class="fas fa-users text-highlight"></i>
+                    Max {{ tour.max_people }} guests
+                </span>
+                {% if review_count %}
+                <span class="flex items-center gap-2">
+                    <span class="text-accent-gold">★</span>
+                    <span>{{ average_rating|floatformat:1 }} · {{ review_count }} review{{ review_count|pluralize }}</span>
+                </span>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Main Content -->
+<section class="py-12 bg-light-neutral">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+            <!-- Tour Description (Left Column) -->
+            <div class="lg:col-span-2">
+                <div class="bg-white rounded-xl p-8 shadow-card">
+                    <h2 class="text-2xl text-gray-dark font-bold mb-6">About This Experience</h2>
+                    <div class="prose prose-lg max-w-none text-gray leading-relaxed">
+                        {{ tour.description|safe }}
+                    </div>
+
+                    {% if tour.highlights %}
+                    <div class="mt-8 pt-8 border-t border-gray-100">
+                        <h3 class="text-xl text-gray-dark font-bold mb-4">Highlights</h3>
+                        <div class="space-y-3">
+                            {% for highlight in tour.highlights.splitlines %}
+                            {% if highlight.strip %}
+                            <div class="flex items-start gap-3">
+                                <i class="fas fa-check text-highlight mt-1"></i>
+                                <span class="text-gray">{{ highlight }}</span>
+                            </div>
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+
+                <!-- What's Included -->
+                <div class="bg-white rounded-xl p-8 shadow-card mt-8">
+                    <h3 class="text-xl text-gray-dark font-bold mb-6">What's Included</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center">
+                                <i class="fas fa-check text-green-600"></i>
+                            </div>
+                            <span class="text-gray">Professional guide</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center">
+                                <i class="fas fa-check text-green-600"></i>
+                            </div>
+                            <span class="text-gray">Life jackets</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center">
+                                <i class="fas fa-check text-green-600"></i>
+                            </div>
+                            <span class="text-gray">Boat & fuel</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center">
+                                <i class="fas fa-check text-green-600"></i>
+                            </div>
+                            <span class="text-gray">Wildlife spotting</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Booking Sidebar (Right Column) -->
+            <div class="lg:col-span-1">
+                <div class="bg-white rounded-xl p-6 shadow-card sticky top-28">
+                    <!-- Price -->
+                    <div class="text-center pb-6 border-b border-gray-100">
+                        <p class="text-gray text-sm mb-1">Price per person</p>
+                        <div class="flex items-baseline justify-center gap-1">
+                            <span class="text-3xl font-bold text-highlight">{{ currency_symbol }} {{ display_price }}</span>
+                        </div>
+                    </div>
+
+                    <!-- Booking Interactive Area -->
+                    <div class="pt-6">
+                        <h3 class="text-xl text-gray-dark font-bold mb-6 text-center">Reserve Your Slot</h3>
+                        <div id="booking-form-container" class="relative">
+                            {% include 'bookings/partials/booking_form.html' with form=booking_form %}
+                        </div>
+                    </div>
+
+                    <!-- Trust Badges -->
+                    <div
+                        class="mt-8 pt-6 border-t border-gray-100 flex flex-wrap justify-center gap-4 text-gray text-[10px] font-bold uppercase tracking-wider">
+                        <span class="flex items-center gap-1.5 px-3 py-1.5 bg-light-neutral rounded-full">
+                            <i class="fas fa-shield-alt text-highlight italic"></i>
+                            Verified Safety
+                        </span>
+                        <span class="flex items-center gap-1.5 px-3 py-1.5 bg-light-neutral rounded-full">
+                            <i class="fas fa-undo text-highlight italic"></i>
+                            Free Cancel
+                        </span>
+                    </div>
+
+                    <!-- WhatsApp Alternative -->
+                    <div class="mt-8 pt-6 border-t border-gray-100 text-center">
+                        <p class="text-gray text-xs font-semibold mb-4 text-gray-light uppercase tracking-widest">Or</p>
+                        <a href="{{ site.whatsapp_url }}"
+                            target="_blank"
+                            class="inline-flex items-center justify-center gap-3 w-full py-4 bg-white text-green-600 border border-green-600 font-bold rounded-xl hover:bg-green-50 transition-all group">
+                            <i class="fab fa-whatsapp text-2xl group-hover:scale-110 transition-transform"></i>
+                            <span>Inquire via WhatsApp</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% if related_tours %}
+<section class="py-12 bg-white" aria-labelledby="related-tours-title">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 id="related-tours-title" class="text-2xl text-gray-dark font-bold mb-6">More Paradise Boat Rides Tours</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {% for related in related_tours %}
+            <a href="{{ related.get_absolute_url }}" class="bg-light-neutral rounded-xl p-5 font-bold text-gray-dark hover:text-primary transition-colors">
+                {{ related.name }}
+                <span class="block mt-2 text-sm font-semibold text-highlight">View tour →</span>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Mobile Sticky CTA -->
+<div class="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 z-40">
+    <div class="flex items-center justify-between gap-4">
+        <div>
+            <p class="text-gray text-xs">From</p>
+            <span class="text-xl font-bold text-highlight">{{ currency_symbol }} {{ display_price }}</span>
+        </div>
+        <a href="https://wa.me/254729360174?text=Hi!%20I'm%20interested%20in%20booking%20the%20{{ tour.name|urlencode }}%20tour."
+            target="_blank" class="btn-primary px-6 py-3 font-bold rounded-lg flex items-center gap-2">
+            <i class="fab fa-whatsapp"></i>
+            Book Now
+        </a>
+    </div>
+</div>
+
+<!-- Add padding for mobile sticky CTA -->
+<div class="lg:hidden h-24"></div>
+
+<!-- TOUR STRUCTURED DATA (TouristTrip Schema) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TouristTrip",
+  "name": "{{ tour.name|escapejs }}",
+  "description": "{{ tour.meta_description|default:tour.description|striptags|truncatewords:50|escapejs }}",
+  {% if tour.image %}
+  "image": "{{ request.scheme }}://{{ request.get_host }}{{ tour.image.url }}",
+  {% endif %}
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "Paradise Boat Rides Naivasha",
+    "url": "{{ site.base_url }}/"
+  },
+  "offers": {
+    "@type": "Offer",
+    "url": "{{ request.build_absolute_uri }}",
+    "priceCurrency": "{{ currency_code|default:'KES' }}",
+    "price": "{{ display_price }}",
+    "availability": "https://schema.org/InStock",
+    "validFrom": "{% now 'Y-m-d' %}"
+  },
+  "tourType": ["Boat Tour", "Wildlife Tour"],
+  "itinerary": {
+    "@type": "ItemList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Departure from Karagita Beach"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "{{ tour.name|escapejs }}"
+      }
+    ]
+  },
+  "url": "{{ site.base_url }}{{ request.path }}"{% if review_count %},
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "{{ average_rating|floatformat:1 }}",
+    "reviewCount": "{{ review_count }}"
+  }
+  {% endif %}
+}
+</script>
+
+{% endblock %}

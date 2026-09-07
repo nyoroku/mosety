@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta_title %}Lake Naivasha Boat Rides & Tours | Paradise Boat Rides{% endblock %}
+{% block meta_description %}Browse our selection of Lake Naivasha boat rides. Hippo safaris, sunset cruises, Crescent Island transfers, and private charters.{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="relative bg-primary pt-24 pb-16 overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+        <h1 class="text-3xl sm:text-4xl md:text-5xl text-white font-bold mb-6">Our Boat Tours</h1>
+        <p class="text-white/70 text-lg max-w-2xl mx-auto">Choose your ideal adventure on Lake Naivasha with transparent pricing and expert local captains.</p>
+    </div>
+</section>
+
+<!-- Tours Grid -->
+<section class="py-16 bg-light-neutral">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {% if tours %}
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {% for tour in tours %}
+            <article class="bg-white rounded-2xl shadow-card overflow-hidden border border-gray-100 hover:shadow-xl transition-all flex flex-col">
+                <a href="{{ tour.get_absolute_url }}" class="relative aspect-video overflow-hidden block">
+                    {% if tour.image %}
+                    <img src="{{ tour.image.url }}" alt="{{ tour.name }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                    {% else %}
+                    <img src="{% static 'images/gallery/naivasha-group-boat.jpeg' %}" alt="{{ tour.name }}" class="w-full h-full object-cover">
+                    {% endif %}
+                    <span class="absolute top-4 right-4 bg-primary/80 backdrop-blur-sm text-white px-3 py-1 rounded-full text-xs font-semibold">
+                        {{ tour.duration_hours }} hours
+                    </span>
+                </a>
+                <div class="p-6 flex flex-col flex-grow">
+                    <p class="text-xs text-highlight font-semibold uppercase tracking-wider mb-2">{{ tour.location|default:"Lake Naivasha" }}</p>
+                    <h3 class="text-xl font-bold text-gray-dark mb-3">
+                        <a href="{{ tour.get_absolute_url }}" class="hover:text-highlight transition-colors">{{ tour.name }}</a>
+                    </h3>
+                    <p class="text-gray text-sm mb-6 line-clamp-3 leading-relaxed flex-grow">{{ tour.description|striptags }}</p>
+                    <div class="pt-4 border-t border-gray-100 flex items-center justify-between mt-auto">
+                        <div>
+                            <span class="text-xs text-gray uppercase block font-semibold">From</span>
+                            <span class="text-lg font-bold text-primary">{{ currency_symbol }} {{ tour.display_price|floatformat:0 }}</span>
+                        </div>
+                        <a href="{{ tour.get_absolute_url }}" class="px-4 py-2 bg-primary text-white font-bold rounded-xl text-sm hover:bg-highlight transition-colors">
+                            Book Tour
+                        </a>
+                    </div>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="text-center py-16 bg-white rounded-2xl shadow-card">
+            <h2 class="text-2xl text-gray-dark font-bold mb-3">No Tours Available</h2>
+            <p class="text-gray max-w-md mx-auto mb-6">We're preparing exciting new experiences for you. Contact us directly to book!</p>
+            <a href="{{ site.whatsapp_url }}" target="_blank" class="inline-flex items-center gap-3 px-8 py-4 bg-green-600 hover:bg-green-700 text-white font-bold rounded-xl transition-colors">
+                <i class="fab fa-whatsapp text-xl"></i> Book via WhatsApp
+            </a>
+        </div>
+        {% endif %}
+
+        <!-- High-Contrast Pagination -->
+        {% if is_paginated %}
+        <nav class="mt-12 flex justify-center" aria-label="Pagination">
+            <div class="inline-flex flex-wrap items-center gap-3 bg-white rounded-2xl shadow-card p-3 border border-gray-200">
+                {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previous_page_number }}"
+                    class="px-5 py-2.5 bg-[#062B33] text-white hover:bg-[#10B8C7] font-bold rounded-xl transition-colors no-underline text-sm flex items-center gap-2">
+                    <i class="fas fa-chevron-left text-xs"></i> Previous
+                </a>
+                {% endif %}
+
+                <span class="px-5 py-2.5 bg-[#EAF7F5] text-[#062B33] font-extrabold rounded-xl text-sm border border-[#10B8C7]/30">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+                </span>
+
+                {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}"
+                    class="px-5 py-2.5 bg-[#062B33] text-white hover:bg-[#10B8C7] font-bold rounded-xl transition-colors no-underline text-sm flex items-center gap-2">
+                    Next <i class="fas fa-chevron-right text-xs"></i>
+                </a>
+                {% endif %}
+            </div>
+        </nav>
+        {% endif %}
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-16 bg-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 text-center">
+        <h2 class="text-2xl sm:text-3xl text-gray-dark font-bold mb-4">Need Help Choosing?</h2>
+        <p class="text-gray mb-8 max-w-xl mx-auto">Our team is here to help you find the perfect Lake Naivasha experience for your group.</p>
+        <a href="{{ site.whatsapp_url }}" target="_blank" class="inline-flex items-center gap-3 px-8 py-4 bg-green-600 hover:bg-green-700 text-white font-bold rounded-xl transition-colors">
+            <i class="fab fa-whatsapp text-xl"></i> Chat With Us
+        </a>
+    </div>
+</section>
+{% endblock %}

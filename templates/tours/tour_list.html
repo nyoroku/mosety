@@ -1,0 +1,177 @@
+{% extends 'base.html' %}
+{% load static humanize %}
+
+{% block content %}
+<section class="section-spacing" style="background: var(--ivory);">
+  <div class="site-container">
+    
+<!-- Editorial Header -->
+    <div style="max-width: 800px; margin-bottom: 2.5rem;">
+      <p class="eyebrow eyebrow-gold">Lake Naivasha Water Experiences & Services</p>
+      <h1 class="hero-h1" style="margin-bottom: 1rem;">Boat Rides & Commercial Water Services</h1>
+      <p class="lead-text">
+        Seven curated water experiences and specialized boat charter services on Lake Naivasha. Guided exclusively by verified local captains from Karagita Pier with transparent, regulated dock fares.
+      </p>
+    </div>
+
+    <!-- Category Filter Bar (Alpine.js) -->
+    <div x-data="{ activeFilter: 'all' }" style="margin-bottom: 3rem;">
+      <div style="display: flex; flex-wrap: wrap; gap: 0.6rem; margin-bottom: 2.5rem;">
+        <button type="button" 
+                @click="activeFilter = 'all'" 
+                :class="{ 'btn-forest': activeFilter === 'all', 'btn-outline': activeFilter !== 'all' }" 
+                class="btn btn-sm">
+          All Experiences & Services ({{ tours|length }})
+        </button>
+        <button type="button" 
+                @click="activeFilter = 'wildlife'" 
+                :class="{ 'btn-forest': activeFilter === 'wildlife', 'btn-outline': activeFilter !== 'wildlife' }" 
+                class="btn btn-sm">
+          Wildlife & Bird Safaris
+        </button>
+        <button type="button" 
+                @click="activeFilter = 'crescent_island'" 
+                :class="{ 'btn-forest': activeFilter === 'crescent_island', 'btn-outline': activeFilter !== 'crescent_island' }" 
+                class="btn btn-sm">
+          Crescent Island Walks
+        </button>
+        <button type="button" 
+                @click="activeFilter = 'sunset'" 
+                :class="{ 'btn-forest': activeFilter === 'sunset', 'btn-outline': activeFilter !== 'sunset' }" 
+                class="btn btn-sm">
+          Sunset & Golden Hour
+        </button>
+        <button type="button" 
+                @click="activeFilter = 'private'" 
+                :class="{ 'btn-forest': activeFilter === 'private', 'btn-outline': activeFilter !== 'private' }" 
+                class="btn btn-sm">
+          Private Charters
+        </button>
+        <button type="button" 
+                @click="activeFilter = 'group'" 
+                :class="{ 'btn-forest': activeFilter === 'group', 'btn-outline': activeFilter !== 'group' }" 
+                class="btn btn-sm">
+          Groups & Families
+        </button>
+      </div>
+
+      <!-- Tours Grid -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem;">
+        {% for tour in tours %}
+        <article class="card tour-card"
+                 x-show="activeFilter === 'all' || 
+                         (activeFilter === 'wildlife' && ('{{ tour.intent_tag }}' === 'wildlife' || '{{ tour.intent_tag }}' === 'birding')) || 
+                         (activeFilter === 'crescent_island' && '{{ tour.intent_tag }}' === 'crescent_island') || 
+                         (activeFilter === 'sunset' && '{{ tour.intent_tag }}' === 'sunset') || 
+                         (activeFilter === 'private' && ('{{ tour.intent_tag }}' === 'private' || '{{ tour.intent_tag }}' === 'birding')) || 
+                         (activeFilter === 'group' && ('{{ tour.intent_tag }}' === 'family' || '{{ tour.intent_tag }}' === 'group'))"
+                 x-transition:enter="transition ease-out duration-200"
+                 x-transition:enter-start="opacity-0 transform scale-95"
+                 x-transition:enter-end="opacity-100 transform scale-100">
+          <div class="tour-card-image">
+            {% if tour.hero_image %}
+            <img src="{{ tour.hero_image.url }}" alt="{{ tour.name }}" loading="lazy">
+            {% else %}
+            <img src="{% static 'images/gallery/naivasha-boat-passenger.jpeg' %}" alt="{{ tour.name }}" loading="lazy">
+            {% endif %}
+            <span class="tour-badge">{{ tour.short_name }}</span>
+          </div>
+
+          <div class="tour-card-body">
+            <div class="tour-meta-row">
+              <span class="fact-chip"><i data-lucide="clock"></i> {{ tour.duration_display }}</span>
+              <span class="fact-chip"><i data-lucide="users"></i> Max {{ tour.max_guests }}</span>
+              <span class="fact-chip"><i data-lucide="shield-check"></i> Life Vests</span>
+            </div>
+
+            <h2 class="tour-title" style="font-size: 1.35rem;">
+              <a href="{{ tour.get_absolute_url }}">{{ tour.name }}</a>
+            </h2>
+
+            <p class="tour-summary">{{ tour.summary }}</p>
+
+            <div class="tour-card-footer">
+              <div class="tour-price-box">
+                <span class="tour-price-label">Starting Rate</span>
+                <span class="tour-price-value">KES {{ tour.starting_price_kes|floatformat:0|intcomma }}</span>
+                <span style="font-size: 0.75rem; color: var(--lake-sage); font-weight: 600; display: block;">{{ tour.pricing_mode_display }}</span>
+              </div>
+
+              <div style="display: flex; gap: 0.5rem; align-items: center;">
+                <a href="{{ tour.get_absolute_url }}" class="btn btn-sm btn-forest">
+                  <span>Details</span>
+                  <i data-lucide="arrow-right" style="width: 14px; height: 14px;"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </article>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Commercial Services & Custom Charters Breakdown -->
+    <div style="margin-top: 5rem; background: var(--papyrus-light); border: 1px solid var(--border-papyrus); border-radius: var(--radius-card); padding: clamp(2rem, 4vw, 3.5rem);">
+      <div style="max-width: 650px; margin-bottom: 2.5rem;">
+        <p class="eyebrow eyebrow-gold">Commercial Water Services</p>
+        <h2 style="margin-bottom: 0.75rem;">Specialized Charters & Water Operations</h2>
+        <p class="lead-text">
+          Beyond leisure passenger safaris, Mosety provides dedicated maritime support on Lake Naivasha for film crews, scientific research, corporate events, and private celebrations.
+        </p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.75rem; margin-bottom: 2.5rem;">
+        <div style="background: #ffffff; padding: 1.75rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+          <i data-lucide="camera" style="width: 28px; height: 28px; color: var(--rift-gold); margin-bottom: 1rem;"></i>
+          <h3 style="font-size: 1.15rem; margin-bottom: 0.5rem; color: var(--ink-forest);">Film & Photography Charters</h3>
+          <p style="font-size: 0.875rem; color: var(--body-muted); line-height: 1.5;">
+            Dedicated vessels with engine-off drift capability, specialized camera mounts, and captains experienced with documentary timing.
+          </p>
+        </div>
+
+        <div style="background: #ffffff; padding: 1.75rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+          <i data-lucide="users" style="width: 28px; height: 28px; color: var(--rift-gold); margin-bottom: 1rem;"></i>
+          <h3 style="font-size: 1.15rem; margin-bottom: 0.5rem; color: var(--ink-forest);">Corporate Team Building</h3>
+          <p style="font-size: 0.875rem; color: var(--body-muted); line-height: 1.5;">
+            Multi-boat coordinated excursions accommodating groups of 20 to 150 guests with coordinated Crescent Island disembarkation.
+          </p>
+        </div>
+
+        <div style="background: #ffffff; padding: 1.75rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+          <i data-lucide="heart" style="width: 28px; height: 28px; color: var(--rift-gold); margin-bottom: 1rem;"></i>
+          <h3 style="font-size: 1.15rem; margin-bottom: 0.5rem; color: var(--ink-forest);">Private Celebrations & Proposals</h3>
+          <p style="font-size: 0.875rem; color: var(--body-muted); line-height: 1.5;">
+            Exclusive sunset cruises with discreet captains, chilled refreshment provisions, and secluded golden hour anchor points.
+          </p>
+        </div>
+
+        <div style="background: #ffffff; padding: 1.75rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+          <i data-lucide="compass" style="width: 28px; height: 28px; color: var(--rift-gold); margin-bottom: 1rem;"></i>
+          <h3 style="font-size: 1.15rem; margin-bottom: 0.5rem; color: var(--ink-forest);">School & Educational Safaris</h3>
+          <p style="font-size: 0.875rem; color: var(--body-muted); line-height: 1.5;">
+            Structured limnology and wildlife learning excursions with mandatory child safety vest fittings and educational captain talks.
+          </p>
+        </div>
+      </div>
+
+      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border-subtle);">
+        <div>
+          <strong style="color: var(--ink-forest); font-size: 1rem; display: block;">Planning a custom service or large group booking?</strong>
+          <span style="font-size: 0.875rem; color: var(--body-muted);">Receive an official quote within 15 minutes.</span>
+        </div>
+        <div class="btn-row">
+          <a href="/book/" class="btn btn-forest">
+            <span>Request Official Quote</span>
+            <i data-lucide="arrow-right" style="width: 14px; height: 14px;"></i>
+          </a>
+          <a href="{{ whatsapp_book_url }}" target="_blank" rel="noopener" class="btn btn-primary">
+            <i data-lucide="message-circle" style="width: 16px; height: 16px;"></i>
+            <span>Chat with Operations</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta_title %}Join the Loyalty Club | Paradise Boat Rides{% endblock %}
+
+{% block content %}
+<section class="relative py-20 bg-slate-50 min-h-screen flex items-center justify-center">
+    <div class="absolute inset-0 bg-gradient-to-br from-highlight/5 to-accent-gold/5 pointer-events-none"></div>
+
+    <div class="container relative z-10 px-6 mx-auto">
+        <div class="max-w-xl mx-auto">
+            <div class="bg-white rounded-[3rem] p-12 shadow-2xl border border-white/50 relative overflow-hidden">
+                <!-- Decorative Elements -->
+                <div class="absolute top-0 right-0 w-32 h-32 bg-highlight/10 rounded-full -mr-16 -mt-16"></div>
+
+                <div class="text-center mb-10 relative">
+                    <div
+                        class="w-16 h-16 bg-highlight/10 text-highlight rounded-2xl flex items-center justify-center mx-auto mb-6 text-2xl">
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <h1 class="text-3xl font-black text-primary mb-2">Join the Club</h1>
+                    <p class="text-slate-500 font-medium">Get your personal referral code and start earning commissions
+                        today.</p>
+                </div>
+
+                <form method="POST" class="space-y-6">
+                    {% csrf_token %}
+                    <div>
+                        {{ form.customer_name }}
+                    </div>
+                    <div>
+                        {{ form.email }}
+                    </div>
+
+                    <button type="submit"
+                        class="w-full py-5 bg-primary text-white font-black rounded-3xl hover:bg-highlight transition-all shadow-xl shadow-primary/20 flex items-center justify-center gap-3">
+                        Generate My Code
+                        <i class="fas fa-magic"></i>
+                    </button>
+
+                    <p class="text-center text-[10px] text-slate-400 font-bold uppercase tracking-widest">
+                        We respect your privacy. No spam, ever.
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

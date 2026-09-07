@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block meta_title %}Boat Rides in Naivasha by Location | Paradise Boat Rides{% endblock %}
+{% block meta_description %}Explore private and group boat rides in Naivasha by location. Find rides near hotels,
+resorts, estates and wildlife zones.{% endblock %}
+
+{% block content %}
+<section class="section">
+  <div class="container">
+
+    <h1 class="title">Boat Rides in Naivasha by Location</h1>
+    <p class="mb-5">Choose your nearest location to find the most convenient boat ride options in Naivasha.</p>
+
+    <div class="columns is-multiline">
+
+      {% for page in pages %}
+      <div class="column is-4">
+        <div class="box">
+          <h3 class="title is-5">{{ page.title }}</h3>
+          <p>{{ page.excerpt }}</p>
+          <a href="{{ page.get_absolute_url }}" class="button is-link mt-3">
+            View Boat Rides
+          </a>
+        </div>
+      </div>
+      {% endfor %}
+
+    </div>
+
+  </div>
+</section>
+{% endblock %}

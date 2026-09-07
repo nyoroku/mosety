@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+{% load static humanize %}
+
+{% block meta_title %}{{ meta_title }}{% endblock %}
+{% block meta_description %}{{ meta_description }}{% endblock %}
+
+{% block content %}
+<section class="section-spacing" style="background: var(--ivory);">
+  <div class="site-container-narrow">
+    
+    <!-- Breadcrumb Nav -->
+    <nav style="font-size: 0.85rem; color: var(--lake-sage); margin-bottom: 1.5rem;" aria-label="Breadcrumb">
+      <a href="/" style="color: var(--lake-sage);">Home</a> &rsaquo;
+      <a href="/naivasha-guide/" style="color: var(--lake-sage);">Lake Naivasha Guide</a> &rsaquo;
+      <span style="color: var(--ink-forest); font-weight: 600;">Birds & Fish Eagles</span>
+    </nav>
+
+    <p class="eyebrow eyebrow-gold">Ornithological Authority</p>
+    <h1 class="hero-h1" style="margin-bottom: 1.25rem;">Lake Naivasha Birds & African Fish Eagles: 400+ Species Field Guide</h1>
+    
+    <div style="color: var(--body-text); font-size: 1.05rem; line-height: 1.7; margin-bottom: 2.5rem;">
+      <p>
+        Designated as a Ramsar Wetland of International Importance, Lake Naivasha provides an extraordinary tapestry of habitats: open freshwater pelagic zones, dense floating papyrus fringing swamps, submerged acacia snags, and volcanic shoreline cliffs. Over 400 species of resident and migratory birds have been documented here.
+      </p>
+    </div>
+
+    <!-- Feature Image -->
+    <div style="border-radius: var(--radius-card); overflow: hidden; box-shadow: var(--shadow-md); margin-bottom: 3rem; aspect-ratio: 16 / 9; background: var(--papyrus);">
+      <img src="{% static 'images/gallery/african-fish-eagle-hunting.jpeg' %}" alt="African fish eagle perched on a high dead acacia branch overlooking Lake Naivasha" style="width: 100%; height: 100%; object-fit: cover;">
+    </div>
+
+    <!-- The African Fish Eagle Section -->
+    <article style="margin-bottom: 3.5rem;">
+      <h2 style="font-size: 1.85rem; margin-bottom: 1rem; color: var(--ink-forest);">The African Fish Eagle (<em>Haliaeetus vocifer</em>)</h2>
+      <p style="font-size: 1rem; line-height: 1.7; color: var(--body-text); margin-bottom: 1.25rem;">
+        With its striking snow-white chest, chestnut mantle, and haunting yodeling cry—frequently called the &ldquo;Voice of Africa&rdquo;—the African fish eagle is the apex raptor of Lake Naivasha. Lake Naivasha sustains one of the highest breeding densities of fish eagles in East Africa, with pairs occupying permanent shoreline territories every few hundred meters.
+      </p>
+      <p style="font-size: 1rem; line-height: 1.7; color: var(--body-text);">
+        They perch atop dead acacia trees drowned by past water-level surges, scanning the lake surface with razor-sharp eyesight for surfacing tilapia and carp. When a fish is spotted, the eagle launches into a sweeping glide, dropping its massive talons into the water to snatch fish weighing up to 2 kilograms.
+      </p>
+    </article>
+
+    <!-- Key Bird Groups Grid -->
+    <article style="margin-bottom: 3.5rem;">
+      <h2 style="font-size: 1.85rem; margin-bottom: 1.5rem; color: var(--ink-forest);">Key Bird Families to Watch For</h2>
+      
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem;">
+        
+        <div style="background: #ffffff; padding: 1.5rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+          <strong style="color: var(--ink-forest); font-size: 1.1rem; display: block; margin-bottom: 0.35rem;">Great White Pelicans</strong>
+          <p style="font-size: 0.875rem; color: var(--body-muted); line-height: 1.6; margin: 0;">
+            Massive flocks swimming in coordinated semi-circles to herd fish into shallows before dipping enormous pouch beaks.
+          </p>
+        </div>
+
+        <div style="background: #ffffff; padding: 1.5rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+          <strong style="color: var(--ink-forest); font-size: 1.1rem; display: block; margin-bottom: 0.35rem;">Goliath Herons</strong>
+          <p style="font-size: 0.875rem; color: var(--body-muted); line-height: 1.6; margin: 0;">
+            The world's largest heron species, standing up to 1.5 meters tall, stalking silently through floating water hyacinth beds.
+          </p>
+        </div>
+
+        <div style="background: #ffffff; padding: 1.5rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+          <strong style="color: var(--ink-forest); font-size: 1.1rem; display: block; margin-bottom: 0.35rem;">African Jacanas</strong>
+          <p style="font-size: 0.875rem; color: var(--body-muted); line-height: 1.6; margin: 0;">
+            Nicknamed &ldquo;lily-trotters&rdquo; for their elongated toes that distribute body weight across floating lily pads.
+          </p>
+        </div>
+
+        <div style="background: #ffffff; padding: 1.5rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+          <strong style="color: var(--ink-forest); font-size: 1.1rem; display: block; margin-bottom: 0.35rem;">Pied & Malachite Kingfishers</strong>
+          <p style="font-size: 0.875rem; color: var(--body-muted); line-height: 1.6; margin: 0;">
+            Hovering mid-air like hummingbirds before plunging headfirst into calm water channels to catch small fingerlings.
+          </p>
+        </div>
+
+      </div>
+    </article>
+
+    <!-- Photography Advice -->
+    <div style="background: var(--papyrus-light); border-radius: var(--radius-card); padding: 2.25rem; margin-bottom: 3.5rem;">
+      <h3 style="font-size: 1.35rem; margin-bottom: 0.75rem; color: var(--ink-forest);">Captain's Photography Advice</h3>
+      <ul style="color: var(--body-text); font-size: 0.925rem; line-height: 1.65; padding-left: 1.25rem; margin: 0;">
+        <li><strong>Departure Time:</strong> Depart at 06:30 AM or 07:00 AM. Water is motionless, light is warm and directional, and birds actively hunt before mid-day thermal heat.</li>
+        <li><strong>Focal Lengths:</strong> A 100–400mm or 70–200mm zoom lens is ideal from a boat deck. A beanbag or monopod provides steady panning without the bulk of a tripod.</li>
+        <li><strong>Shutter Speed:</strong> Keep your shutter speed at 1/2000s or faster to freeze wing-tip spray when fish eagles strike the water.</li>
+      </ul>
+    </div>
+
+    <!-- Booking CTA -->
+    <div class="card" style="background: #ffffff; border: 2px solid var(--border-papyrus); border-radius: var(--radius-card); padding: 2.25rem; text-align: center;">
+      <span class="eyebrow eyebrow-gold" style="justify-content: center;">Photographer Special</span>
+      <h3 style="font-size: 1.5rem; margin-bottom: 0.5rem; color: var(--ink-forest);">Book the Photography & Birding Morning Charter</h3>
+      <p style="color: var(--body-muted); font-size: 0.95rem; max-width: 48ch; margin-inline: auto; margin-bottom: 1.5rem;">
+        Dedicated 2-hour charter departing at 06:30 AM with drift positioning, quiet maneuvers, and birding specialist captain.
+      </p>
+      <div class="btn-row" style="justify-content: center;">
+        <a href="/boat-rides/photography-birding/" class="btn btn-forest">
+          <span>View Birding Charter (KES 7,000)</span>
+        </a>
+        <a href="{{ whatsapp_book_url }}" target="_blank" rel="noopener" class="btn btn-primary">
+          <i data-lucide="message-circle" style="width: 16px; height: 16px;"></i>
+          <span>Check Birding Dates on WhatsApp</span>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+{% endblock %}

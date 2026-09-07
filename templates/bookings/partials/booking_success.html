@@ -1,0 +1,33 @@
+<div class="card" style="background: var(--ivory); border: 2px solid var(--border-papyrus); border-radius: var(--radius-card); padding: clamp(2rem, 4vw, 3rem); text-align: center; box-shadow: var(--shadow-card);" id="booking-success-box">
+  
+  <div style="width: 64px; height: 64px; background: var(--papyrus); border-radius: 50%; display: grid; place-items: center; margin-inline: auto; margin-bottom: 1.25rem; color: var(--ink-forest);">
+    <i data-lucide="check" style="width: 32px; height: 32px; color: var(--rift-gold); stroke-width: 3;"></i>
+  </div>
+
+  <span class="eyebrow eyebrow-gold" style="justify-content: center;">Booking Request Received</span>
+  <h2 style="font-size: clamp(1.75rem, 3vw, 2.35rem); margin-bottom: 0.75rem; color: var(--ink-forest);">
+    We are ready for your Lake Naivasha ride!
+  </h2>
+
+  <div style="display: inline-block; background: var(--papyrus); padding: 0.5rem 1rem; border-radius: var(--radius-pill); font-size: 0.875rem; font-weight: 700; color: var(--ink-forest); margin-bottom: 1.5rem;">
+    Reference: {{ lead.reference }}
+  </div>
+
+  <p style="color: var(--body-muted); max-width: 48ch; margin-inline: auto; margin-bottom: 2rem; font-size: 1rem; line-height: 1.6;">
+    Thank you, <strong>{{ lead.name }}</strong>. We have logged your request for 
+    <strong>{{ lead.tour.name|default:"Lake Naivasha Boat Ride" }}</strong> on 
+    <strong>{{ lead.trip_date|date:"l, d F Y" }}</strong> for <strong>{{ lead.party_size }} guest{{ lead.party_size|pluralize }}</strong>.
+  </p>
+
+  <div style="max-width: 460px; margin-inline: auto; display: flex; flex-direction: column; gap: 0.85rem;">
+    <a href="{{ whatsapp_url }}" target="_blank" rel="noopener" class="btn btn-primary" style="font-size: 1.05rem; padding-block: 1rem;">
+      <i data-lucide="message-circle" style="width: 20px; height: 20px;"></i>
+      <span>Fast-Track Confirmation on WhatsApp</span>
+    </a>
+    
+    <p style="font-size: 0.8125rem; color: var(--lake-sage);">
+      Our team also responds via phone/SMS at {{ site.phone }}. No payment is taken online.
+    </p>
+  </div>
+
+</div>

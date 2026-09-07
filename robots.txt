@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+Disallow: /admin/
+Disallow: /dashboard/
+Disallow: /accounts/
+Disallow: /tinymce/
+
+Sitemap: https://mosety.co.ke/sitemap.xml

@@ -1,0 +1,158 @@
+{% extends 'base.html' %}
+
+{% block meta_title %}
+Frequently Asked Questions | Paradise Boat Rides Naivasha
+{% endblock %}
+
+{% block meta_description %}
+Find answers to common questions about Lake Naivasha boat rides, pricing, safety, wildlife safaris, and booking procedures with Paradise Boat Rides.
+{% endblock %}
+
+{% block content %}
+
+<!-- Hero Section -->
+<section class="relative bg-[#062B33] pt-24 pb-16 overflow-hidden">
+    <div class="absolute top-0 right-0 w-64 h-64 bg-[#10B8C7]/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl"></div>
+    <div class="absolute bottom-0 left-0 w-96 h-96 bg-[#10B8C7]/5 rounded-full translate-y-1/2 -translate-x-1/2 blur-3xl"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+        <h1 class="text-3xl sm:text-4xl md:text-5xl text-white font-bold mb-6">
+            Frequently Asked Questions
+        </h1>
+        <p class="text-white/70 text-lg max-w-2xl mx-auto">
+            Everything you need to know about planning your Lake Naivasha boat ride adventure.
+        </p>
+    </div>
+</section>
+
+<!-- FAQ Content -->
+<section class="py-16 bg-[#EAF7F5]">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <div class="space-y-4 mb-16">
+            {% for faq in faqs %}
+            <div class="faq-item bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
+                <button type="button" 
+                    onclick="const body = this.nextElementSibling; const icon = this.querySelector('.faq-icon-i'); const isOpen = body.style.display === 'block'; body.style.display = isOpen ? 'none' : 'block'; icon.className = isOpen ? 'fas fa-plus text-xs' : 'fas fa-minus text-xs';"
+                    class="w-full flex items-center justify-between p-6 sm:p-8 text-left transition-colors hover:bg-gray-50 cursor-pointer">
+                    <span class="text-lg font-bold text-[#062B33] pr-6">{{ faq.question }}</span>
+                    <div class="faq-icon w-8 h-8 rounded-full bg-[#10B8C7]/10 text-[#10B8C7] flex items-center justify-center shrink-0">
+                        <i class="fas fa-plus text-xs faq-icon-i"></i>
+                    </div>
+                </button>
+                <div class="faq-answer-block px-6 pb-8 sm:px-8 sm:pb-10 border-t border-gray-100 pt-4" style="display: none;">
+                    <div class="prose prose-sm sm:prose-base max-w-none text-[#333333] leading-relaxed">
+                        {{ faq.linked_answer|safe }}
+                    </div>
+                    <div class="mt-6 pt-6 border-t border-gray-100 flex items-center gap-2 text-xs text-gray-500 italic">
+                        <i class="fas fa-clock"></i>
+                        <span>Updated {{ faq.updated_at|date:"F j, Y" }}</span>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="text-center py-12 bg-white rounded-2xl shadow-card">
+                <p class="text-[#062B33] font-medium">Our FAQ guide is being updated. Check back soon!</p>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- High-Contrast Pagination Controls -->
+        {% if is_paginated %}
+        <div class="mt-12 mb-16 flex flex-wrap items-center justify-center gap-3">
+            {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}"
+                class="px-6 py-3 bg-[#062B33] text-white hover:bg-[#10B8C7] font-bold rounded-xl shadow-md transition-all flex items-center gap-2 text-sm no-underline">
+                <i class="fas fa-chevron-left text-xs"></i> Previous
+            </a>
+            {% endif %}
+
+            <div class="px-6 py-3 bg-[#EAF7F5] text-[#062B33] font-extrabold rounded-xl border border-[#10B8C7]/40 shadow-sm text-sm">
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+            </div>
+
+            {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}"
+                class="px-6 py-3 bg-[#062B33] text-white hover:bg-[#10B8C7] font-bold rounded-xl shadow-md transition-all flex items-center gap-2 text-sm no-underline">
+                Next <i class="fas fa-chevron-right text-xs"></i>
+            </a>
+            {% endif %}
+        </div>
+        {% endif %}
+
+        <!-- Help Card -->
+        <div class="bg-white rounded-3xl p-8 sm:p-12 shadow-xl border border-gray-100 text-center relative overflow-hidden">
+            <div class="absolute top-0 inset-x-0 h-2 bg-gradient-to-r from-[#10B8C7] via-[#25D366] to-[#10B8C7]"></div>
+
+            <div class="relative z-10">
+                <div class="w-16 h-16 bg-[#25D366]/10 text-[#25D366] rounded-2xl flex items-center justify-center mx-auto mb-6 text-3xl">
+                    <i class="fab fa-whatsapp"></i>
+                </div>
+
+                <h2 class="text-2xl sm:text-3xl font-bold text-[#062B33] mb-4">Still have questions?</h2>
+                <p class="text-gray-600 mb-10 max-w-md mx-auto leading-relaxed">
+                    Our team is available 24/7 to help you with bookings, custom packages, or any special requests.
+                </p>
+
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <a href="{{ site.whatsapp_url }}" target="_blank"
+                        class="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-5 bg-[#25D366] text-white font-bold rounded-2xl hover:bg-[#128C7E] transition-all shadow-lg hover:shadow-xl group">
+                        <i class="fab fa-whatsapp text-2xl"></i>
+                        <span>Chat on WhatsApp</span>
+                    </a>
+                    <a href="{{ site.tel_url }}"
+                        class="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-5 bg-[#EAF7F5] text-[#062B33] font-bold rounded-2xl hover:bg-gray-100 transition-all border border-gray-300">
+                        <i class="fas fa-phone-alt"></i>
+                        <span>Call Us Directly</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Important Links -->
+        <div class="mt-16 grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <a href="{% url 'bookings:tour_list' %}"
+                class="flex items-center gap-4 p-4 bg-white rounded-xl shadow-card hover:shadow-md transition-shadow group">
+                <div class="w-12 h-12 bg-[#10B8C7]/10 text-[#10B8C7] rounded-lg flex items-center justify-center group-hover:bg-[#10B8C7] group-hover:text-white transition-colors">
+                    <i class="fas fa-ship"></i>
+                </div>
+                <div>
+                    <h4 class="font-bold text-[#062B33] text-sm">Tour Packages</h4>
+                    <p class="text-xs text-gray-500">Explore boat ride options</p>
+                </div>
+            </a>
+            <a href="/destinations/"
+                class="flex items-center gap-4 p-4 bg-white rounded-xl shadow-card hover:shadow-md transition-shadow group">
+                <div class="w-12 h-12 bg-[#F4A021]/10 text-[#F4A021] rounded-lg flex items-center justify-center group-hover:bg-[#F4A021] group-hover:text-white transition-colors">
+                    <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <div>
+                    <h4 class="font-bold text-[#062B33] text-sm">Best Spots</h4>
+                    <p class="text-xs text-gray-500">Where we take you</p>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ STRUCTURED DATA -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {% for faq in faqs %}
+    {
+      "@type": "Question",
+      "name": "{{ faq.question|escapejs }}",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "{{ faq.plain_answer|default:faq.answer|striptags|escapejs }}"
+      }
+    }{% if not forloop.last %},{% endif %}
+    {% endfor %}
+  ]
+}
+</script>
+
+{% endblock %}

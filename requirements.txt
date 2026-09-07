@@ -1,0 +1,9 @@
+Django>=5.0
+python-decouple
+django-taggit
+django-tinymce
+Pillow
+beautifulsoup4
+qrcode[pil]
+whitenoise
+requests

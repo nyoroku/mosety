@@ -1,0 +1,185 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta_title %}{{ page.effective_seo_title }} | Paradise Boat Rides{% endblock %}
+{% block meta_description %}{{ page.meta_description }}{% endblock %}
+
+{% block content %}
+
+<!-- Hero Section -->
+<section class="relative h-[45vh] min-h-[350px] flex items-end overflow-hidden">
+  <!-- Background Image -->
+  <div class="absolute inset-0">
+    {% if page.image %}
+    <img src="{{ page.image.url }}" alt="{{ page.title }}" class="w-full h-full object-cover">
+    {% else %}
+    <div class="w-full h-full bg-gradient-to-br from-primary to-highlight"></div>
+    {% endif %}
+    <!-- Gradient Overlay -->
+    <div class="absolute inset-0 bg-gradient-to-t from-primary via-primary/40 to-transparent"></div>
+  </div>
+
+  <!-- Hero Content -->
+  <div class="relative z-10 w-full">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+      <!-- Breadcrumb -->
+      <nav class="mb-4" aria-label="Breadcrumb">
+        <ol class="flex items-center gap-2 text-white/60 text-sm">
+          <li><a href="{% url 'pages:home' %}" class="hover:text-highlight transition-colors">Home</a></li>
+          <li><i class="fas fa-chevron-right text-xs"></i></li>
+          <li>Destinations</li>
+          <li><i class="fas fa-chevron-right text-xs"></i></li>
+          <li class="text-white">{{ page.title }}</li>
+        </ol>
+      </nav>
+
+      <h1 class="text-3xl sm:text-4xl md:text-5xl text-white font-bold mb-4">
+        {{ page.title }}
+      </h1>
+
+      {% if page.location %}
+      <div class="flex items-center gap-2 text-white/80">
+        <i class="fas fa-map-marker-alt text-highlight"></i>
+        <span>{{ page.location }}</span>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<!-- Main Content -->
+<section class="py-12 bg-light-neutral">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+
+      <!-- Content Area (Left Column) -->
+      <div class="lg:col-span-2">
+        <div class="bg-white rounded-2xl p-8 sm:p-10 shadow-card">
+          <div
+            class="prose prose-lg max-w-none text-gray leading-relaxed prose-headings:text-gray-dark prose-headings:font-bold prose-a:text-highlight hover:prose-a:underline">
+            {{ page.linked_content }}
+          </div>
+
+          {% if page.modifiers %}
+          <div class="mt-10 pt-8 border-t border-gray-100">
+            <h3 class="text-xl text-gray-dark font-bold mb-4">Highlights & Features</h3>
+            <div class="flex flex-wrap gap-2">
+              {% for modifier in page.modifiers.split %}
+              <span
+                class="px-4 py-2 bg-highlight/5 text-highlight text-sm font-semibold rounded-full border border-highlight/10 capitalize">
+                {{ modifier|cut:"," }}
+              </span>
+              {% endfor %}
+            </div>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+
+      <!-- Sidebar (Right Column) -->
+      <div class="lg:col-span-1">
+        <div class="space-y-8 sticky top-28">
+
+          <!-- Booking / Inquiry CTA -->
+          <div class="seo-booking-cta rounded-2xl p-8 shadow-xl relative overflow-hidden">
+            <!-- Decorative Circle -->
+            <div class="absolute -top-10 -right-10 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+
+            <div class="relative z-10">
+              <h3 class="text-2xl font-bold mb-4">Ready to Explore?</h3>
+              <p class="mb-6 text-sm">
+                Book a private boat tour to {{ page.title }} and experience Lake Naivasha like never before.
+              </p>
+              <a href="{{ site.whatsapp_url }}"
+                target="_blank"
+                class="seo-booking-cta__button flex items-center justify-center gap-3 w-full py-4 font-bold rounded-xl transition-all duration-300 shadow-lg group">
+                <i class="fab fa-whatsapp text-xl"></i>
+                <span>Inquire Now</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Related Locations -->
+          {% if related_pages %}
+          <div class="bg-white rounded-2xl p-6 shadow-card">
+            <h3 class="text-lg text-gray-dark font-bold mb-5 flex items-center gap-2">
+              <span class="w-1 h-6 bg-highlight rounded-full"></span>
+              Explore More Spots
+            </h3>
+            <div class="space-y-4">
+              {% for related in related_pages %}
+              <a href="{{ related.get_absolute_url }}"
+                class="group flex items-center gap-4 p-2 rounded-xl hover:bg-light-neutral transition-colors">
+                <div class="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0">
+                  {% if related.image %}
+                  <img src="{{ related.image.url }}" alt="{{ related.title }}"
+                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                  {% else %}
+                  <div class="w-full h-full bg-primary flex items-center justify-center">
+                    <i class="fas fa-map-marked-alt text-white/30"></i>
+                  </div>
+                  {% endif %}
+                </div>
+                <div class="min-w-0">
+                  <h4 class="font-bold text-gray-dark text-sm group-hover:text-highlight transition-colors truncate">
+                    {{ related.title }}</h4>
+                  <p class="text-xs text-gray truncate">{{ related.location|default:"Lake Naivasha" }}</p>
+                </div>
+              </a>
+              {% endfor %}
+            </div>
+          </div>
+          {% endif %}
+
+          <!-- Trust Cards -->
+          <div class="grid grid-cols-2 gap-4">
+            <div class="bg-white p-4 rounded-xl shadow-card text-center">
+              <i class="fas fa-shield-alt text-highlight text-xl mb-2"></i>
+              <p class="text-[10px] font-bold text-gray-dark uppercase tracking-wider">Safe & Secure</p>
+            </div>
+            <div class="bg-white p-4 rounded-xl shadow-card text-center">
+              <i class="fas fa-user-tie text-highlight text-xl mb-2"></i>
+              <p class="text-[10px] font-bold text-gray-dark uppercase tracking-wider">Expert Guides</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- DESTINATION STRUCTURED DATA -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": ["Place", "Article"],
+  "name": "{{ page.title|escapejs }}",
+  "description": "{{ page.meta_description|escapejs }}",
+  "url": "{{ site.base_url }}{{ request.path }}",
+  "image": "{% if page.image %}{{ request.scheme }}://{{ request.get_host }}{{ page.image.url }}{% endif %}",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "{{ page.location|default:'Naivasha'|escapejs }}",
+    "addressRegion": "Nakuru",
+    "addressCountry": "KE"
+  },
+  "author": {
+    "@type": "Organization",
+    "name": "Paradise Boat Rides Naivasha"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Paradise Boat Rides Naivasha",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "{{ site.base_url }}{% static 'images/paradise-logo.jpeg' %}"
+    }
+  },
+  "datePublished": "{{ page.created_at|date:'c' }}",
+  "dateModified": "{{ page.updated_at|date:'c' }}",
+  "mainEntityOfPage": "{{ site.base_url }}{{ request.path }}"
+}
+</script>
+
+{% endblock %}

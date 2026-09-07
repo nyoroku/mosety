@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta_title %}Rate {{ member.name }} | Paradise Boat Rides{% endblock %}
+
+{% block content %}
+<section class="relative py-20 bg-slate-50 min-h-screen flex items-center justify-center">
+    <div class="absolute inset-0 bg-gradient-to-br from-highlight/5 to-accent-gold/5 pointer-events-none"></div>
+
+    <div class="container relative z-10 px-6 mx-auto">
+        <div class="max-w-xl mx-auto">
+            <!-- Glassmorphic Card -->
+            <div class="bg-white/80 backdrop-blur-xl rounded-[3rem] p-10 shadow-2xl border border-white/50">
+                <div class="text-center mb-10">
+                    <div class="relative w-24 h-24 mx-auto mb-6">
+                        {% if member.photo %}
+                        <img src="{{ member.photo.url }}" alt="{{ member.name }}"
+                            class="w-full h-full object-cover rounded-full border-4 border-white shadow-lg">
+                        {% else %}
+                        <div
+                            class="w-full h-full bg-slate-100 rounded-full flex items-center justify-center text-slate-400 border-4 border-white shadow-lg">
+                            <i class="fas fa-user text-3xl"></i>
+                        </div>
+                        {% endif %}
+                        <div
+                            class="absolute -bottom-2 -right-2 px-3 py-1 bg-primary text-white text-[10px] font-bold rounded-full uppercase tracking-tighter">
+                            {{ member.get_role_display }}
+                        </div>
+                    </div>
+                    <h1 class="text-3xl font-extrabold text-primary mb-2">How was your trip with {{ member.name }}?</h1>
+                    <p class="text-gray leading-relaxed px-4">Your feedback helps {{ member.name }} climb the
+                        Leaderboard and helps us improve our service.</p>
+                </div>
+
+                <!-- Rating Form -->
+                <form method="POST" id="ratingForm" class="space-y-8">
+                    {% csrf_token %}
+
+                    <!-- Star Interaction -->
+                    <div class="flex flex-col items-center">
+                        <div class="flex gap-3 text-4xl mb-4" id="starContainer">
+                            {% for i in "12345" %}
+                            <label class="cursor-pointer transition-transform hover:scale-125">
+                                <input type="radio" name="rating" value="{{ forloop.counter }}" class="hidden peer"
+                                    required {% if forloop.last %}checked{% endif %}>
+                                <i
+                                    class="far fa-star text-slate-300 peer-checked:text-yellow-400 peer-checked:fas transition-colors"></i>
+                            </label>
+                            {% endfor %}
+                        </div>
+                        <p id="ratingLabel" class="text-highlight font-bold text-sm uppercase tracking-widest">Excellent!
+                        </p>
+                    </div>
+
+                    <div class="space-y-4">
+                        <input type="text" name="customer_name" placeholder="Your Name" required
+                            class="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-2 focus:ring-highlight/20 focus:border-highlight outline-none transition-all placeholder:text-slate-400 font-medium">
+
+                        <input type="text" name="customer_country" placeholder="Your Country (e.g. USA, UK, Kenya)"
+                            class="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-2 focus:ring-highlight/20 focus:border-highlight outline-none transition-all placeholder:text-slate-400 font-medium">
+
+                        <textarea name="testimonial_text" placeholder="Tell us about your experience..." rows="4"
+                            required
+                            class="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-2 focus:ring-highlight/20 focus:border-highlight outline-none transition-all placeholder:text-slate-400 font-medium resize-none"></textarea>
+                    </div>
+
+                    <button type="submit"
+                        class="w-full py-5 bg-primary text-white font-black rounded-3xl hover:bg-highlight hover:scale-[1.02] transition-all shadow-xl shadow-primary/20 flex items-center justify-center gap-3">
+                        Submit Review
+                        <i class="fas fa-paper-plane text-sm"></i>
+                    </button>
+
+                    <p class="text-center text-[10px] text-slate-400 uppercase tracking-widest font-bold">
+                        100% Anonymous Feedback (Optional)
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const stars = document.querySelectorAll('#starContainer input');
+        const label = document.getElementById('ratingLabel');
+        const labels = ['Needs Improvement', 'Could Be Better', 'Good Experience', 'Very Good!', 'Excellent!'];
+
+        stars.forEach((star, index) => {
+            star.addEventListener('change', () => {
+                label.textContent = labels[index];
+
+                // Manually handle the icon toggle for stars before the selected one
+                stars.forEach((s, i) => {
+                    const icon = s.nextElementSibling;
+                    if (i <= index) {
+                        icon.classList.remove('far');
+                        icon.classList.add('fas', 'text-yellow-400');
+                        icon.classList.remove('text-slate-300');
+                    } else {
+                        icon.classList.remove('fas', 'text-yellow-400');
+                        icon.classList.add('far', 'text-slate-300');
+                    }
+                });
+            });
+        });
+
+        // Initial state
+        stars[4].dispatchEvent(new Event('change'));
+    });
+</script>
+{% endblock %}

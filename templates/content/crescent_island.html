@@ -1,0 +1,246 @@
+{% extends 'base.html' %}
+{% load static humanize %}
+
+{% block meta_title %}{{ meta_title }}{% endblock %}
+{% block meta_description %}{{ meta_description }}{% endblock %}
+
+{% block content %}
+<!-- Pillar Hero -->
+<section style="background: var(--ink-forest); color: var(--ivory); padding-block: clamp(3.5rem, 6vw, 5.5rem); position: relative; overflow: hidden;">
+  <div class="site-container">
+    <div style="display: grid; grid-template-columns: 1fr; @media(min-width: 900px){ grid-template-columns: 1.15fr 0.85fr; } gap: 3rem; align-items: center;">
+      
+      <div>
+        <p class="eyebrow eyebrow-gold">Lake Naivasha Pillar Guide</p>
+        <h1 class="hero-h1" style="color: var(--ivory); margin-bottom: 1.25rem;">
+          Crescent Island Game Sanctuary: Complete Boat Ride & Walking Safari Guide
+        </h1>
+        <p class="lead-text" style="color: var(--papyrus); margin-bottom: 2rem;">
+          The only sanctuary in Kenya where you walk freely among wild Maasai giraffes, zebras, wildebeests, and waterbucks without predator fences or safari vans. Everything you need to know about boat transfers, gate fees, walking loops, and best departure hours.
+        </p>
+
+        <div class="btn-row">
+          <a href="{{ tour_whatsapp_url }}" target="_blank" rel="noopener" class="btn btn-primary">
+            <i data-lucide="message-circle" style="width: 18px; height: 18px;"></i>
+            <span>Book Crescent Island Boat Ride</span>
+          </a>
+          <a href="#fee-breakdown" class="btn btn-outline" style="color: var(--ivory); border-color: rgba(234, 225, 209, 0.4);">
+            <span>Fee Breakdown</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Hero Visual Card -->
+      <div>
+        <div style="border-radius: var(--radius-card); overflow: hidden; box-shadow: var(--shadow-lg); background: var(--papyrus); aspect-ratio: 4 / 3;">
+          <img src="{% static 'images/gallery/crescent-island-waterbuck.jpeg' %}" alt="Wildlife grazing peacefully on Crescent Island Sanctuary" style="width: 100%; height: 100%; object-fit: cover;">
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Quick Facts Strip -->
+<section style="background: var(--papyrus-light); border-bottom: 1px solid var(--border-papyrus); padding-block: 1.75rem;">
+  <div class="site-container">
+    <div style="display: grid; grid-template-columns: repeat(2, 1fr); @media(min-width: 768px){ grid-template-columns: repeat(4, 1fr); } gap: 1.5rem;">
+      <div>
+        <span style="font-size: 0.75rem; text-transform: uppercase; color: var(--lake-sage); font-weight: 700; display: block;">Total Experience</span>
+        <strong style="color: var(--ink-forest); font-size: 1.05rem;">2.5 to 3 Hours</strong>
+      </div>
+      <div>
+        <span style="font-size: 0.75rem; text-transform: uppercase; color: var(--lake-sage); font-weight: 700; display: block;">Boat Transfer</span>
+        <strong style="color: var(--ink-forest); font-size: 1.05rem;">15 mins each way</strong>
+      </div>
+      <div>
+        <span style="font-size: 0.75rem; text-transform: uppercase; color: var(--lake-sage); font-weight: 700; display: block;">Walking Terrain</span>
+        <strong style="color: var(--ink-forest); font-size: 1.05rem;">Gentle flat savannah trails</strong>
+      </div>
+      <div>
+        <span style="font-size: 0.75rem; text-transform: uppercase; color: var(--lake-sage); font-weight: 700; display: block;">Predator Status</span>
+        <strong style="color: var(--ink-forest); font-size: 1.05rem;">Zero carnivores (Safe on foot)</strong>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Main Guide Content -->
+<section class="section-spacing" style="background: var(--ivory);">
+  <div class="site-container">
+    <div style="display: grid; grid-template-columns: 1fr; @media(min-width: 960px){ grid-template-columns: 2fr 1fr; } gap: 4rem; align-items: start;">
+      
+      <!-- Left Column: Comprehensive Guide Body -->
+      <div>
+        
+        <!-- Section 1: What is Crescent Island -->
+        <article style="margin-bottom: 3.5rem;">
+          <h2 style="font-size: 2rem; margin-bottom: 1rem; color: var(--ink-forest);">What is Crescent Island?</h2>
+          <p style="font-size: 1.05rem; line-height: 1.7; color: var(--body-text); margin-bottom: 1.25rem;">
+            Crescent Island is a submerged volcanic crater rim located on the eastern basin of Lake Naivasha. Because it forms a protected peninsula connected only by a shallow causeway during dry periods, wild herbivore populations flourish here in extraordinary safety.
+          </p>
+          <p style="font-size: 1.05rem; line-height: 1.7; color: var(--body-text);">
+            There are no lions, leopards, hyenas, or cheetahs on the island. Because of this absence of apex predators, the resident giraffes, zebras, and antelopes are remarkably calm, allowing visitors to walk within 15–20 meters of grazing herds accompanied by sanctuary guides.
+          </p>
+        </article>
+
+        <!-- Section 2: Transparent Fee Breakdown -->
+        <article id="fee-breakdown" style="margin-bottom: 3.5rem; background: #ffffff; border: 2px solid var(--border-papyrus); border-radius: var(--radius-card); padding: clamp(1.75rem, 3vw, 2.5rem); box-shadow: var(--shadow-sm);">
+          <span class="eyebrow eyebrow-gold">Financial Transparency</span>
+          <h2 style="font-size: 1.75rem; margin-bottom: 0.75rem; color: var(--ink-forest);">Understanding the Two Separate Costs</h2>
+          <p style="color: var(--body-muted); margin-bottom: 2rem; font-size: 0.95rem; line-height: 1.6;">
+            A common point of confusion for first-time visitors to Naivasha is the relationship between boat charter fees and sanctuary entrance fees. These are two distinct operational costs paid to different entities:
+          </p>
+
+          <div style="display: grid; grid-template-columns: 1fr; @media(min-width: 600px){ grid-template-columns: 1fr 1fr; } gap: 1.5rem; margin-bottom: 2rem;">
+            <!-- Boat Charter -->
+            <div style="background: var(--ivory); padding: 1.5rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+              <span style="font-size: 0.75rem; text-transform: uppercase; color: var(--lake-sage); font-weight: 700;">1. Boat Ride (Paid to Mosety)</span>
+              <div style="font-family: var(--font-display); font-size: 1.6rem; font-weight: 700; color: var(--ink-forest); margin-block: 0.35rem;">
+                KES 3,500 – 4,500
+              </div>
+              <p style="font-size: 0.85rem; color: var(--body-muted); margin: 0; line-height: 1.5;">
+                Covers round-trip boat charter for your entire group (up to 7 guests), licensed captain, fuel, life jackets, and hippo pod viewing en route.
+              </p>
+            </div>
+
+            <!-- Sanctuary Entry -->
+            <div style="background: var(--ivory); padding: 1.5rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+              <span style="font-size: 0.75rem; text-transform: uppercase; color: var(--lake-sage); font-weight: 700;">2. Sanctuary Gate Fee (Paid at Gate)</span>
+              <div style="font-family: var(--font-display); font-size: 1.6rem; font-weight: 700; color: var(--ink-forest); margin-block: 0.35rem;">
+                KES 1,000 / $33 USD
+              </div>
+              <p style="font-size: 0.85rem; color: var(--body-muted); margin: 0; line-height: 1.5;">
+                Paid directly to Crescent Island Sanctuary management via M-Pesa or Card. Citizens/Residents: KES 1,000 (child KES 500). Non-residents: $33 USD (child $16).
+              </p>
+            </div>
+          </div>
+
+          <div style="background: var(--papyrus-light); border-left: 3px solid var(--rift-gold); padding: 1rem 1.25rem; border-radius: 0 var(--radius-sm) var(--radius-sm) 0; font-size: 0.875rem; color: var(--ink-forest);">
+            <strong>Mosety dock promise:</strong> We never bundle inflated entrance gate markups into boat rates. You pay official gate tariffs directly to sanctuary rangers at the landing dock.
+          </div>
+        </article>
+
+        <!-- Section 3: Step-by-Step Experience Timeline -->
+        <article style="margin-bottom: 3.5rem;">
+          <h2 style="font-size: 2rem; margin-bottom: 1.5rem; color: var(--ink-forest);">The 3-Step Crescent Island Experience</h2>
+          
+          <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+            <div style="display: flex; gap: 1.25rem; align-items: flex-start;">
+              <span style="width: 38px; height: 38px; border-radius: 50%; background: var(--ink-forest); color: var(--rift-gold); display: grid; place-items: center; font-weight: 700; flex-shrink: 0;">1</span>
+              <div>
+                <h3 style="font-size: 1.25rem; margin-bottom: 0.35rem;">Boat Departure & Hippo Observation (20–25 Mins)</h3>
+                <p style="color: var(--body-muted); font-size: 0.95rem; line-height: 1.6; margin: 0;">
+                  Board your boat at Karagita Beach. Your captain navigates along protected acacia shorelines where resident hippo pods rest in the shallows. Observe hippos at ethical 30–50 meter buffers and watch African fish eagles perched above.
+                </p>
+              </div>
+            </div>
+
+            <div style="display: flex; gap: 1.25rem; align-items: flex-start;">
+              <span style="width: 38px; height: 38px; border-radius: 50%; background: var(--ink-forest); color: var(--rift-gold); display: grid; place-items: center; font-weight: 700; flex-shrink: 0;">2</span>
+              <div>
+                <h3 style="font-size: 1.25rem; margin-bottom: 0.35rem;">Guided Walking Safari (60–90 Mins)</h3>
+                <p style="color: var(--body-muted); font-size: 0.95rem; line-height: 1.6; margin: 0;">
+                  Disembark at the Crescent Island jetty. Complete park entry payment at the ranger hut. A sanctuary guide escorts your party on a loop trail across open grassland, getting within close proximity of Maasai giraffes, Grant's gazelles, and defassa waterbucks.
+                </p>
+              </div>
+            </div>
+
+            <div style="display: flex; gap: 1.25rem; align-items: flex-start;">
+              <span style="width: 38px; height: 38px; border-radius: 50%; background: var(--ink-forest); color: var(--rift-gold); display: grid; place-items: center; font-weight: 700; flex-shrink: 0;">3</span>
+              <div>
+                <h3 style="font-size: 1.25rem; margin-bottom: 0.35rem;">Scenic Return Cruise (15–20 Mins)</h3>
+                <p style="color: var(--body-muted); font-size: 0.95rem; line-height: 1.6; margin: 0;">
+                  Your Mosety captain waits at the dock while you walk. Board for a gentle return cruise with scenic vistas across the Mau Escarpment and Mount Longonot in the background.
+                </p>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Section 4: What Animals Will You See? -->
+        <article style="margin-bottom: 3.5rem;">
+          <h2 style="font-size: 2rem; margin-bottom: 1rem; color: var(--ink-forest);">Wildlife Checklist on Crescent Island</h2>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem;">
+            <div style="background: #ffffff; padding: 1.25rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+              <strong style="color: var(--ink-forest); display: block; margin-bottom: 0.25rem;">Maasai Giraffes</strong>
+              <span style="font-size: 0.85rem; color: var(--body-muted);">Tallest wild population in the area, grazing quietly from yellow-fever acacias.</span>
+            </div>
+            <div style="background: #ffffff; padding: 1.25rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+              <strong style="color: var(--ink-forest); display: block; margin-bottom: 0.25rem;">Burchell's Zebras</strong>
+              <span style="font-size: 0.85rem; color: var(--body-muted);">Large family herds with foals grazing alongside wildebeests.</span>
+            </div>
+            <div style="background: #ffffff; padding: 1.25rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+              <strong style="color: var(--ink-forest); display: block; margin-bottom: 0.25rem;">Defassa Waterbucks</strong>
+              <span style="font-size: 0.85rem; color: var(--body-muted);">Shaggy, majestic antelopes inhabiting the shoreline reed zones.</span>
+            </div>
+            <div style="background: #ffffff; padding: 1.25rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+              <strong style="color: var(--ink-forest); display: block; margin-bottom: 0.25rem;">African Fish Eagles</strong>
+              <span style="font-size: 0.85rem; color: var(--body-muted);">Resident pairs nesting atop ancient dead acacia snags along the water.</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Section 5: Best Time to Visit -->
+        <article style="margin-bottom: 3.5rem;">
+          <h2 style="font-size: 2rem; margin-bottom: 1rem; color: var(--ink-forest);">Best Departure Time for Crescent Island</h2>
+          <p style="font-size: 1.05rem; line-height: 1.7; color: var(--body-text); margin-bottom: 1.25rem;">
+            We recommend departing between <strong>08:30 AM and 10:00 AM</strong>. During these mid-morning hours, Lake Naivasha is at its calmest, temperatures are pleasantly crisp for walking, and animals are actively feeding in open clearings before midday heat sets in.
+          </p>
+          <p style="font-size: 1.05rem; line-height: 1.7; color: var(--body-text);">
+            Afternoon visits (after 14:30) can also be rewarding for golden lighting, but afternoon lake chop can make the boat return slightly bumpy.
+          </p>
+        </article>
+
+      </div>
+
+      <!-- Right Column: Sidebar Booking & Conversion Card -->
+      <aside style="position: sticky; top: calc(var(--header-height) + 20px);">
+        <div class="card" style="padding: 2rem; background: #ffffff; border: 2px solid var(--border-papyrus); box-shadow: var(--shadow-card);">
+          <span class="eyebrow eyebrow-gold">Instant WhatsApp Booking</span>
+          <h3 style="font-size: 1.45rem; margin-bottom: 0.5rem; color: var(--ink-forest);">Reserve Your Crescent Island Boat</h3>
+          <p style="font-size: 0.875rem; color: var(--body-muted); margin-bottom: 1.5rem; line-height: 1.5;">
+            Chat directly with a Mosety captain. Check dock availability, lock in standard rates, and receive arrival guidance.
+          </p>
+
+          <div style="display: flex; flex-direction: column; gap: 0.85rem; margin-bottom: 1.5rem;">
+            <a href="{{ tour_whatsapp_url }}" target="_blank" rel="noopener" class="btn btn-primary" style="width: 100%;">
+              <i data-lucide="message-circle" style="width: 18px; height: 18px;"></i>
+              <span>Book on WhatsApp</span>
+            </a>
+            <a href="/book/crescent-island/" class="btn btn-outline" style="width: 100%;">
+              <span>Online Booking Form</span>
+            </a>
+          </div>
+
+          <div style="border-top: 1px solid var(--border-subtle); padding-top: 1.25rem; display: flex; flex-direction: column; gap: 0.65rem; font-size: 0.8125rem; color: var(--lake-sage);">
+            <div style="display: flex; align-items: center; gap: 0.5rem;">
+              <i data-lucide="shield-check" style="width: 16px; height: 16px; color: var(--rift-gold);"></i>
+              <span>Fitted life vests for adults & kids</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.5rem;">
+              <i data-lucide="map-pin" style="width: 16px; height: 16px; color: var(--rift-gold);"></i>
+              <span>Departing Karagita Public Beach</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.5rem;">
+              <i data-lucide="clock" style="width: 16px; height: 16px; color: var(--rift-gold);"></i>
+              <span>Captain waits while you walk</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Related Quick Links -->
+        <div style="margin-top: 1.5rem; padding: 1.5rem; background: var(--papyrus-light); border-radius: var(--radius-card);">
+          <strong style="color: var(--ink-forest); font-size: 0.95rem; display: block; margin-bottom: 0.75rem;">Related Lake Guides</strong>
+          <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.875rem;">
+            <li><a href="/prices/" style="color: var(--ink-forest); text-decoration: underline;">Transparent Rate Matrix & Calculator &rarr;</a></li>
+            <li><a href="/plan-your-visit/getting-here/" style="color: var(--ink-forest); text-decoration: underline;">Getting to Karagita Pier from Nairobi &rarr;</a></li>
+            <li><a href="/safety/" style="color: var(--ink-forest); text-decoration: underline;">Hippo Safety & Boat Protocols &rarr;</a></li>
+          </ul>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+</section>
+{% endblock %}

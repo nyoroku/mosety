@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+{% load static humanize %}
+
+{% block meta_title %}{{ meta_title }}{% endblock %}
+{% block meta_description %}{{ meta_description }}{% endblock %}
+
+{% block content %}
+<section class="section-spacing" style="background: var(--ivory);">
+  <div class="site-container-narrow">
+    
+    <!-- Breadcrumb Nav -->
+    <nav style="font-size: 0.85rem; color: var(--lake-sage); margin-bottom: 1.5rem;" aria-label="Breadcrumb">
+      <a href="/" style="color: var(--lake-sage);">Home</a> &rsaquo;
+      <a href="/plan-your-visit/" style="color: var(--lake-sage);">Plan Your Visit</a> &rsaquo;
+      <span style="color: var(--ink-forest); font-weight: 600;">What to Bring</span>
+    </nav>
+
+    <p class="eyebrow eyebrow-gold">Preparation & Packing Checklist</p>
+    <h1 class="hero-h1" style="margin-bottom: 1.25rem;">What to Bring on a Lake Naivasha Boat Safari</h1>
+    
+    <div style="color: var(--body-text); font-size: 1.05rem; line-height: 1.7; margin-bottom: 2.5rem;">
+      <p>
+        Being well prepared on the water makes all the difference between feeling chilled and squinting in the sun versus enjoying an unhurried, comfortable wilderness experience. Here is the captain-approved checklist for your morning or afternoon ride.
+      </p>
+    </div>
+
+    <!-- Packing Checklist Grid -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; margin-bottom: 3.5rem;">
+      
+      <!-- Item 1 -->
+      <div class="card" style="background: #ffffff; border: 1px solid var(--border-subtle); border-radius: var(--radius-card); padding: 1.75rem;">
+        <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--papyrus-light); display: grid; place-items: center; color: var(--rift-gold); margin-bottom: 1rem;">
+          <i data-lucide="sun" style="width: 20px; height: 20px;"></i>
+        </div>
+        <h2 style="font-size: 1.25rem; margin-bottom: 0.5rem; color: var(--ink-forest);">Sun Protection</h2>
+        <p style="color: var(--body-muted); font-size: 0.875rem; line-height: 1.6; margin: 0;">
+          Water reflects tropical UV rays intensely. Bring a wide-brim hat (preferably with a chin strap against lake breezes), UV-blocking sunglasses, and broad-spectrum sunscreen.
+        </p>
+      </div>
+
+      <!-- Item 2 -->
+      <div class="card" style="background: #ffffff; border: 1px solid var(--border-subtle); border-radius: var(--radius-card); padding: 1.75rem;">
+        <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--papyrus-light); display: grid; place-items: center; color: var(--rift-gold); margin-bottom: 1rem;">
+          <i data-lucide="wind" style="width: 20px; height: 20px;"></i>
+        </div>
+        <h2 style="font-size: 1.25rem; margin-bottom: 0.5rem; color: var(--ink-forest);">Warm Windbreaker Layer</h2>
+        <p style="color: var(--body-muted); font-size: 0.875rem; line-height: 1.6; margin: 0;">
+          At 1,884m elevation, early mornings on Lake Naivasha are crisp (12°C–15°C). Bring a lightweight fleece or windbreaker jacket that you can easily peel off as the sun warms the water.
+        </p>
+      </div>
+
+      <!-- Item 3 -->
+      <div class="card" style="background: #ffffff; border: 1px solid var(--border-subtle); border-radius: var(--radius-card); padding: 1.75rem;">
+        <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--papyrus-light); display: grid; place-items: center; color: var(--rift-gold); margin-bottom: 1rem;">
+          <i data-lucide="footprints" style="width: 20px; height: 20px;"></i>
+        </div>
+        <h2 style="font-size: 1.25rem; margin-bottom: 0.5rem; color: var(--ink-forest);">Closed-Toe Walking Shoes</h2>
+        <p style="color: var(--body-muted); font-size: 0.875rem; line-height: 1.6; margin: 0;">
+          If you plan to disembark on Crescent Island, comfortable trainers or hiking sneakers are strongly recommended. Trails are flat but cross dirt, dry grass, and occasional acacia thorns.
+        </p>
+      </div>
+
+      <!-- Item 4 -->
+      <div class="card" style="background: #ffffff; border: 1px solid var(--border-subtle); border-radius: var(--radius-card); padding: 1.75rem;">
+        <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--papyrus-light); display: grid; place-items: center; color: var(--rift-gold); margin-bottom: 1rem;">
+          <i data-lucide="camera" style="width: 20px; height: 20px;"></i>
+        </div>
+        <h2 style="font-size: 1.25rem; margin-bottom: 0.5rem; color: var(--ink-forest);">Optics & Camera Gear</h2>
+        <p style="color: var(--body-muted); font-size: 0.875rem; line-height: 1.6; margin: 0;">
+          Bring 8x42 binoculars for raptors and shorebirds. For photography, a 70–300mm or 100–400mm lens allows framing fish eagle dives and hippo yawn displays from ethical safety distances.
+        </p>
+      </div>
+
+      <!-- Item 5 -->
+      <div class="card" style="background: #ffffff; border: 1px solid var(--border-subtle); border-radius: var(--radius-card); padding: 1.75rem;">
+        <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--papyrus-light); display: grid; place-items: center; color: var(--rift-gold); margin-bottom: 1rem;">
+          <i data-lucide="droplet" style="width: 20px; height: 20px;"></i>
+        </div>
+        <h2 style="font-size: 1.25rem; margin-bottom: 0.5rem; color: var(--ink-forest);">Water & Dry Bag</h2>
+        <p style="color: var(--body-muted); font-size: 0.875rem; line-height: 1.6; margin: 0;">
+          Carry a reusable water bottle to stay hydrated under high-altitude sun. A water-resistant backpack or dry sack protects electronics from unexpected spray during open water transits.
+        </p>
+      </div>
+
+      <!-- Item 6 -->
+      <div class="card" style="background: #ffffff; border: 1px solid var(--border-subtle); border-radius: var(--radius-card); padding: 1.75rem;">
+        <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--papyrus-light); display: grid; place-items: center; color: var(--rift-gold); margin-bottom: 1rem;">
+          <i data-lucide="credit-card" style="width: 20px; height: 20px;"></i>
+        </div>
+        <h2 style="font-size: 1.25rem; margin-bottom: 0.5rem; color: var(--ink-forest);">M-Pesa / Cash for Entry</h2>
+        <p style="color: var(--body-muted); font-size: 0.875rem; line-height: 1.6; margin: 0;">
+          If heading to Crescent Island, keep funds ready on M-Pesa or Visa/MasterCard. The sanctuary ranger gate at the boat landing accepts electronic payments for the official gate entry fee.
+        </p>
+      </div>
+
+    </div>
+
+    <!-- What NOT to Bring -->
+    <div style="background: var(--papyrus-light); border-radius: var(--radius-card); padding: 2.25rem; margin-bottom: 3.5rem;">
+      <h3 style="font-size: 1.35rem; margin-bottom: 0.75rem; color: var(--ink-forest);">What You Should Leave in Your Vehicle</h3>
+      <ul style="color: var(--body-text); font-size: 0.925rem; line-height: 1.6; padding-left: 1.25rem; margin: 0;">
+        <li><strong>Bulky Hard-Shell Luggage:</strong> Keep large suitcases in your vehicle trunk; boat decks have limited floor clearance.</li>
+        <li><strong>Drones / UAVs:</strong> Flying drones over Lake Naivasha and Crescent Island is strictly prohibited by Kenya Wildlife Service regulations without special clearance.</li>
+        <li><strong>Loud Bluetooth Speakers:</strong> To respect the lake ecosystem and wild hippo pods, amplified music is not allowed on safari rides.</li>
+      </ul>
+    </div>
+
+    <div style="text-align: center;">
+      <a href="/boat-rides/" class="btn btn-forest" style="margin-right: 0.75rem;">
+        <span>View Curated Rides</span>
+      </a>
+      <a href="/crescent-island/" class="btn btn-outline">
+        <span>Crescent Island Guide</span>
+      </a>
+    </div>
+
+  </div>
+</section>
+{% endblock %}

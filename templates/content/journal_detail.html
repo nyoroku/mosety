@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% load static humanize %}
+
+{% block meta_title %}{{ article.seo_title|default:article.title }} — {{ site.business_name }}{% endblock %}
+{% block meta_description %}{{ article.meta_description|default:article.excerpt }}{% endblock %}
+
+{% block content %}
+<section class="section-spacing" style="background: var(--ivory);">
+  <div class="site-container-narrow">
+    
+    <!-- Breadcrumb Nav -->
+    <nav style="font-size: 0.85rem; color: var(--lake-sage); margin-bottom: 1.5rem;" aria-label="Breadcrumb">
+      <a href="/" style="color: var(--lake-sage);">Home</a> &rsaquo;
+      <a href="/journal/" style="color: var(--lake-sage);">Journal</a> &rsaquo;
+      <span style="color: var(--ink-forest); font-weight: 600;">{{ article.title }}</span>
+    </nav>
+
+    <!-- Header & Meta -->
+    <div style="margin-bottom: 2.5rem;">
+      <p class="eyebrow eyebrow-gold">Captains Field Note</p>
+      <h1 class="hero-h1" style="margin-bottom: 1rem;">{{ article.title }}</h1>
+      <div style="font-size: 0.875rem; color: var(--lake-sage); display: flex; flex-wrap: wrap; gap: 1rem; align-items: center;">
+        <span>Published {{ article.published_at|date:"d F Y" }}</span>
+        <span>&bull;</span>
+        <span>By {{ article.author_name }}</span>
+        {% if article.reviewer_name %}
+        <span>&bull;</span>
+        <span>Reviewed by {{ article.reviewer_name }}</span>
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- Hero Image if present -->
+    {% if article.hero_image %}
+    <div style="border-radius: var(--radius-card); overflow: hidden; box-shadow: var(--shadow-md); margin-bottom: 3rem; aspect-ratio: 16 / 9; background: var(--papyrus);">
+      <img src="{{ article.hero_image.url }}" alt="{{ article.title }}" style="width: 100%; height: 100%; object-fit: cover;">
+    </div>
+    {% endif %}
+
+    <!-- Article Body -->
+    <article class="article-content" style="color: var(--body-text); font-size: 1.05rem; line-height: 1.8; margin-bottom: 3.5rem;">
+      {% if '<h' in article.body or '<p' in article.body %}
+        {{ article.body|safe }}
+      {% else %}
+        {{ article.body|linebreaks }}
+      {% endif %}
+    </article>
+
+    <!-- Relevant Tours CTA if linked -->
+    {% if article.related_tours.all %}
+    <div style="background: var(--papyrus-light); border-radius: var(--radius-card); padding: 2rem; margin-bottom: 3rem;">
+      <h3 style="font-size: 1.35rem; margin-bottom: 1rem; color: var(--ink-forest);">Related Boat Safaris</h3>
+      <div style="display: flex; flex-direction: column; gap: 1rem;">
+        {% for tour in article.related_tours.all %}
+        <div style="display: flex; justify-content: space-between; align-items: center; background: #ffffff; padding: 1.25rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+          <div>
+            <strong style="color: var(--ink-forest); font-size: 1.05rem; display: block;">{{ tour.name }}</strong>
+            <span style="font-size: 0.8125rem; color: var(--lake-sage);">{{ tour.duration_display }} &bull; Starting KES {{ tour.starting_price_kes|intcomma }}</span>
+          </div>
+          <a href="{{ tour.get_absolute_url }}" class="btn btn-sm btn-forest">
+            <span>View Experience</span>
+            <i data-lucide="arrow-right" style="width: 14px; height: 14px;"></i>
+          </a>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+
+    <!-- Bottom Navigation -->
+    <div style="border-top: 1px solid var(--border-subtle); padding-top: 2rem; display: flex; justify-content: space-between; align-items: center;">
+      <a href="/journal/" class="btn btn-outline">
+        <i data-lucide="arrow-left" style="width: 15px; height: 15px;"></i>
+        <span>Back to All Field Notes</span>
+      </a>
+      <a href="{{ whatsapp_book_url }}" target="_blank" rel="noopener" class="btn btn-primary">
+        <i data-lucide="message-circle" style="width: 16px; height: 16px;"></i>
+        <span>Chat with Mosety</span>
+      </a>
+    </div>
+
+  </div>
+</section>
+{% endblock %}

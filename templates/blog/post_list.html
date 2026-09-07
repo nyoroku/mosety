@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta_title %}Journal | Paradise Boat Rides Naivasha{% endblock %}
+{% block meta_description %}Stories, tips and expert insights from Lake Naivasha. Learn about wildlife, boat safety,
+best times to visit and more.{% endblock %}
+
+{% block content %}
+
+<!-- Hero Section -->
+<section class="relative py-20 bg-primary overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-br from-primary via-primary-dark to-primary opacity-90"></div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <p class="text-highlight font-medium tracking-widest uppercase text-sm mb-4">Lake Naivasha Stories</p>
+        <h1 class="text-4xl sm:text-5xl text-white font-bold mb-4">From Our Journal</h1>
+        <p class="text-white/70 text-lg max-w-2xl mx-auto">
+            Stories from the heart of Lake Naivasha
+        </p>
+    </div>
+</section>
+
+<!-- Blog Grid -->
+<section class="py-16 bg-light-neutral">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        {% if posts %}
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {% for post in posts %}
+            <a href="{{ post.get_absolute_url }}" class="group">
+                <div class="bg-white rounded-xl overflow-hidden shadow-card card-hover h-full flex flex-col">
+                    <!-- Post Image -->
+                    {% if post.image %}
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="{{ post.image.url }}" alt="{{ post.title }}"
+                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                            loading="lazy">
+                    </div>
+                    {% else %}
+                    <div class="h-48 bg-gradient-to-br from-primary/20 to-highlight/20 flex items-center justify-center">
+                        <i class="fas fa-newspaper text-primary/30 text-4xl"></i>
+                    </div>
+                    {% endif %}
+
+                    <!-- Post Content -->
+                    <div class="p-6 flex flex-col flex-grow">
+                        <!-- Tags -->
+                        {% if post.tags.all %}
+                        <div class="flex flex-wrap gap-2 mb-3">
+                            {% for tag in post.tags.all|slice:":2" %}
+                            <span class="text-xs font-medium px-2 py-1 bg-highlight/10 text-highlight rounded-full">
+                                {{ tag.name }}
+                            </span>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+
+                        <h3
+                            class="text-lg text-gray-dark font-bold mb-2 line-clamp-2 group-hover:text-highlight transition-colors">
+                            {{ post.title }}</h3>
+                        <p class="text-gray text-sm mb-4 line-clamp-3 flex-grow">
+                            {{ post.content|striptags|truncatewords:20 }}
+                        </p>
+
+                        <div class="pt-4 border-t border-gray-100 flex items-center justify-between text-sm">
+                            <span class="text-gray">{{ post.created_at|date:"M j, Y" }}</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+
+        {% else %}
+        <!-- Empty State -->
+        <div class="text-center py-20">
+            <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-highlight/10 flex items-center justify-center">
+                <i class="fas fa-newspaper text-highlight text-3xl"></i>
+            </div>
+            <h2 class="text-2xl text-gray-dark font-bold mb-3">Coming Soon</h2>
+            <p class="text-gray max-w-md mx-auto">
+                We're preparing insightful articles about Lake Naivasha. Check back soon!
+            </p>
+        </div>
+        {% endif %}
+
+        <!-- Pagination -->
+        {% if is_paginated %}
+        <nav class="mt-12 flex justify-center" aria-label="Pagination">
+            <div class="inline-flex flex-wrap items-center gap-3 bg-white rounded-2xl shadow-card p-3 border border-gray-200">
+                {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previous_page_number }}"
+                    class="px-5 py-2.5 bg-[#062B33] text-white hover:bg-[#10B8C7] font-bold rounded-xl transition-colors no-underline text-sm flex items-center gap-2">
+                    <i class="fas fa-chevron-left text-xs"></i> Previous
+                </a>
+                {% endif %}
+
+                <span class="px-5 py-2.5 bg-[#EAF7F5] text-[#062B33] font-extrabold rounded-xl text-sm border border-[#10B8C7]/30">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+                </span>
+
+                {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}"
+                    class="px-5 py-2.5 bg-[#062B33] text-white hover:bg-[#10B8C7] font-bold rounded-xl transition-colors no-underline text-sm flex items-center gap-2">
+                    Next <i class="fas fa-chevron-right text-xs"></i>
+                </a>
+                {% endif %}
+            </div>
+        </nav>
+        {% endif %}
+    </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta_title %}Our Services | Paradise Boat Rides{% endblock %}
+{% block meta_description %}Learn more about the comprehensive services offered by Paradise Boat Rides, from guided tours
+to special event hosting on Lake Naivasha.{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero is-primary is-bold">
+    <div class="hero-body">
+        <div class="container has-text-centered">
+            <h1 class="title is-1">Our Services</h1>
+            <p class="subtitle is-3">More than just boat rides, we offer complete experiences.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Services Grid -->
+<section class="section">
+    <div class="container">
+        <div class="columns is-multiline">
+            {% for service in services %}
+            <div class="column is-4">
+                <div class="box has-text-centered">
+                    <div class="block">
+                        <span class="icon is-large has-text-primary">
+                            <i class="{{ service.icon_class }} fa-3x"></i>
+                        </span>
+                    </div>
+                    <p class="title is-4">{{ service.title }}</p>
+                    <div class="content">
+                        {{ service.description|safe }}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

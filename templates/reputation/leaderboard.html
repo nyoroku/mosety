@@ -1,0 +1,146 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta_title %}Crew Wall of Fame | Paradise Boat Rides{% endblock %}
+
+{% block content %}
+<section class="relative py-20 bg-slate-50 min-h-screen">
+    <div class="absolute inset-0 bg-[url('{% static 'images/hero-pattern.svg' %}')] opacity-5 pointer-events-none">
+    </div>
+
+    <div class="container relative z-10 px-6 mx-auto">
+        <div class="max-w-4xl mx-auto">
+            <!-- Header -->
+            <div class="text-center mb-16">
+                <span
+                    class="inline-block px-4 py-1.5 bg-highlight/10 text-highlight text-xs font-bold rounded-full uppercase tracking-widest mb-4">
+                    The Reputation Engine
+                </span>
+                <h1 class="text-4xl md:text-5xl font-extrabold text-primary mb-6">Crew Wall of Fame</h1>
+                <p class="text-gray text-lg max-w-2xl mx-auto">
+                    Meet the captains and guides who make Paradise Boat Rides the top-rated experience in Naivasha.
+                    Rankings are based directly on customer feedback.
+                </p>
+            </div>
+
+            <!-- Top 3 Podium (Visual Highlight) -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16 items-end">
+                {% for staff in crew|slice:":3" %}
+                <div
+                    class="relative {% if forloop.first %}order-2 md:-translate-y-8{% elif forloop.counter == 2 %}order-1{% else %}order-3{% endif %}">
+                    <div
+                        class="bg-white rounded-[2.5rem] p-8 shadow-2xl border border-slate-100 text-center transition-transform hover:scale-105 duration-500">
+                        <!-- Rank Badge -->
+                        <div
+                            class="absolute -top-4 left-1/2 -translate-x-1/2 w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center font-bold shadow-lg">
+                            {{ forloop.counter }}
+                        </div>
+
+                        <div class="relative w-24 h-24 mx-auto mb-6">
+                            {% if staff.photo %}
+                            <img src="{{ staff.photo.url }}" alt="{{ staff.name }}"
+                                class="w-full h-full object-cover rounded-full border-4 border-slate-50 shadow-inner">
+                            {% else %}
+                            <div
+                                class="w-full h-full bg-slate-100 rounded-full flex items-center justify-center text-slate-400">
+                                <i class="fas fa-user text-3xl"></i>
+                            </div>
+                            {% endif %}
+                            {% if forloop.first %}
+                            <div class="absolute -top-2 -right-2 text-yellow-400 text-3xl drop-shadow-md">
+                                <i class="fas fa-crown"></i>
+                            </div>
+                            {% endif %}
+                        </div>
+
+                        <h3 class="text-xl font-bold text-primary mb-1">{{ staff.name }}</h3>
+                        <p class="text-highlight text-sm font-bold uppercase tracking-wider mb-4">{{ staff.get_role_display
+                            }}</p>
+
+                        <div class="flex items-center justify-center gap-2 mb-2">
+                            <span class="text-2xl font-black text-primary">{{ staff.average_rating|floatformat:1 }}</span>
+                            <div class="flex text-yellow-400 text-sm">
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                        <p class="text-slate-400 text-xs font-medium">{{ staff.total_reviews }} Reviews</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <!-- Leaderboard Table -->
+            <div class="bg-white rounded-[2rem] shadow-xl border border-slate-100 overflow-hidden">
+                <div class="p-8 border-b border-slate-50 flex items-center justify-between bg-slate-50/50">
+                    <h2 class="text-lg font-bold text-primary">Current Rankings</h2>
+                    <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">Global Standings</span>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead>
+                            <tr
+                                class="text-left text-xs font-bold text-slate-400 uppercase tracking-widest bg-slate-50/30">
+                                <th class="px-8 py-4">Rank</th>
+                                <th class="px-8 py-4">Name</th>
+                                <th class="px-8 py-4">Rating</th>
+                                <th class="px-8 py-4 text-center">Mentions</th>
+                                <th class="px-8 py-4 text-right">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-50">
+                            {% for staff in crew %}
+                            <tr class="group hover:bg-slate-50/50 transition-colors">
+                                <td class="px-8 py-6">
+                                    {% if forloop.counter <= 3 %} <span
+                                        class="inline-flex items-center justify-center w-8 h-8 rounded-full {% if forloop.first %}bg-yellow-400{% elif forloop.counter == 2 %}bg-slate-300{% else %}bg-amber-600{% endif %} text-white font-bold text-sm">
+                                        {{ forloop.counter }}
+                                        </span>
+                                        {% else %}
+                                        <span class="text-slate-400 font-bold ml-3">{{ forloop.counter }}</span>
+                                        {% endif %}
+                                </td>
+                                <td class="px-8 py-6">
+                                    <div class="flex items-center gap-4">
+                                        {% if staff.photo %}
+                                        <img src="{{ staff.photo.url }}"
+                                            class="w-10 h-10 rounded-full object-cover shadow-sm">
+                                        {% else %}
+                                        <div
+                                            class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-400">
+                                            <i class="fas fa-user text-xs"></i>
+                                        </div>
+                                        {% endif %}
+                                        <div>
+                                            <p class="font-bold text-primary">{{ staff.name }}</p>
+                                            <p class="text-[10px] text-slate-400 uppercase font-bold">{{
+                                                staff.get_role_display }}</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-8 py-6">
+                                    <div class="flex items-center gap-2">
+                                        <span class="font-black text-primary">{{ staff.average_rating|floatformat:2
+                                            }}</span>
+                                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                    </div>
+                                </td>
+                                <td class="px-8 py-6 text-center font-bold text-slate-600">
+                                    {{ staff.total_reviews }}
+                                </td>
+                                <td class="px-8 py-6 text-right">
+                                    <a href="{{ staff.get_rate_url }}"
+                                        class="inline-flex items-center gap-2 px-4 py-2 bg-primary text-white text-xs font-bold rounded-xl hover:bg-highlight transition-all shadow-sm">
+                                        Rate <i class="fas fa-star text-[8px]"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

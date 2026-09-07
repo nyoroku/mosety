@@ -1,0 +1,189 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta_title %}{{ hotel.name }} | Partner Hotels | Paradise Boat Rides{% endblock %}
+{% block meta_description %}{{ hotel.description|safe|striptags|truncatewords:30 }}{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="relative py-20 bg-primary overflow-hidden">
+    <div class="absolute inset-0 bg-[url('{% static 'images/hero-pattern.svg' %}')] opacity-5"></div>
+    <div class="container relative z-10 px-6 mx-auto sm:text-center lg:text-left">
+        <div class="flex flex-col lg:flex-row items-center gap-12">
+            <div class="lg:w-1/2">
+                <nav class="mb-6" aria-label="Breadcrumb">
+                    <ol class="flex items-center gap-2 text-blue-200 text-sm">
+                        <li><a href="{% url 'pages:home' %}" class="hover:text-white transition-colors">Home</a></li>
+                        <li><i class="fas fa-chevron-right text-[10px]"></i></li>
+                        <li><a href="{% url 'accommodation:hotel_list' %}"
+                                class="hover:text-white transition-colors">Accommodations</a></li>
+                        <li><i class="fas fa-chevron-right text-[10px]"></i></li>
+                        <li class="text-white">{{ hotel.name }}</li>
+                    </ol>
+                </nav>
+                <h1 class="text-4xl md:text-6xl font-bold text-white mb-6">{{ hotel.name }}</h1>
+                <div class="flex items-center gap-4 text-blue-100 mb-8">
+                    <span class="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full backdrop-blur-sm">
+                        <i class="fas fa-map-marker-alt text-accent-gold"></i>
+                        {{ hotel.location }}
+                    </span>
+                    {% if hotel.website_url %}
+                    <a href="{{ hotel.website_url }}" target="_blank"
+                        class="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full backdrop-blur-sm hover:bg-white/20 transition-all">
+                        <i class="fas fa-external-link-alt text-accent-gold"></i>
+                        Official Website
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="lg:w-1/2 w-full">
+                <div class="relative group">
+                    <div
+                        class="absolute -inset-1 bg-gradient-to-r from-highlight to-accent-gold rounded-[2rem] blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200">
+                    </div>
+                    <div class="relative aspect-[4/3] rounded-[2rem] overflow-hidden shadow-2xl">
+                        {% if hotel.main_image %}
+                        <img src="{{ hotel.main_image.url }}" alt="{{ hotel.name }}" class="w-full h-full object-cover">
+                        {% else %}
+                        <div class="w-full h-full bg-slate-200 flex items-center justify-center">
+                            <i class="fas fa-hotel text-6xl text-slate-400"></i>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Main content -->
+<section class="py-20 bg-white">
+    <div class="container px-6 mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+            <!-- Left Side: Content & Gallery -->
+            <div class="lg:col-span-2">
+                <!-- Description -->
+                <div class="prose prose-lg max-w-none text-slate-600 mb-16">
+                    <h2 class="text-3xl font-bold text-primary mb-8 flex items-center gap-3">
+                        <span class="w-2 h-10 bg-highlight rounded-full"></span>
+                        About {{ hotel.name }}
+                    </h2>
+                    {{ hotel.description|safe }}
+                </div>
+
+                <!-- Gallery Slideshow -->
+                {% if gallery %}
+                <div class="mt-16">
+                    <h2 class="text-3xl font-bold text-primary mb-8 flex items-center gap-3">
+                        <span class="w-2 h-10 bg-accent-gold rounded-full"></span>
+                        Photo Gallery
+                    </h2>
+
+                    <!-- Swiper -->
+                    <div class="swiper hotelGallerySwiper rounded-[2rem] overflow-hidden shadow-xl">
+                        <div class="swiper-wrapper">
+                            {% for img in gallery %}
+                            <div class="swiper-slide aspect-[16/9]">
+                                <img src="{{ img.image.url }}" alt="{{ img.caption|default:hotel.name }}"
+                                    class="w-full h-full object-cover">
+                                {% if img.caption %}
+                                <div
+                                    class="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/60 to-transparent text-white">
+                                    <p class="font-medium">{{ img.caption }}</p>
+                                </div>
+                                {% endif %}
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <!-- Navigation -->
+                        <div class="swiper-button-next text-white after:text-2xl"></div>
+                        <div class="swiper-button-prev text-white after:text-2xl"></div>
+                        <!-- Pagination -->
+                        <div class="swiper-pagination"></div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- Right Side: Contact/CTA -->
+            <div class="lg:col-span-1">
+                <div class="sticky top-28 space-y-8">
+                    <!-- WhatsApp Card -->
+                    <div class="bg-slate-50 rounded-[2rem] p-8 border border-slate-100">
+                        <h3 class="text-2xl font-bold text-primary mb-4">Stay Near the Lake</h3>
+                        <p class="text-slate-600 mb-8">
+                            {{ hotel.name }} is a trusted accommodation partner of <strong>Paradise Boat Rides</strong>.
+                            Stay here for easy access to our boat launch points and exclusive integrated tour packages.
+                        </p>
+                        <a href="https://wa.me/254729360174?text=Hi!%20I'm%20interested%20in%20staying%20at%20{{ hotel.name|urlencode }}%20(Paradise%20Boat%20Rides%20Partner)%20and%20booking%20a%20boat%20tour."
+                            target="_blank"
+                            class="flex items-center justify-center gap-3 w-full py-4 bg-green-500 text-white font-bold rounded-2xl hover:bg-green-600 transition-all shadow-lg shadow-green-200">
+                            <i class="fab fa-whatsapp text-2xl"></i>
+                            Inquire via WhatsApp
+                        </a>
+                        <div class="mt-6 flex items-center justify-center gap-4 grayscale opacity-50">
+                            <i class="fas fa-handshake"></i>
+                            <span class="text-xs font-bold uppercase tracking-widest">Trusted Partner</span>
+                        </div>
+                    </div>
+
+                    <!-- Location Mini Map Placement (Visual) -->
+                    <div class="bg-primary rounded-[2rem] p-8 text-white">
+                        <h3 class="text-xl font-bold mb-4">Location</h3>
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center text-accent-gold">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <span class="text-blue-100">{{ hotel.location }}</span>
+                        </div>
+                        <p class="text-sm text-blue-200 leading-relaxed">
+                            Ideally located for those looking to maximize their time on the water with Paradise Boat
+                            Rides.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    (function () {
+        function initSwiper() {
+            if (typeof Swiper !== 'undefined' && document.querySelector('.hotelGallerySwiper')) {
+                const swiper = new Swiper('.hotelGallerySwiper', {
+                    loop: true,
+                    autoplay: {
+                        delay: 5000,
+                        disableOnInteraction: false,
+                    },
+                    pagination: {
+                        el: '.swiper-pagination',
+                        clickable: true,
+                    },
+                    navigation: {
+                        nextEl: '.swiper-button-next',
+                        prevEl: '.swiper-button-prev',
+                    },
+                    effect: 'fade',
+                    fadeEffect: {
+                        crossFade: true
+                    },
+                });
+            } else {
+                // Retry in 100ms if Swiper not yet loaded
+                setTimeout(initSwiper, 100);
+            }
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initSwiper);
+        } else {
+            initSwiper();
+        }
+    })();
+</script>
+{% endblock %}

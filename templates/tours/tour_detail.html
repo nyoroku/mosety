@@ -1,0 +1,265 @@
+{% extends 'base.html' %}
+{% load static humanize %}
+
+{% block meta_title %}{{ tour.seo_title|default:tour.name }} — {{ site.business_name }}{% endblock %}
+{% block meta_description %}{{ tour.meta_description|default:tour.summary }}{% endblock %}
+
+{% block content %}
+<!-- Section 08: Hero -->
+<section style="background: var(--ivory); padding-block: clamp(3rem, 5vw, 4.5rem); border-bottom: 1px solid var(--border-subtle);">
+  <div class="site-container">
+    <div style="display: grid; grid-template-columns: 1fr; @media(min-width: 960px){ grid-template-columns: 1.15fr 0.85fr; } gap: 2.5rem; align-items: center;">
+      
+      <div>
+        <nav aria-label="Breadcrumb" style="margin-bottom: 1rem;">
+          <ol style="list-style: none; display: flex; align-items: center; gap: 0.5rem; font-size: 0.8125rem; color: var(--lake-sage);">
+            <li><a href="/" style="color: var(--lake-sage);">Home</a></li>
+            <li>/</li>
+            <li><a href="/boat-rides/" style="color: var(--lake-sage);">Boat Rides</a></li>
+            <li>/</li>
+            <li style="color: var(--ink-forest); font-weight: 700;">{{ tour.short_name }}</li>
+          </ol>
+        </nav>
+
+        <h1 class="hero-h1" style="margin-bottom: 1rem;">{{ tour.name }}</h1>
+        <p class="lead-text" style="margin-bottom: 2rem;">{{ tour.summary }}</p>
+
+        <div style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 1.5rem; margin-bottom: 2rem;">
+          <div>
+            <span style="font-size: 0.75rem; text-transform: uppercase; color: var(--lake-sage); font-weight: 700; display: block;">From</span>
+            <span style="font-family: var(--font-display); font-size: 2.25rem; font-weight: 700; color: var(--ink-forest);">
+              KES {{ tour.starting_price_kes|floatformat:0 }}
+            </span>
+          </div>
+          <div class="fact-chip" style="font-size: 0.875rem;">
+            <i data-lucide="clock"></i> {{ tour.duration_display }}
+          </div>
+          <div class="fact-chip" style="font-size: 0.875rem;">
+            <i data-lucide="users"></i> Up to {{ tour.max_guests }} Guests
+          </div>
+        </div>
+
+        <div class="btn-row">
+          <a href="{{ tour_whatsapp_url }}" target="_blank" rel="noopener" class="btn btn-primary">
+            <i data-lucide="message-circle" style="width: 18px; height: 18px;"></i>
+            <span>Book This Ride on WhatsApp</span>
+          </a>
+          <a href="/book/{{ tour.slug }}/" class="btn btn-outline">
+            <span>Online Booking Form</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Hero Image -->
+      <div>
+        <div style="border-radius: var(--radius-card); overflow: hidden; box-shadow: var(--shadow-lg); aspect-ratio: 4 / 3; background: var(--papyrus);">
+          {% if tour.hero_image %}
+          <img src="{{ tour.hero_image.url }}" alt="{{ tour.name }}" style="width: 100%; height: 100%; object-fit: cover;">
+          {% else %}
+          <img src="{% static 'images/gallery/naivasha-boat-passenger.jpeg' %}" alt="{{ tour.name }}" style="width: 100%; height: 100%; object-fit: cover;">
+          {% endif %}
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Section 09: At a Glance Matrix -->
+<section style="background: var(--papyrus-light); padding-block: 2rem; border-bottom: 1px solid var(--border-papyrus);">
+  <div class="site-container">
+    <div style="display: grid; grid-template-columns: repeat(2, 1fr); @media(min-width: 768px){ grid-template-columns: repeat(4, 1fr); } gap: 1.5rem;">
+      <div>
+        <span style="font-size: 0.75rem; text-transform: uppercase; color: var(--lake-sage); font-weight: 700; display: block;">Departure Point</span>
+        <strong style="color: var(--ink-forest); font-size: 0.95rem;">{{ tour.departure_location }}</strong>
+      </div>
+      <div>
+        <span style="font-size: 0.75rem; text-transform: uppercase; color: var(--lake-sage); font-weight: 700; display: block;">Best For</span>
+        <strong style="color: var(--ink-forest); font-size: 0.95rem;">{{ tour.best_for }}</strong>
+      </div>
+      <div>
+        <span style="font-size: 0.75rem; text-transform: uppercase; color: var(--lake-sage); font-weight: 700; display: block;">Capacity</span>
+        <strong style="color: var(--ink-forest); font-size: 0.95rem;">1 to {{ tour.max_guests }} Passengers</strong>
+      </div>
+      <div>
+        <span style="font-size: 0.75rem; text-transform: uppercase; color: var(--lake-sage); font-weight: 700; display: block;">Safety & Vests</span>
+        <strong style="color: var(--ink-forest); font-size: 0.95rem;">Mandatory fitted life jackets</strong>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Main Tour Body & Side Quote Panel -->
+<section class="section-spacing" style="background: var(--ivory);">
+  <div class="site-container">
+    <div style="display: grid; grid-template-columns: 1fr; @media(min-width: 960px){ grid-template-columns: 1.35fr 0.65fr; } gap: 3.5rem; align-items: start;">
+      
+      <!-- Left Editorial Story -->
+      <div>
+        
+        <!-- Experience Overview -->
+        <div style="margin-bottom: 3rem;">
+          <h2 style="font-size: 1.85rem; margin-bottom: 1rem;">Experience Overview</h2>
+          <div style="color: var(--body-text); font-size: 1.05rem; line-height: 1.7;">
+            {{ tour.description|linebreaks }}
+          </div>
+        </div>
+
+        <!-- Section 10: Highlights -->
+        {% if tour.highlights %}
+        <div style="margin-bottom: 3rem; background: #ffffff; border: 1px solid var(--border-subtle); border-radius: var(--radius-card); padding: 2rem;">
+          <h3 style="font-size: 1.35rem; margin-bottom: 1.25rem;">Why Choose This Experience</h3>
+          <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.85rem;">
+            {% for item in tour.highlights_list %}
+            <li style="display: flex; align-items: flex-start; gap: 0.75rem; font-size: 0.95rem; color: var(--body-text);">
+              <i data-lucide="check-circle-2" style="width: 18px; height: 18px; color: var(--rift-gold); flex-shrink: 0; margin-top: 0.2rem;"></i>
+              <span>{{ item }}</span>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+        {% endif %}
+
+        <!-- Section 12: Timeline & Itinerary -->
+        {% if tour.itinerary %}
+        <div style="margin-bottom: 3rem;">
+          <h2 style="font-size: 1.85rem; margin-bottom: 1.25rem;">Experience Timeline</h2>
+          <div style="background: var(--papyrus-light); border-left: 3px solid var(--rift-gold); border-radius: 0 var(--radius-card) var(--radius-card) 0; padding: 1.75rem;">
+            <p style="white-space: pre-line; margin: 0; color: var(--body-text); font-size: 0.95rem; line-height: 1.7;">
+              {{ tour.itinerary }}
+            </p>
+          </div>
+        </div>
+        {% endif %}
+
+        <!-- Section 13: Inclusions & Exclusions -->
+        <div style="display: grid; grid-template-columns: 1fr; @media(min-width: 600px){ grid-template-columns: 1fr 1fr; } gap: 1.5rem; margin-bottom: 3rem;">
+          <div style="background: #ffffff; border: 1px solid var(--border-subtle); border-radius: var(--radius-card); padding: 1.75rem;">
+            <h4 style="color: var(--ink-forest); margin-bottom: 0.85rem; display: flex; align-items: center; gap: 0.5rem;">
+              <i data-lucide="check" style="color: #2F855A; width: 18px; height: 18px;"></i>
+              <span>What is Included</span>
+            </h4>
+            <p style="font-size: 0.875rem; color: var(--body-muted); line-height: 1.6; margin: 0;">
+              {{ tour.included }}
+            </p>
+          </div>
+
+          <div style="background: #ffffff; border: 1px solid var(--border-subtle); border-radius: var(--radius-card); padding: 1.75rem;">
+            <h4 style="color: var(--ink-forest); margin-bottom: 0.85rem; display: flex; align-items: center; gap: 0.5rem;">
+              <i data-lucide="x" style="color: #C53030; width: 18px; height: 18px;"></i>
+              <span>What is Excluded</span>
+            </h4>
+            <p style="font-size: 0.875rem; color: var(--body-muted); line-height: 1.6; margin: 0;">
+              {{ tour.excluded }}
+            </p>
+          </div>
+        </div>
+
+        <!-- Section 15: What to Bring -->
+        <div style="margin-bottom: 3rem;">
+          <h3 style="font-size: 1.35rem; margin-bottom: 0.85rem;">What to Bring</h3>
+          <p style="font-size: 0.95rem; color: var(--body-muted); line-height: 1.6;">
+            {{ tour.what_to_bring }}
+          </p>
+        </div>
+
+        <!-- Section 16: Safety & Operational Policies -->
+        <div style="background: var(--ink-forest); color: var(--papyrus); border-radius: var(--radius-card); padding: 2rem; margin-bottom: 3rem;">
+          <h3 style="color: var(--ivory); font-size: 1.35rem; margin-bottom: 1rem;">
+            Safety & Operational Standards
+          </h3>
+          <div style="display: flex; flex-direction: column; gap: 1rem; font-size: 0.9rem; line-height: 1.6;">
+            <p><strong>Safety Protocol:</strong> {{ tour.safety_notes }}</p>
+            <p><strong>Children:</strong> {{ tour.child_policy }}</p>
+            <p><strong>Weather Policy:</strong> {{ tour.weather_policy }}</p>
+            <p><strong>Cancellation:</strong> {{ tour.cancellation_policy }}</p>
+          </div>
+        </div>
+
+        <!-- Section 20: Verified Date -->
+        <div style="font-size: 0.8125rem; color: var(--lake-sage); padding-top: 1rem; border-top: 1px solid var(--border-subtle);">
+          Last operational review: {{ tour.last_verified_at|date:"F Y" }} • Reviewed by Mosety Senior Captains
+        </div>
+
+      </div>
+
+      <!-- Right Column: Sticky Quote / Booking Box -->
+      <div style="position: sticky; top: calc(var(--header-height) + 20px);">
+        <div class="card" style="padding: 2rem; background: #ffffff; border: 2px solid var(--border-subtle); box-shadow: var(--shadow-card);">
+          
+          <span class="eyebrow eyebrow-gold">Reserve This Experience</span>
+          <div style="font-family: var(--font-display); font-size: 2rem; font-weight: 700; color: var(--ink-forest); margin-bottom: 0.25rem;">
+            KES {{ tour.starting_price_kes|intcomma }}
+          </div>
+          <span style="font-size: 0.8125rem; color: var(--lake-sage); font-weight: 600; display: block; margin-bottom: 1.5rem;">
+            Official pier rate • Up to {{ tour.max_guests }} passengers
+          </span>
+
+          <div style="display: flex; flex-direction: column; gap: 0.85rem; margin-bottom: 1.75rem;">
+            <a href="{{ tour_whatsapp_url }}" target="_blank" rel="noopener" class="btn btn-primary" style="width: 100%;">
+              <i data-lucide="message-circle" style="width: 18px; height: 18px;"></i>
+              <span>Book on WhatsApp</span>
+            </a>
+            <a href="/book/{{ tour.slug }}/" class="btn btn-outline" style="width: 100%;">
+              <span>Submit Booking Request</span>
+            </a>
+          </div>
+
+          <div style="border-top: 1px solid var(--border-subtle); padding-top: 1.25rem; display: flex; flex-direction: column; gap: 0.65rem; font-size: 0.8125rem; color: var(--lake-sage);">
+            <div style="display: flex; align-items: center; gap: 0.5rem;">
+              <i data-lucide="shield-check" style="width: 16px; height: 16px; color: var(--rift-gold);"></i>
+              <span>Certified life jackets included</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.5rem;">
+              <i data-lucide="clock" style="width: 16px; height: 16px; color: var(--rift-gold);"></i>
+              <span>Free cancellation up to 2 hours prior</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.5rem;">
+              <i data-lucide="map-pin" style="width: 16px; height: 16px; color: var(--rift-gold);"></i>
+              <span>Departing from Karagita Beach</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Section 18: Related Experiences -->
+{% if related_tours %}
+<section class="section-spacing-sm" style="background: var(--papyrus-light); border-top: 1px solid var(--border-papyrus);">
+  <div class="site-container">
+    <div style="margin-bottom: 2rem;">
+      <p class="eyebrow">Alternative Options</p>
+      <h2>More Lake Naivasha Rides</h2>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.75rem;">
+      {% for alt_tour in related_tours %}
+      <article class="card tour-card" style="background: #ffffff;">
+        <div class="tour-card-body">
+          <span class="fact-chip" style="margin-bottom: 0.75rem;"><i data-lucide="clock"></i> {{ alt_tour.duration_display }}</span>
+          <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem;">
+            <a href="{{ alt_tour.get_absolute_url }}">{{ alt_tour.name }}</a>
+          </h3>
+          <p style="font-size: 0.875rem; color: var(--body-muted); margin-bottom: 1.25rem;">
+            {{ alt_tour.summary }}
+          </p>
+          <div class="tour-card-footer">
+            <span style="font-family: var(--font-display); font-weight: 700; color: var(--ink-forest);">
+              From KES {{ alt_tour.starting_price_kes|floatformat:0 }}
+            </span>
+            <a href="{{ alt_tour.get_absolute_url }}" class="btn btn-sm btn-outline">
+              <span>Explore</span>
+            </a>
+          </div>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+{% endblock %}

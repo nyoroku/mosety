@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+{% load static humanize %}
+
+{% block meta_title %}{{ meta_title }}{% endblock %}
+{% block meta_description %}{{ meta_description }}{% endblock %}
+
+{% block content %}
+<section class="section-spacing" style="background: var(--ivory);">
+  <div class="site-container-narrow">
+    
+    <!-- Breadcrumb Nav -->
+    <nav style="font-size: 0.85rem; color: var(--lake-sage); margin-bottom: 1.5rem;" aria-label="Breadcrumb">
+      <a href="/" style="color: var(--lake-sage);">Home</a> &rsaquo;
+      <a href="/plan-your-visit/" style="color: var(--lake-sage);">Plan Your Visit</a> &rsaquo;
+      <span style="color: var(--ink-forest); font-weight: 600;">Best Time to Go</span>
+    </nav>
+
+    <p class="eyebrow eyebrow-gold">Water & Weather Timing</p>
+    <h1 class="hero-h1" style="margin-bottom: 1.25rem;">Best Time of Day & Year for Lake Naivasha Boat Rides</h1>
+    
+    <div style="color: var(--body-text); font-size: 1.05rem; line-height: 1.7; margin-bottom: 2.5rem;">
+      <p>
+        Because Lake Naivasha sits at 1,884 meters above sea level surrounded by volcanic caldera peaks and the Mau Escarpment, weather and water conditions follow very distinct diurnal patterns. Choosing the right departure window transforms your experience from an average boat trip into an unforgettable wilderness safari.
+      </p>
+    </div>
+
+    <!-- Time of Day Breakdown -->
+    <div style="display: flex; flex-direction: column; gap: 1.75rem; margin-bottom: 3.5rem;">
+      
+      <!-- Slot 1: Dawn & Early Morning -->
+      <div class="card" style="background: #ffffff; border: 1px solid var(--border-subtle); border-radius: var(--radius-card); padding: 2rem; border-left: 4px solid #2F855A;">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.75rem;">
+          <h2 style="font-size: 1.45rem; color: var(--ink-forest); margin: 0;">06:30 AM – 08:30 AM: Dawn & Mirror Calm</h2>
+          <span style="background: #EBF7EE; color: #22543D; font-size: 0.75rem; font-weight: 700; padding: 0.25rem 0.65rem; border-radius: var(--radius-pill);">
+            Best Overall for Wildlife & Photography
+          </span>
+        </div>
+        <p style="color: var(--body-text); font-size: 0.95rem; line-height: 1.6; margin-bottom: 0.75rem;">
+          The lake surface is completely flat and glassy. Hippos are still returning to the water from nighttime grassland grazing, and African fish eagles actively hunt along the papyrus edges. The morning light provides warm, soft tones without harsh tropical glare.
+        </p>
+        <span style="font-size: 0.8125rem; color: var(--lake-sage); font-weight: 600;">Ideal for: Birders, wildlife photographers, quiet sunrise enthusiasts.</span>
+      </div>
+
+      <!-- Slot 2: Mid-Morning -->
+      <div class="card" style="background: #ffffff; border: 1px solid var(--border-subtle); border-radius: var(--radius-card); padding: 2rem; border-left: 4px solid var(--rift-gold);">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.75rem;">
+          <h2 style="font-size: 1.45rem; color: var(--ink-forest); margin: 0;">08:30 AM – 11:30 AM: Mild Sun & Family Safari</h2>
+          <span style="background: var(--papyrus); color: var(--ink-forest); font-size: 0.75rem; font-weight: 700; padding: 0.25rem 0.65rem; border-radius: var(--radius-pill);">
+            Best for Crescent Island & Families
+          </span>
+        </div>
+        <p style="color: var(--body-text); font-size: 0.95rem; line-height: 1.6; margin-bottom: 0.75rem;">
+          Pleasantly warm temperatures make this the perfect window for combined boat rides and Crescent Island walking safaris. Animals on the island are active before the midday heat, and water remains smooth for gentle boarding.
+        </p>
+        <span style="font-size: 0.8125rem; color: var(--lake-sage); font-weight: 600;">Ideal for: Families with children, walking safari visitors, casual travelers.</span>
+      </div>
+
+      <!-- Slot 3: Afternoon -->
+      <div class="card" style="background: #ffffff; border: 1px solid var(--border-subtle); border-radius: var(--radius-card); padding: 2rem; border-left: 4px solid #A0AEC0;">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.75rem;">
+          <h2 style="font-size: 1.45rem; color: var(--ink-forest); margin: 0;">12:00 PM – 15:30 PM: Midday Heat & Thermal Wind</h2>
+          <span style="background: #EDF2F7; color: #4A5568; font-size: 0.75rem; font-weight: 700; padding: 0.25rem 0.65rem; border-radius: var(--radius-pill);">
+            Moderate Conditions
+          </span>
+        </div>
+        <p style="color: var(--body-text); font-size: 0.95rem; line-height: 1.6; margin-bottom: 0.75rem;">
+          As thermal gradients warm the Rift Valley floor, southerly breezes pick up across open water, creating small swells and choppy conditions. Hippos submerge deeply to avoid the sun. We generally advise against long-distance open lake crossings during these hours.
+        </p>
+        <span style="font-size: 0.8125rem; color: var(--lake-sage); font-weight: 600;">Ideal for: Sheltered bay cruises or lunch breaks at lakeside lodges.</span>
+      </div>
+
+      <!-- Slot 4: Sunset Golden Hour -->
+      <div class="card" style="background: #ffffff; border: 1px solid var(--border-subtle); border-radius: var(--radius-card); padding: 2rem; border-left: 4px solid #DD6B20;">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.75rem;">
+          <h2 style="font-size: 1.45rem; color: var(--ink-forest); margin: 0;">16:30 PM – 18:30 PM: Golden Hour Sunset Cruise</h2>
+          <span style="background: #FEEBC8; color: #7B341E; font-size: 0.75rem; font-weight: 700; padding: 0.25rem 0.65rem; border-radius: var(--radius-pill);">
+            Best for Couples & Celebrations
+          </span>
+        </div>
+        <p style="color: var(--body-text); font-size: 0.95rem; line-height: 1.6; margin-bottom: 0.75rem;">
+          Winds typically calm as the sun drops behind the Mau Escarpment. Hippos begin yawning, vocalizing, and stirring in preparation for their nocturnal feeding. Sunset skies cast rich amber reflections across the water.
+        </p>
+        <span style="font-size: 0.8125rem; color: var(--lake-sage); font-weight: 600;">Ideal for: Romantic couples, sundowners, evening photography.</span>
+      </div>
+
+    </div>
+
+    <!-- Seasonal Advice Strip -->
+    <div style="background: var(--papyrus-light); border-radius: var(--radius-card); padding: 2.5rem; margin-bottom: 3rem;">
+      <h2 style="font-size: 1.6rem; margin-bottom: 1rem; color: var(--ink-forest);">Seasonal Guide to Lake Naivasha</h2>
+      <div style="display: grid; grid-template-columns: 1fr; @media(min-width: 600px){ grid-template-columns: 1fr 1fr; } gap: 1.5rem; font-size: 0.925rem; line-height: 1.6;">
+        <div>
+          <strong style="color: var(--ink-forest); display: block; margin-bottom: 0.35rem;">Dry Seasons (Jan–Mar & Jul–Oct):</strong>
+          Clear skies, predictable calm mornings, excellent dirt roads for walking on Crescent Island, and peak bird nesting activity.
+        </div>
+        <div>
+          <strong style="color: var(--ink-forest); display: block; margin-bottom: 0.35rem;">Green / Rain Seasons (Apr–May & Nov):</strong>
+          Lush emerald shorelines, spectacular dramatic cloudscapes for landscape photographers, and lower tourist crowds. Short showers usually occur in the late afternoon.
+        </div>
+      </div>
+    </div>
+
+    <!-- Action Button -->
+    <div style="text-align: center;">
+      <a href="/boat-rides/" class="btn btn-forest" style="margin-right: 0.75rem;">
+        <span>View Curated Boat Rides</span>
+      </a>
+      <a href="{{ whatsapp_book_url }}" target="_blank" rel="noopener" class="btn btn-primary">
+        <span>Check Tomorrow's Weather</span>
+      </a>
+    </div>
+
+  </div>
+</section>
+{% endblock %}

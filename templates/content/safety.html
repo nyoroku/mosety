@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+{% load static humanize %}
+
+{% block meta_title %}{{ meta_title }}{% endblock %}
+{% block meta_description %}{{ meta_description }}{% endblock %}
+
+{% block content %}
+<section class="section-spacing" style="background: var(--ivory);">
+  <div class="site-container">
+    
+    <!-- Hero Header -->
+    <div style="max-width: 800px; margin-bottom: 3.5rem;">
+      <p class="eyebrow eyebrow-gold">Safety & Marine Standards</p>
+      <h1 class="hero-h1" style="margin-bottom: 1rem;">Safety on Lake Naivasha Starts Before Boarding</h1>
+      <p class="lead-text">
+        Lake Naivasha is a wild Rift Valley freshwater lake with sudden afternoon thermal winds and active hippopotamus pods. Mosety enforces strict, non-negotiable safety standards to ensure every guest—from solo photographers to multi-generational families—enjoys an unhurried, secure water safari.
+      </p>
+    </div>
+
+    <!-- 4 Core Safety Pillars -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.75rem; margin-bottom: 4rem;">
+      
+      <!-- Pillar 1 -->
+      <div class="card" style="padding: 2rem; background: #ffffff; border: 1px solid var(--border-subtle); border-top: 4px solid var(--rift-gold);">
+        <div style="width: 48px; height: 48px; background: var(--papyrus-light); border-radius: 50%; display: grid; place-items: center; margin-bottom: 1.25rem; color: var(--ink-forest);">
+          <i data-lucide="shield-check" style="width: 24px; height: 24px; color: var(--rift-gold);"></i>
+        </div>
+        <h3 style="font-size: 1.35rem; margin-bottom: 0.65rem;">Mandatory Fitted Life Jackets</h3>
+        <p style="color: var(--body-muted); font-size: 0.9375rem; line-height: 1.6; margin: 0;">
+          Every passenger must wear a properly buckled life jacket before stepping onto the boat. We stock certified commercial vests in all sizes: infant (0–2 years), child (3–10 years), and adult standard to plus sizes.
+        </p>
+      </div>
+
+      <!-- Pillar 2 -->
+      <div class="card" style="padding: 2rem; background: #ffffff; border: 1px solid var(--border-subtle); border-top: 4px solid var(--rift-gold);">
+        <div style="width: 48px; height: 48px; background: var(--papyrus-light); border-radius: 50%; display: grid; place-items: center; margin-bottom: 1.25rem; color: var(--ink-forest);">
+          <i data-lucide="compass" style="width: 24px; height: 24px; color: var(--rift-gold);"></i>
+        </div>
+        <h3 style="font-size: 1.35rem; margin-bottom: 0.65rem;">30–50m Ethical Hippo Buffer</h3>
+        <p style="color: var(--body-muted); font-size: 0.9375rem; line-height: 1.6; margin: 0;">
+          Hippos are territorial mammals that require space and respect. Mosety captains strictly observe a 30 to 50-meter buffer distance, cutting vessel engines to idle drift to observe natural behaviors without agitation.
+        </p>
+      </div>
+
+      <!-- Pillar 3 -->
+      <div class="card" style="padding: 2rem; background: #ffffff; border: 1px solid var(--border-subtle); border-top: 4px solid var(--rift-gold);">
+        <div style="width: 48px; height: 48px; background: var(--papyrus-light); border-radius: 50%; display: grid; place-items: center; margin-bottom: 1.25rem; color: var(--ink-forest);">
+          <i data-lucide="wind" style="width: 24px; height: 24px; color: var(--rift-gold);"></i>
+        </div>
+        <h3 style="font-size: 1.35rem; margin-bottom: 0.65rem;">Weather & Wind Protocols</h3>
+        <p style="color: var(--body-muted); font-size: 0.9375rem; line-height: 1.6; margin: 0;">
+          Naivasha experiences afternoon southerly breezes that can cause choppy water. Our captains hold unilateral authority to delay or reschedule departures if conditions deteriorate. Rescheduling is always 100% free of charge.
+        </p>
+      </div>
+
+      <!-- Pillar 4 -->
+      <div class="card" style="padding: 2rem; background: #ffffff; border: 1px solid var(--border-subtle); border-top: 4px solid var(--rift-gold);">
+        <div style="width: 48px; height: 48px; background: var(--papyrus-light); border-radius: 50%; display: grid; place-items: center; margin-bottom: 1.25rem; color: var(--ink-forest);">
+          <i data-lucide="award" style="width: 24px; height: 24px; color: var(--rift-gold);"></i>
+        </div>
+        <h3 style="font-size: 1.35rem; margin-bottom: 0.65rem;">Certified Local Captains</h3>
+        <p style="color: var(--body-muted); font-size: 0.9375rem; line-height: 1.6; margin: 0;">
+          All Mosety captains are licensed by the Kenya Maritime Authority (KMA) and hold over 10 years of personal navigation experience on Lake Naivasha's specific channels, submerged snags, and shallow mudflats.
+        </p>
+      </div>
+
+    </div>
+
+    <!-- Editorial Deep Dive: Hippo Observation Ethics -->
+    <div style="background: var(--papyrus-light); border-radius: var(--radius-card); padding: clamp(2rem, 4vw, 3.5rem); margin-bottom: 4rem;">
+      <div style="max-width: 760px;">
+        <span class="eyebrow eyebrow-gold">Ethical Wildlife Observation</span>
+        <h2 style="font-size: clamp(1.75rem, 3vw, 2.25rem); margin-bottom: 1rem; color: var(--ink-forest);">
+          Why We Never "Chase" or Corner Hippos
+        </h2>
+        <p style="font-size: 1.05rem; line-height: 1.7; color: var(--body-text); margin-bottom: 1.25rem;">
+          Hippos spend daylight hours resting in shallow papyrus bays to regulate body temperature. Aggressive boat operators who rev engines or crowd pods within 5–10 meters cause severe stress, triggering defensive charges that endanger passengers.
+        </p>
+        <p style="font-size: 1.05rem; line-height: 1.7; color: var(--body-text); margin-bottom: 1.5rem;">
+          At Mosety, our approach is patient and quiet. We cut the motor, allow the vessel to drift silently along the reed line, and give you time with binoculars and telephoto lenses. You watch genuine family behavior—mothers with calves, yawning displays, and territorial territorial posturing—without disturbing the lake’s natural rhythm.
+        </p>
+        <div style="display: flex; gap: 1rem; align-items: center;">
+          <a href="/boat-rides/hippo-bird-safari/" class="btn btn-forest">
+            <span>Explore Hippo Safari</span>
+            <i data-lucide="arrow-right" style="width: 15px; height: 15px;"></i>
+          </a>
+          <a href="/captains/" class="btn btn-outline">
+            <span>Meet Our Captains</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pre-Boarding Briefing Card -->
+    <div style="border: 2px solid var(--border-subtle); border-radius: var(--radius-card); padding: 2.5rem; background: #ffffff;">
+      <h3 style="font-size: 1.5rem; margin-bottom: 1.25rem;">What Happens Before You Board</h3>
+      <ol style="display: flex; flex-direction: column; gap: 1rem; font-size: 0.95rem; color: var(--body-text); line-height: 1.6; padding-left: 1.25rem;">
+        <li><strong>Pier Greeting & Introduction:</strong> Your captain welcomes you at Karagita Beach, checks your party count, and confirms your itinerary.</li>
+        <li><strong>Life Jacket Fitting:</strong> Every guest is personally fitted with an appropriately sized safety vest with tested buckles.</li>
+        <li><strong>Weather & Water Briefing:</strong> Brief explanation of expected wind conditions, sun exposure, and photography guidance.</li>
+        <li><strong>Safe Boarding Assistance:</strong> One-by-one boarding with captain assistance onto stable fiberglass safari craft.</li>
+      </ol>
+    </div>
+
+  </div>
+</section>
+{% endblock %}

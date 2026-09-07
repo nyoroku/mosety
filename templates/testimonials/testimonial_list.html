@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta_title %}Guest Reviews | Paradise Boat Rides Naivasha{% endblock %}
+{% block meta_description %}Read what our guests say about their Lake Naivasha boat experience with Paradise Boat Rides.
+Real reviews from travelers worldwide.{% endblock %}
+
+{% block content %}
+
+<!-- Hero Section -->
+<section class="relative py-20 bg-primary overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-br from-primary via-primary-dark to-primary opacity-90"></div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <p class="text-highlight font-medium tracking-widest uppercase text-sm mb-4">Real Reviews</p>
+        <h1 class="text-4xl sm:text-5xl text-white font-bold mb-4">Guest Reviews</h1>
+        <p class="text-white/70 text-lg max-w-2xl mx-auto">
+            Hear from travelers who've experienced the magic of Lake Naivasha with us
+        </p>
+    </div>
+</section>
+
+<!-- Testimonials Grid -->
+<section class="py-16 bg-light-neutral">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        {% if testimonials %}
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {% for testimonial in testimonials %}
+            <div class="bg-white rounded-xl p-8 shadow-card card-hover">
+                <!-- Stars -->
+                <div class="flex gap-1 mb-4 star-rating">
+                    {% for i in "12345" %}
+                    <i
+                        class="fas fa-star {% if forloop.counter <= testimonial.rating %}text-accent-gold{% else %}text-gray-200{% endif %}"></i>
+                    {% endfor %}
+                </div>
+
+                <!-- Quote -->
+                <p class="text-gray mb-6 leading-relaxed">
+                    "{{ testimonial.testimonial_text }}"
+                </p>
+
+                <!-- Author -->
+                <div class="flex items-center gap-4 pt-4 border-t border-gray-100">
+                    {% if testimonial.customer_photo %}
+                    <img src="{{ testimonial.customer_photo.url }}" alt="{{ testimonial.customer_name }}"
+                        class="w-12 h-12 rounded-full object-cover ring-2 ring-highlight/20">
+                    {% else %}
+                    <div
+                        class="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-highlight flex items-center justify-center text-white font-bold">
+                        {{ testimonial.customer_name|slice:":1" }}
+                    </div>
+                    {% endif %}
+                    <div>
+                        <div class="font-semibold text-gray-dark">{{ testimonial.customer_name }}</div>
+                        <div class="text-sm text-gray">{{ testimonial.customer_country }}</div>
+                    </div>
+                </div>
+
+                {% if testimonial.tour %}
+                <div class="mt-4 pt-4 border-t border-gray-100">
+                    <a href="{{ testimonial.tour.get_absolute_url }}"
+                        class="text-sm text-highlight hover:text-highlight-dark transition-colors">
+                        <i class="fas fa-ship mr-1"></i>
+                        {{ testimonial.tour.name }}
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+
+        {% else %}
+        <!-- Empty State -->
+        <div class="text-center py-20">
+            <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-highlight/10 flex items-center justify-center">
+                <i class="fas fa-star text-highlight text-3xl"></i>
+            </div>
+            <h2 class="text-2xl text-gray-dark font-bold mb-3">Reviews Coming Soon</h2>
+            <p class="text-gray max-w-md mx-auto">
+                Be among our first guests to share your Lake Naivasha experience!
+            </p>
+        </div>
+        {% endif %}
+
+        <!-- Pagination -->
+        {% if is_paginated %}
+        <nav class="mt-12 flex justify-center" aria-label="Pagination">
+            <div class="inline-flex flex-wrap items-center gap-3 bg-white rounded-2xl shadow-card p-3 border border-gray-200">
+                {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previous_page_number }}"
+                    class="px-5 py-2.5 bg-[#062B33] text-white hover:bg-[#10B8C7] font-bold rounded-xl transition-colors no-underline text-sm flex items-center gap-2">
+                    <i class="fas fa-chevron-left text-xs"></i> Previous
+                </a>
+                {% endif %}
+
+                <span class="px-5 py-2.5 bg-[#EAF7F5] text-[#062B33] font-extrabold rounded-xl text-sm border border-[#10B8C7]/30">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+                </span>
+
+                {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}"
+                    class="px-5 py-2.5 bg-[#062B33] text-white hover:bg-[#10B8C7] font-bold rounded-xl transition-colors no-underline text-sm flex items-center gap-2">
+                    Next <i class="fas fa-chevron-right text-xs"></i>
+                </a>
+                {% endif %}
+            </div>
+        </nav>
+        {% endif %}
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-16 bg-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 text-center">
+        <h2 class="text-2xl sm:text-3xl text-gray-dark font-bold mb-4">
+            Ready to Create Your Own Story?
+        </h2>
+        <p class="text-gray mb-8 max-w-xl mx-auto">
+            Join thousands of happy travelers who've experienced the magic of Lake Naivasha.
+        </p>
+        <a href="{% url 'bookings:tour_list' %}"
+            class="btn-primary px-8 py-4 font-bold text-lg rounded-lg inline-block">
+            Book Your Experience
+        </a>
+    </div>
+</section>
+
+{% endblock %}

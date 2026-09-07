@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta_title %}Booking Request Confirmed — {{ site.business_name }}{% endblock %}
+
+{% block content %}
+<section class="section-spacing" style="background: var(--ivory);">
+  <div class="site-container" style="max-width: 680px;">
+    {% include 'bookings/partials/booking_success.html' %}
+
+    <div style="text-align: center; margin-top: 2rem;">
+      <a href="/boat-rides/" class="btn btn-outline" style="margin-right: 0.75rem;">Explore Other Rides</a>
+      <a href="/" class="btn btn-forest">Back to Home</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

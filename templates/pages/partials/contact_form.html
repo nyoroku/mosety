@@ -1,0 +1,55 @@
+<!-- templates/pages/partials/contact_form.html -->
+{% if messages %}
+    <div class="notification is-success">
+        <button class="delete"></button>
+        {% for message in messages %}{{ message }}{% endfor %}
+    </div>
+{% else %}
+    <form
+        method="post"
+        hx-post="{% url 'pages:contact' %}"
+        hx-target="#contact-form-container"
+        hx-swap="innerHTML">
+
+        {% csrf_token %}
+        {{ contact_form.non_field_errors }}
+
+        <div class="field">
+            <label class="label">Name</label>
+            <div class="control">
+                {{ contact_form.name }}
+            </div>
+            <p class="help is-danger">{{ contact_form.name.errors }}</p>
+        </div>
+
+        <div class="field">
+            <label class="label">Email</label>
+            <div class="control">
+                {{ contact_form.email }}
+            </div>
+            <p class="help is-danger">{{ contact_form.email.errors }}</p>
+        </div>
+
+        <div class="field">
+            <label class="label">Subject</label>
+            <div class="control">
+                {{ contact_form.subject }}
+            </div>
+            <p class="help is-danger">{{ contact_form.subject.errors }}</p>
+        </div>
+
+        <div class="field">
+            <label class="label">Message</label>
+            <div class="control">
+                {{ contact_form.message }}
+            </div>
+            <p class="help is-danger">{{ contact_form.message.errors }}</p>
+        </div>
+
+        <div class="field">
+            <div class="control">
+                <button class="button is-primary is-fullwidth" type="submit">Send Message</button>
+            </div>
+        </div>
+    </form>
+{% endif %}

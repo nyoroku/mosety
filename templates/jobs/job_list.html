@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block meta_title %}{{ post.title }} | Blog | Paradise Boat Rides{% endblock %}
+{% block content %}
+<section class="section">
+    <div class="container">
+        <h1 class="title">{{ post.title }}</h1>
+        <p class="subtitle">By {{ post.author.username }} on {{ post.created_at|date:"F j, Y" }}</p>
+        <div class="tags">
+            {% for tag in post.tags.all %}
+            <span class="tag is-primary">{{ tag.name }}</span>
+            {% endfor %}
+        </div>
+        <hr>
+        {% if post.image %}
+        <figure class="image is-16by9 my-5">
+            <img src="{{ post.image.url }}" alt="{{ post.title }}">
+        </figure>
+        {% endif %}
+        <div class="content is-medium">
+            {{ post.content|safe }}
+        </div>
+    </div>
+</section>
+{% endblock %}

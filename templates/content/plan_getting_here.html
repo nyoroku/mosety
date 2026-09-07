@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% load static humanize %}
+
+{% block meta_title %}{{ meta_title }}{% endblock %}
+{% block meta_description %}{{ meta_description }}{% endblock %}
+
+{% block content %}
+<section class="section-spacing" style="background: var(--ivory);">
+  <div class="site-container-narrow">
+    
+    <!-- Breadcrumb Nav -->
+    <nav style="font-size: 0.85rem; color: var(--lake-sage); margin-bottom: 1.5rem;" aria-label="Breadcrumb">
+      <a href="/" style="color: var(--lake-sage);">Home</a> &rsaquo;
+      <a href="/plan-your-visit/" style="color: var(--lake-sage);">Plan Your Visit</a> &rsaquo;
+      <span style="color: var(--ink-forest); font-weight: 600;">Getting Here</span>
+    </nav>
+
+    <p class="eyebrow eyebrow-gold">Route & Travel Guide</p>
+    <h1 class="hero-h1" style="margin-bottom: 1.25rem;">Getting to Lake Naivasha from Nairobi</h1>
+    
+    <div style="color: var(--body-text); font-size: 1.05rem; line-height: 1.7; margin-bottom: 2.5rem;">
+      <p>
+        Lake Naivasha is located approximately 90 kilometers northwest of Nairobi in the Great Rift Valley. Depending on your choice of route and departure time, the journey takes between 1.5 and 2.5 hours. Here is the verified route advice from Mosety captains who commute between the lake and the capital.
+      </p>
+    </div>
+
+    <!-- Route 1 -->
+    <div class="card" style="background: #ffffff; border: 1px solid var(--border-subtle); border-radius: var(--radius-card); padding: 2rem; margin-bottom: 2rem;">
+      <span class="eyebrow eyebrow-gold">Route Option 01 (Recommended for Scenery)</span>
+      <h2 style="font-size: 1.5rem; margin-bottom: 0.75rem; color: var(--ink-forest);">
+        The Lower Escarpment Road via Mai Mahiu (B3)
+      </h2>
+      <p style="color: var(--body-text); font-size: 0.95rem; line-height: 1.6; margin-bottom: 1rem;">
+        Leave Nairobi via Waiyaki Way through Rironi. At the junction, descend the dramatic Rift Valley Escarpment on the B3 highway through Mai Mahiu. This route provides breathtaking panoramic views of Mount Longonot and the valley floor.
+      </p>
+      <ul style="color: var(--body-muted); font-size: 0.9rem; line-height: 1.6; padding-left: 1.25rem; margin-bottom: 1.25rem;">
+        <li><strong>Distance:</strong> ~88 kilometers from Nairobi CBD</li>
+        <li><strong>Average Drive Time:</strong> 1 hour 45 minutes (light traffic)</li>
+        <li><strong>Turnoff Point:</strong> Turn onto Moi South Lake Road before reaching Naivasha town center</li>
+        <li><strong>Road Condition:</strong> Fully paved tarmac; watch for heavy freight trucks on the escarpment curves</li>
+      </ul>
+    </div>
+
+    <!-- Route 2 -->
+    <div class="card" style="background: #ffffff; border: 1px solid var(--border-subtle); border-radius: var(--radius-card); padding: 2rem; margin-bottom: 2rem;">
+      <span class="eyebrow eyebrow-gold">Route Option 02 (Fastest Dual Carriageway)</span>
+      <h2 style="font-size: 1.5rem; margin-bottom: 0.75rem; color: var(--ink-forest);">
+        The Upper Highway via Flyover / Naivasha Town (A104)
+      </h2>
+      <p style="color: var(--body-text); font-size: 0.95rem; line-height: 1.6; margin-bottom: 1rem;">
+        Stay on the A104 Nakuru highway past Limuru and through the Kinungi plateau. Turn left into Naivasha Town at the main roundabout and follow signs for South Lake Road towards Karagita and Hell's Gate National Park.
+      </p>
+      <ul style="color: var(--body-muted); font-size: 0.9rem; line-height: 1.6; padding-left: 1.25rem; margin-bottom: 1.25rem;">
+        <li><strong>Distance:</strong> ~95 kilometers from Nairobi CBD</li>
+        <li><strong>Average Drive Time:</strong> 1 hour 50 minutes</li>
+        <li><strong>Road Condition:</strong> Four-lane dual carriageway for most of the route; minimal truck congestion</li>
+      </ul>
+    </div>
+
+    <!-- Route 3 -->
+    <div class="card" style="background: #ffffff; border: 1px solid var(--border-subtle); border-radius: var(--radius-card); padding: 2rem; margin-bottom: 3rem;">
+      <span class="eyebrow eyebrow-gold">Public Transport Option</span>
+      <h2 style="font-size: 1.5rem; margin-bottom: 0.75rem; color: var(--ink-forest);">
+        Traveling by Matatu from Nairobi
+      </h2>
+      <p style="color: var(--body-text); font-size: 0.95rem; line-height: 1.6; margin-bottom: 1rem;">
+        Public transport to Lake Naivasha is reliable and inexpensive:
+      </p>
+      <ol style="color: var(--body-text); font-size: 0.9rem; line-height: 1.6; padding-left: 1.25rem; margin-bottom: 1.25rem;">
+        <li>Board a 14-seater or shuttle matatu at Nairobi Railways terminal or Accra Road (KES 300 – 400).</li>
+        <li>Alight at the Naivasha town main bus terminus (approx. 1.5 hours).</li>
+        <li>From the same terminal, board a Karagita-bound town matatu (KES 50 – 70) and ask to alight at Karagita Beach stage.</li>
+        <li>Walk 3 minutes down the gentle access road to the Mosety boat pier.</li>
+      </ol>
+    </div>
+
+    <!-- Arrival & Pier Assistance Strip -->
+    <div style="background: var(--papyrus-light); border-radius: var(--radius-card); padding: 2rem; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1.5rem;">
+      <div>
+        <h3 style="font-size: 1.3rem; margin-bottom: 0.25rem; color: var(--ink-forest);">Need a live Google Maps pin or traffic update?</h3>
+        <p style="color: var(--body-muted); font-size: 0.875rem; margin: 0;">
+          Our captains share exact pier coordinates and live morning weather on WhatsApp.
+        </p>
+      </div>
+
+      <a href="{{ whatsapp_book_url }}" target="_blank" rel="noopener" class="btn btn-primary">
+        <i data-lucide="message-circle" style="width: 16px; height: 16px;"></i>
+        <span>Get Directions on WhatsApp</span>
+      </a>
+    </div>
+
+  </div>
+</section>
+{% endblock %}

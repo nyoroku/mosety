@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta_title %}Where to Stay | Partner Hotels | Paradise Boat Rides{% endblock %}
+{% block meta_description %}Discover the best hotels and resorts around Lake Naivasha. Our partner accommodations offer
+premium stays for every traveler.{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="relative py-20 bg-primary overflow-hidden">
+    <div class="absolute inset-0 bg-[url('{% static 'images/hero-pattern.svg' %}')] opacity-5"></div>
+    <div class="container relative z-10 px-6 mx-auto text-center">
+        <h1 class="text-4xl md:text-6xl font-bold text-white mb-6">Stay Near the Lake</h1>
+        <p class="text-xl text-blue-100 max-w-2xl mx-auto">
+            We partner with the finest hotels and resorts around Lake Naivasha to complete your experience.
+            Enjoy seamless transfers and exclusive packages for your boat rides.
+        </p>
+    </div>
+</section>
+
+<!-- Hotels Grid -->
+<section class="py-20 bg-slate-50">
+    <div class="container px-6 mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {% for hotel in hotels %}
+            <div class="group h-80">
+                <a href="{{ hotel.get_absolute_url }}"
+                    class="group block relative h-full rounded-3xl overflow-hidden shadow-card card-hover">
+                    <!-- Background Image -->
+                    {% if hotel.main_image %}
+                    <img src="{{ hotel.main_image.url }}" alt="{{ hotel.name }}"
+                        class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                        loading="lazy">
+                    {% else %}
+                    <div class="absolute inset-0 bg-gradient-to-br from-primary to-highlight"></div>
+                    {% endif %}
+
+                    <!-- Overlay -->
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+
+                    <!-- Bottom Content Row -->
+                    <div class="absolute bottom-0 left-0 right-0 p-8 flex items-end justify-between gap-4">
+                        <div class="text-white min-w-0">
+                            <h3 class="text-2xl font-bold mb-1 group-hover:text-highlight transition-colors">{{ hotel.name
+                                }}</h3>
+                            <p class="text-white/80 font-medium">
+                                <i class="fas fa-map-marker-alt text-accent-gold mr-1"></i> {{ hotel.location }}
+                            </p>
+                        </div>
+
+                        <!-- Circular Arrow Button -->
+                        <div
+                            class="w-12 h-12 rounded-full bg-primary backdrop-blur-md flex items-center justify-center text-white border border-white/30 group-hover:bg-primary group-hover:scale-110 transition-all duration-300 flex-shrink-0">
+                            <i class="fas fa-arrow-right text-sm"></i>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            {% empty %}
+            <div class="col-span-full text-center py-20">
+                <div class="w-20 h-20 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <i class="fas fa-hotel text-3xl text-slate-300"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-primary mb-2">Partner Listings Coming Soon</h3>
+                <p class="text-slate-500">We are currently updating our list of recommended accommodations.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

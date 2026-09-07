@@ -1,0 +1,139 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="section-spacing" style="background: var(--ivory);">
+  <div class="site-container-narrow">
+    
+    <div style="text-align: center; margin-bottom: 2.5rem;">
+      <p class="eyebrow eyebrow-gold" style="justify-content: center;">Direct Lead Capture</p>
+      <h1 class="standard-h1" style="margin-bottom: 0.75rem;">Reserve Your Lake Naivasha Boat Ride</h1>
+      <p class="lead-text" style="margin-inline: auto;">
+        Lock in your date and group size directly with Mosety. No middleman markups, standard pier rates, and free cancellation up to 2 hours before departure.
+      </p>
+    </div>
+
+    <!-- Booking Form Container (Swapped by HTMX upon submission) -->
+    <div id="booking-form-wrapper">
+      <div class="card" style="padding: clamp(1.75rem, 4vw, 2.75rem); background: #ffffff; border: 1px solid var(--border-subtle); box-shadow: var(--shadow-card);">
+        
+        <form hx-post="/book/" hx-target="#booking-form-wrapper" hx-swap="innerHTML" method="post" style="display: flex; flex-direction: column; gap: 1.5rem;">
+          {% csrf_token %}
+
+          {% if form.errors %}
+          <div style="background: #FDF2F2; border-left: 4px solid #E02424; padding: 1rem; border-radius: var(--radius-sm); font-size: 0.875rem; color: #9B1C1C;">
+            Please correct the errors in the form below.
+          </div>
+          {% endif %}
+
+          <div style="display: grid; grid-template-columns: 1fr; @media(min-width: 640px){ grid-template-columns: 1fr 1fr; } gap: 1.25rem;">
+            <!-- Name -->
+            <div>
+              <label for="id_name" style="display: block; font-size: 0.875rem; font-weight: 700; color: var(--ink-forest); margin-bottom: 0.4rem;">
+                Your Full Name *
+              </label>
+              {{ form.name }}
+              {% if form.name.errors %}<div style="color: red; font-size: 0.75rem;">{{ form.name.errors.0 }}</div>{% endif %}
+            </div>
+
+            <!-- Phone -->
+            <div>
+              <label for="id_phone" style="display: block; font-size: 0.875rem; font-weight: 700; color: var(--ink-forest); margin-bottom: 0.4rem;">
+                WhatsApp / Phone Number *
+              </label>
+              {{ form.phone }}
+              {% if form.phone.errors %}<div style="color: red; font-size: 0.75rem;">{{ form.phone.errors.0 }}</div>{% endif %}
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr; @media(min-width: 640px){ grid-template-columns: 1fr 1fr; } gap: 1.25rem;">
+            <!-- Email -->
+            <div>
+              <label for="id_email" style="display: block; font-size: 0.875rem; font-weight: 700; color: var(--ink-forest); margin-bottom: 0.4rem;">
+                Email Address (Optional)
+              </label>
+              {{ form.email }}
+            </div>
+
+            <!-- Tour -->
+            <div>
+              <label for="id_tour" style="display: block; font-size: 0.875rem; font-weight: 700; color: var(--ink-forest); margin-bottom: 0.4rem;">
+                Select Experience *
+              </label>
+              {{ form.tour }}
+              {% if form.tour.errors %}<div style="color: red; font-size: 0.75rem;">{{ form.tour.errors.0 }}</div>{% endif %}
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr; @media(min-width: 640px){ grid-template-columns: 1fr 1fr; } gap: 1.25rem;">
+            <!-- Date -->
+            <div>
+              <label for="id_trip_date" style="display: block; font-size: 0.875rem; font-weight: 700; color: var(--ink-forest); margin-bottom: 0.4rem;">
+                Preferred Date *
+              </label>
+              {{ form.trip_date }}
+              {% if form.trip_date.errors %}<div style="color: red; font-size: 0.75rem;">{{ form.trip_date.errors.0 }}</div>{% endif %}
+            </div>
+
+            <!-- Time -->
+            <div>
+              <label for="id_preferred_time" style="display: block; font-size: 0.875rem; font-weight: 700; color: var(--ink-forest); margin-bottom: 0.4rem;">
+                Preferred Time Slot *
+              </label>
+              {{ form.preferred_time }}
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;">
+            <!-- Adults -->
+            <div>
+              <label for="id_adults" style="display: block; font-size: 0.875rem; font-weight: 700; color: var(--ink-forest); margin-bottom: 0.4rem;">
+                Adults
+              </label>
+              {{ form.adults }}
+            </div>
+
+            <!-- Children -->
+            <div>
+              <label for="id_children" style="display: block; font-size: 0.875rem; font-weight: 700; color: var(--ink-forest); margin-bottom: 0.4rem;">
+                Children
+              </label>
+              {{ form.children }}
+            </div>
+
+            <!-- Booking Type -->
+            <div>
+              <label for="id_booking_type" style="display: block; font-size: 0.875rem; font-weight: 700; color: var(--ink-forest); margin-bottom: 0.4rem;">
+                Ride Type
+              </label>
+              {{ form.booking_type }}
+            </div>
+          </div>
+
+          <!-- Notes -->
+          <div>
+            <label for="id_notes" style="display: block; font-size: 0.875rem; font-weight: 700; color: var(--ink-forest); margin-bottom: 0.4rem;">
+              Notes / Special Requests (Optional)
+            </label>
+            {{ form.notes }}
+          </div>
+
+          <!-- Submit Button -->
+          <div style="margin-top: 0.5rem;">
+            <button type="submit" class="btn btn-primary" style="width: 100%; font-size: 1.05rem; padding-block: 0.95rem;">
+              <span>Submit Booking Request</span>
+              <i data-lucide="arrow-right" style="width: 18px; height: 18px;"></i>
+            </button>
+            <p style="font-size: 0.75rem; color: var(--lake-sage); text-align: center; margin-top: 0.75rem;">
+              Direct submission logs your request and unlocks one-click WhatsApp continuation with your assigned captain.
+            </p>
+          </div>
+
+        </form>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+{% endblock %}

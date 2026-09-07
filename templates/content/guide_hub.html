@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+{% load static humanize %}
+
+{% block meta_title %}{{ meta_title }}{% endblock %}
+{% block meta_description %}{{ meta_description }}{% endblock %}
+
+{% block content %}
+<section class="section-spacing" style="background: var(--ivory);">
+  <div class="site-container">
+    
+    <!-- Hero Header -->
+    <div style="max-width: 800px; margin-bottom: 3.5rem;">
+      <p class="eyebrow eyebrow-gold">Lake Naivasha Destination Authority</p>
+      <h1 class="hero-h1" style="margin-bottom: 1rem;">The Natural Wonder of Lake Naivasha</h1>
+      <p class="lead-text">
+        Sitting at the highest elevation of the Great Rift Valley, Lake Naivasha is a unique freshwater ecosystem spanning roughly 139 square kilometers. Surrounded by dormant volcanoes, papyrus swamps, and yellow-fever acacia woodlands, it hosts one of East Africa’s densest hippo populations and over 400 recorded bird species.
+      </p>
+    </div>
+
+    <!-- 3 Core Wildlife Authority Hubs -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; margin-bottom: 4.5rem;">
+      
+      <!-- Hub 1: Hippos -->
+      <article class="card" style="background: #ffffff; border: 1px solid var(--border-subtle); border-radius: var(--radius-card); overflow: hidden; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; justify-content: space-between;">
+        <div>
+          <div style="aspect-ratio: 16 / 10; background: var(--papyrus); overflow: hidden;">
+            <img src="{% static 'images/gallery/lake-naivasha-hippo-pod.jpeg' %}" alt="Wild hippos resting in Lake Naivasha papyrus shallows" style="width: 100%; height: 100%; object-fit: cover;">
+          </div>
+          <div style="padding: 1.75rem;">
+            <span class="eyebrow eyebrow-gold">Field Guide</span>
+            <h2 style="font-size: 1.45rem; margin-bottom: 0.5rem; color: var(--ink-forest);">Resident Hippo Pods</h2>
+            <p style="font-size: 0.9375rem; color: var(--body-muted); line-height: 1.6; margin: 0;">
+              Over 1,500 hippos inhabit Lake Naivasha. Learn how pods congregate in shallow papyrus bays, their diurnal feeding habits, and how our captains observe them safely from 30–50 meter distances.
+            </p>
+          </div>
+        </div>
+        <div style="padding: 0 1.75rem 1.75rem 1.75rem;">
+          <a href="/naivasha-guide/hippos/" class="btn btn-sm btn-forest" style="width: 100%;">
+            <span>Read Hippo Guide</span>
+            <i data-lucide="arrow-right" style="width: 14px; height: 14px;"></i>
+          </a>
+        </div>
+      </article>
+
+      <!-- Hub 2: Birds & Raptors -->
+      <article class="card" style="background: #ffffff; border: 1px solid var(--border-subtle); border-radius: var(--radius-card); overflow: hidden; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; justify-content: space-between;">
+        <div>
+          <div style="aspect-ratio: 16 / 10; background: var(--papyrus); overflow: hidden;">
+            <img src="{% static 'images/gallery/african-fish-eagle-hunting.jpeg' %}" alt="African fish eagle perching on dead acacia snag" style="width: 100%; height: 100%; object-fit: cover;">
+          </div>
+          <div style="padding: 1.75rem;">
+            <span class="eyebrow eyebrow-gold">Ornithological Authority</span>
+            <h2 style="font-size: 1.45rem; margin-bottom: 0.5rem; color: var(--ink-forest);">400+ Bird Species</h2>
+            <p style="font-size: 0.9375rem; color: var(--body-muted); line-height: 1.6; margin: 0;">
+              A world-renowned Ramsar wetland site. Discover African fish eagles hunting fish in the shallows, giant white pelicans, goliath herons, malachite kingfishers, and seasonal Palearctic migrants.
+            </p>
+          </div>
+        </div>
+        <div style="padding: 0 1.75rem 1.75rem 1.75rem;">
+          <a href="/naivasha-guide/birds/" class="btn btn-sm btn-forest" style="width: 100%;">
+            <span>Read Birding Guide</span>
+            <i data-lucide="arrow-right" style="width: 14px; height: 14px;"></i>
+          </a>
+        </div>
+      </article>
+
+      <!-- Hub 3: Crescent Island & Mammals -->
+      <article class="card" style="background: #ffffff; border: 1px solid var(--border-subtle); border-radius: var(--radius-card); overflow: hidden; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; justify-content: space-between;">
+        <div>
+          <div style="aspect-ratio: 16 / 10; background: var(--papyrus); overflow: hidden;">
+            <img src="{% static 'images/gallery/crescent-island-waterbuck.jpeg' %}" alt="Giraffes and zebras on Crescent Island" style="width: 100%; height: 100%; object-fit: cover;">
+          </div>
+          <div style="padding: 1.75rem;">
+            <span class="eyebrow eyebrow-gold">Walking Safari Sanctuary</span>
+            <h2 style="font-size: 1.45rem; margin-bottom: 0.5rem; color: var(--ink-forest);">Crescent Island & Wildlife</h2>
+            <p style="font-size: 0.9375rem; color: var(--body-muted); line-height: 1.6; margin: 0;">
+              Walk among wild Maasai giraffes, zebras, wildebeests, and waterbucks without predator fences. Understand sanctuary entry gate fees, walking loops, and boat dock transfers.
+            </p>
+          </div>
+        </div>
+        <div style="padding: 0 1.75rem 1.75rem 1.75rem;">
+          <a href="/naivasha-guide/wildlife/" class="btn btn-sm btn-forest" style="width: 100%;">
+            <span>Read Wildlife Guide</span>
+            <i data-lucide="arrow-right" style="width: 14px; height: 14px;"></i>
+          </a>
+        </div>
+      </article>
+
+    </div>
+
+    <!-- Lake Ecological Insights -->
+    <div style="background: var(--papyrus-light); border-radius: var(--radius-card); padding: clamp(2rem, 4vw, 3.5rem); margin-bottom: 4rem;">
+      <h2 style="font-size: 1.85rem; margin-bottom: 1.25rem; color: var(--ink-forest);">A Living Great Rift Valley Ecosystem</h2>
+      <div style="color: var(--body-text); font-size: 1rem; line-height: 1.7; display: flex; flex-direction: column; gap: 1rem;">
+        <p>
+          Unlike the alkaline soda lakes of the Rift Valley (such as Lake Nakuru or Lake Bogoria), Lake Naivasha is a freshwater lake fed by the perennial Malewa and Gilgil rivers flowing down from the Aberdare mountain range. Because it has no visible surface outlet, it is believed to drain via underground volcanic fissures into subterranean aquifers.
+        </p>
+        <p>
+          The water level fluctuates dramatically across multi-year cycles. Over recent years, rising water levels have created new submerged acacia forests that provide pristine perching sites for fish eagles and shelter for juvenile tilapia, black bass, and common carp.
+        </p>
+      </div>
+    </div>
+
+    <!-- Bottom Conversion Banner -->
+    <div style="background: var(--ink-forest); color: var(--ivory); border-radius: var(--radius-card); padding: 2.5rem; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1.5rem;">
+      <div>
+        <h3 style="color: var(--ivory); margin-bottom: 0.35rem;">See This Ecosystem with Local Experts</h3>
+        <p style="color: var(--papyrus); font-size: 0.9375rem; margin: 0;">
+          Our captains grew up navigating these papyrus channels. Book your ride directly for official dock rates.
+        </p>
+      </div>
+
+      <a href="/boat-rides/" class="btn btn-primary">
+        <span>Explore All Boat Safaris</span>
+        <i data-lucide="arrow-right" style="width: 16px; height: 16px;"></i>
+      </a>
+    </div>
+
+  </div>
+</section>
+{% endblock %}

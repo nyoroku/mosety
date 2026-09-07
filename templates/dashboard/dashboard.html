@@ -1,0 +1,489 @@
+{% extends 'base.html' %}
+{% block meta_title %}Business Dashboard | Paradise Boat Rides{% endblock %}
+
+{% block content %}
+<div class="premium-dashboard">
+    <!-- Floating Background Elements -->
+    <div class="bg-orbs">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+    </div>
+
+    <!-- Hero Section -->
+    <div class="hero-container">
+        <div class="hero-grid">
+            <!-- Left: Strategic Overview -->
+            <div class="strategic-panel">
+                <div class="badge-pill">
+                    <span class="badge-dot"></span>
+                    Business Operations
+                </div>
+
+                <h1 class="hero-title">
+                    The Business<br>
+                    <span class="hero-accent">Command Center</span>
+                </h1>
+
+                <p class="hero-subtitle">
+                    Strategy requires clarity. Monitor your revenue streams, track operational expenses, and analyze the
+                    impact of your loyalty & referral engine in real-time.
+                </p>
+
+                <!-- KPI Cards Grid -->
+                <div id="kpi-container">
+                    {% include 'dashboard/partials/kpi_cards.html' %}
+                </div>
+
+                <div class="mt-8 flex gap-4">
+                    <a href="{% url 'bookings:tour_list' %}" class="nav-btn nav-btn-primary">
+                        <i class="fas fa-ship mr-2"></i> View Tours
+                    </a>
+                    <a href="{% url 'reputation:management_dashboard' %}" class="nav-btn nav-btn-secondary">
+                        <i class="fas fa-crown mr-2"></i> Reputation Engine
+                    </a>
+                </div>
+            </div>
+
+            <!-- Right: Performance & Leaderboard -->
+            <div class="leaderboard-panel">
+                <div class="leaderboard-card">
+                    <div class="card-header-premium">
+                        <h2 class="text-xl font-bold text-primary flex items-center gap-2">
+                            <i class="fas fa-trophy text-gold"></i>
+                            Crew Excellence
+                        </h2>
+                        <a href="{% url 'reputation:management_dashboard' %}"
+                            class="text-sm font-bold text-highlight hover:underline">Full Leaderboard</a>
+                    </div>
+
+                    <div class="p-8">
+                        <div class="space-y-4">
+                            {% for staff in top_staff %}
+                            <div class="staff-perf-row">
+                                <div class="flex items-center gap-4">
+                                    <div class="staff-avatar-wrapper">
+                                        {% if staff.photo %}
+                                        <img src="{{ staff.photo.url }}" alt="{{ staff.name }}">
+                                        {% else %}
+                                        <div class="avatar-placeholder"><i class="fas fa-user"></i></div>
+                                        {% endif %}
+                                    </div>
+                                    <div>
+                                        <div class="font-bold text-primary text-sm">{{ staff.name }}</div>
+                                        <div class="text-[10px] uppercase font-bold text-slate-400 tracking-wider">
+                                           {{ staff.get_role_display }}</div>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <div class="font-black text-highlight text-sm">{{ staff.average_rating|floatformat:1 }}
+                                        <i class="fas fa-star text-[10px] text-yellow-400"></i>
+                                    </div>
+                                    <div class="text-[10px] text-slate-400 font-medium">{{ staff.total_reviews }}
+                                        Mentions</div>
+                                </div>
+                            </div>
+                            {% empty %}
+                            <div class="text-center py-6 text-slate-400 italic text-sm">No rankings available yet.</div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Operations Section -->
+    <div class="ops-container mt-20">
+        <div class="ops-grid">
+            <!-- Left: Sales & Bookings -->
+            <div class="ops-panel">
+                <div class="ops-card">
+                    <div class="ops-card-header">
+                        <div>
+                            <h2 class="ops-card-title">Revenue & Bookings</h2>
+                            <p class="ops-card-subtitle">Tracking organic and referred growth</p>
+                        </div>
+                        <button class="ops-action-btn" onclick="toggleForm('sale-form')">
+                            <i class="fas fa-plus"></i> Manual Sale
+                        </button>
+                    </div>
+
+                    <div id="sale-form-container" class="form-drawer hidden p-8 bg-slate-50 border-b">
+                        {% include 'dashboard/partials/add_sale_form.html' %}
+                    </div>
+
+                    <div id="sales-list-container">
+                        {% include 'dashboard/partials/sales_list.html' %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: Expenses -->
+            <div class="ops-panel">
+                <div class="ops-card">
+                    <div class="ops-card-header">
+                        <div>
+                            <h2 class="ops-card-title">Operational Costs</h2>
+                            <p class="ops-card-subtitle">Managing overheads and liabilities</p>
+                        </div>
+                        <button class="ops-action-btn ops-action-btn-secondary" onclick="toggleForm('expense-form')">
+                            <i class="fas fa-receipt"></i> Add Expense
+                        </button>
+                    </div>
+
+                    <div id="expense-form-container" class="form-drawer hidden p-8 bg-slate-50 border-b">
+                        {% include 'dashboard/partials/expense_form.html' %}
+                    </div>
+
+                    <div id="expense-list-container">
+                        {% include 'dashboard/partials/expense_list.html' %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function toggleForm(id) {
+        const container = document.getElementById(id + '-container');
+        container.classList.toggle('hidden');
+    }
+</script>
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Fraunces:wght@300;400;500;600;700;800;900&family=DM+Sans:wght@400;500;600;700&display=swap');
+
+    :root {
+        --color-ink: #0B1D2E;
+        --color-slate: #475569;
+        --color-cloud: #F1F5F9;
+        --color-pearl: #FAFBFC;
+        --color-ocean: #0EA5E9;
+        --color-ocean-light: #38BDF8;
+        --color-gold: #F59E0B;
+        --color-gold-light: #FCD34D;
+        --color-emerald: #10B981;
+        --color-rose: #F43F5E;
+        --radius-lg: 32px;
+        --radius-xl: 48px;
+        --shadow-xl: 0 40px 100px rgba(11, 29, 46, 0.16);
+        --transition-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .premium-dashboard {
+        min-height: 100vh;
+        background: linear-gradient(135deg, #FAFBFC 0%, #F1F5F9 100%);
+        position: relative;
+        overflow: hidden;
+        padding-top: 80px;
+        padding-bottom: 100px;
+    }
+
+    /* Floating Orbs */
+    .bg-orbs {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        z-index: 0;
+        overflow: hidden;
+    }
+
+    .orb {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(80px);
+        opacity: 0.15;
+        animation: float 20s ease-in-out infinite;
+    }
+
+    .orb-1 {
+        width: 600px;
+        height: 600px;
+        background: linear-gradient(135deg, var(--color-ocean) 0%, var(--color-ocean-light) 100%);
+        top: -200px;
+        right: -200px;
+    }
+
+    .orb-2 {
+        width: 500px;
+        height: 500px;
+        background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-gold-light) 100%);
+        bottom: -150px;
+        left: -150px;
+        animation-delay: -7s;
+    }
+
+    .orb-3 {
+        width: 400px;
+        height: 400px;
+        background: linear-gradient(135deg, var(--color-emerald) 0%, #34D399 100%);
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        animation-delay: -14s;
+    }
+
+    @keyframes float {
+
+        0%,
+        100% {
+            transform: translate(0, 0) scale(1);
+        }
+
+        50% {
+            transform: translate(30px, -30px) scale(1.1);
+        }
+    }
+
+    .hero-container,
+    .ops-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 40px;
+        position: relative;
+        z-index: 1;
+    }
+
+    .hero-grid {
+        display: grid;
+        grid-template-columns: 1fr 400px;
+        gap: 60px;
+        align-items: start;
+    }
+
+    .ops-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+    }
+
+    .badge-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 20px;
+        background: rgba(14, 165, 233, 0.08);
+        border: 1.5px solid rgba(14, 165, 233, 0.2);
+        border-radius: 100x;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        color: var(--color-ocean);
+        margin-bottom: 32px;
+        border-radius: 100px;
+    }
+
+    .badge-dot {
+        width: 6px;
+        height: 6px;
+        background: var(--color-ocean);
+        border-radius: 50%;
+        animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+
+        0%,
+        100% {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        50% {
+            opacity: 0.5;
+            transform: scale(1.2);
+        }
+    }
+
+    .hero-title {
+        font-family: 'Fraunces', serif;
+        font-size: 64px;
+        font-weight: 800;
+        line-height: 1.1;
+        color: var(--color-ink);
+        margin-bottom: 24px;
+    }
+
+    .hero-accent {
+        display: block;
+        background: linear-gradient(135deg, var(--color-ocean) 0%, var(--color-ocean-light) 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .hero-subtitle {
+        font-size: 17px;
+        line-height: 1.7;
+        color: var(--color-slate);
+        margin-bottom: 48px;
+        max-width: 540px;
+    }
+
+    .nav-btn {
+        display: inline-flex;
+        align-items: center;
+        padding: 16px 32px;
+        border-radius: 20px;
+        font-weight: 700;
+        transition: all 0.3s;
+    }
+
+    .nav-btn-primary {
+        background: var(--color-ink);
+        color: white;
+        box-shadow: 0 10px 30px rgba(11, 29, 46, 0.2);
+    }
+
+    .nav-btn-secondary {
+        background: white;
+        color: var(--color-ink);
+        border: 1px solid rgba(11, 29, 46, 0.1);
+    }
+
+    .nav-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 40px rgba(11, 29, 46, 0.15);
+    }
+
+    .leaderboard-card,
+    .ops-card {
+        background: white;
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-xl);
+        border: 1px solid rgba(11, 29, 46, 0.06);
+        overflow: hidden;
+    }
+
+    .card-header-premium,
+    .ops-card-header {
+        padding: 32px;
+        border-bottom: 1px solid #f1f5f9;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .staff-perf-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 16px;
+        background: #fafbfc;
+        border-radius: 20px;
+        border: 1px solid #eee;
+        transition: transform 0.3s;
+    }
+
+    .staff-perf-row:hover {
+        transform: scale(1.02);
+    }
+
+    .staff-avatar-wrapper {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        overflow: hidden;
+        background: #eee;
+    }
+
+    .staff-avatar-wrapper img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .avatar-placeholder {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #cbd5e1;
+    }
+
+    .ops-card-title {
+        font-family: 'Fraunces', serif;
+        font-size: 24px;
+        font-weight: 800;
+        color: var(--color-ink);
+    }
+
+    .ops-card-subtitle {
+        font-size: 13px;
+        color: var(--color-slate);
+        font-weight: 500;
+    }
+
+    .ops-action-btn {
+        padding: 10px 20px;
+        border-radius: 12px;
+        background: var(--color-ocean);
+        color: white;
+        font-size: 13px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: all 0.3s;
+    }
+
+    .ops-action-btn-secondary {
+        background: var(--color-ink);
+    }
+
+    .ops-action-btn:hover {
+        opacity: 0.9;
+        transform: translateY(-2px);
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    @media (max-width: 1024px) {
+
+        .hero-grid,
+        .ops-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .hero-title {
+            font-size: 48px;
+        }
+    }
+</style>
+
+<style>
+    /* Dashboard-specific styles */
+    .dashboard-card {
+        border-radius: 20px;
+        box-shadow: 0 4px 20px rgba(6, 43, 51, 0.08);
+        transition: all 0.3s ease;
+        border: none;
+    }
+
+    .dashboard-card:hover {
+        box-shadow: 0 8px 30px rgba(6, 43, 51, 0.12);
+    }
+
+    .card-header-title {
+        font-family: var(--font-heading);
+        font-weight: 700;
+        padding: 1.5rem;
+    }
+
+    .dashboard-card .card-content {
+        padding: 2rem;
+    }
+
+    @media screen and (max-width: 768px) {
+        .dashboard-card .card-content {
+            padding: 1.5rem;
+        }
+    }
+</style>
+{% endblock %}

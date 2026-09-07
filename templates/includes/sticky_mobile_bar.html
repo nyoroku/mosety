@@ -1,0 +1,30 @@
+<div class="sticky-mobile-bar" 
+     x-data="{ showSticky: false }" 
+     x-init="window.addEventListener('scroll', () => { showSticky = window.scrollY > 300 })" 
+     x-show="showSticky" 
+     x-transition:enter="transition ease-out duration-200 transform" 
+     x-transition:enter-start="translate-y-full" 
+     x-transition:enter-end="translate-y-0" 
+     x-transition:leave="transition ease-in duration-150 transform" 
+     x-transition:leave-start="translate-y-0" 
+     x-transition:leave-end="translate-y-full" 
+     x-cloak 
+     aria-label="Quick booking actions">
+  
+  <a href="{{ whatsapp_book_url }}" target="_blank" rel="noopener" class="mobile-bar-btn mobile-bar-primary">
+    <i data-lucide="message-circle" style="width: 17px; height: 17px;"></i>
+    <span>WhatsApp</span>
+  </a>
+
+  {% if site.phone_e164 %}
+  <a href="{{ site.tel_url }}" class="mobile-bar-btn mobile-bar-secondary">
+    <i data-lucide="phone" style="width: 16px; height: 16px;"></i>
+    <span>Call</span>
+  </a>
+  {% endif %}
+
+  <a href="/prices/" class="mobile-bar-btn mobile-bar-secondary">
+    <i data-lucide="calculator" style="width: 16px; height: 16px;"></i>
+    <span>Prices</span>
+  </a>
+</div>

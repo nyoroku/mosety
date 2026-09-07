@@ -1,0 +1,161 @@
+<div class="dashboard-kpi-grid">
+    <!-- Total Revenue Card -->
+    <div class="kpi-premium-card card-revenue">
+        <div class="kpi-icon-box">
+            <i class="fas fa-chart-line"></i>
+        </div>
+        <div class="kpi-data">
+            <div class="kpi-label">Gross Revenue</div>
+            <div class="kpi-value">KES {{ total_sales|floatformat:0 }}</div>
+            <div class="kpi-subtext">Total confirmed bookings</div>
+        </div>
+        <div class="kpi-shimmer"></div>
+    </div>
+
+    <!-- Referral Revenue Card -->
+    <div class="kpi-premium-card card-referral">
+        <div class="kpi-icon-box">
+            <i class="fas fa-user-friends"></i>
+        </div>
+        <div class="kpi-data">
+            <div class="kpi-label">Referral Revenue</div>
+            <div class="kpi-value">KES {{ referral_sales|floatformat:0 }}</div>
+            <div class="kpi-subtext">Via Loyalty Club codes</div>
+        </div>
+    </div>
+
+    <!-- Net Profit Card -->
+    <div class="kpi-premium-card card-profit {% if profit < 0 %}profit-negative{% endif %}">
+        <div class="kpi-icon-box">
+            <i class="fas fa-wallet"></i>
+        </div>
+        <div class="kpi-data">
+            <div class="kpi-label">Net Profit</div>
+            <div class="kpi-value">KES {{ profit|floatformat:0 }}</div>
+            <div class="kpi-subtext">After {{ total_expenses|floatformat:0 }} expenses</div>
+        </div>
+    </div>
+
+    <!-- Loyalty Members Card -->
+    <div class="kpi-premium-card card-loyalty">
+        <div class="kpi-icon-box">
+            <i class="fas fa-crown"></i>
+        </div>
+        <div class="kpi-data">
+            <div class="kpi-label">Loyalty Members</div>
+            <div class="kpi-value">{{ total_loyalty_members }}</div>
+            <div class="kpi-subtext">Active CRM growth</div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .dashboard-kpi-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+
+    .kpi-premium-card {
+        background: white;
+        border-radius: 24px;
+        padding: 24px;
+        display: flex;
+        gap: 20px;
+        align-items: center;
+        border: 1px solid rgba(11, 29, 46, 0.06);
+        box-shadow: 0 10px 30px rgba(11, 29, 46, 0.04);
+        position: relative;
+        overflow: hidden;
+        transition: all 0.4s;
+    }
+
+    .kpi-premium-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 20px 50px rgba(11, 29, 46, 0.08);
+    }
+
+    .kpi-icon-box {
+        width: 56px;
+        height: 56px;
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #f8fafc;
+        color: var(--color-ink);
+        font-size: 24px;
+        flex-shrink: 0;
+    }
+
+    .card-revenue .kpi-icon-box {
+        background: rgba(14, 165, 233, 0.1);
+        color: var(--color-ocean);
+    }
+
+    .card-referral .kpi-icon-box {
+        background: rgba(245, 158, 11, 0.1);
+        color: var(--color-gold);
+    }
+
+    .card-profit .kpi-icon-box {
+        background: rgba(16, 185, 129, 0.1);
+        color: var(--color-emerald);
+    }
+
+    .card-loyalty .kpi-icon-box {
+        background: rgba(139, 92, 246, 0.1);
+        color: #8B5CF6;
+    }
+
+    .profit-negative .kpi-icon-box {
+        background: rgba(244, 63, 94, 0.1);
+        color: var(--color-rose);
+    }
+
+    .kpi-label {
+        font-size: 11px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: var(--color-slate);
+        margin-bottom: 4px;
+    }
+
+    .kpi-value {
+        font-family: 'Fraunces', serif;
+        font-size: 28px;
+        font-weight: 800;
+        color: var(--color-ink);
+        line-height: 1.2;
+    }
+
+    .kpi-subtext {
+        font-size: 11px;
+        color: #94a3b8;
+        font-weight: 600;
+        margin-top: 4px;
+    }
+
+    .kpi-shimmer {
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 50%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+        animation: shimmer 3s infinite;
+    }
+
+    @keyframes shimmer {
+        100% {
+            left: 200%;
+        }
+    }
+
+    @media (max-width: 640px) {
+        .dashboard-kpi-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>

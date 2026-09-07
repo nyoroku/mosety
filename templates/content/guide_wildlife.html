@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+{% load static humanize %}
+
+{% block meta_title %}{{ meta_title }}{% endblock %}
+{% block meta_description %}{{ meta_description }}{% endblock %}
+
+{% block content %}
+<section class="section-spacing" style="background: var(--ivory);">
+  <div class="site-container-narrow">
+    
+    <!-- Breadcrumb Nav -->
+    <nav style="font-size: 0.85rem; color: var(--lake-sage); margin-bottom: 1.5rem;" aria-label="Breadcrumb">
+      <a href="/" style="color: var(--lake-sage);">Home</a> &rsaquo;
+      <a href="/naivasha-guide/" style="color: var(--lake-sage);">Lake Naivasha Guide</a> &rsaquo;
+      <span style="color: var(--ink-forest); font-weight: 600;">Wildlife & Mammals</span>
+    </nav>
+
+    <p class="eyebrow eyebrow-gold">Terrestrial Wildlife Authority</p>
+    <h1 class="hero-h1" style="margin-bottom: 1.25rem;">Animals of Lake Naivasha: Crescent Island & Shoreline Mammals</h1>
+    
+    <div style="color: var(--body-text); font-size: 1.05rem; line-height: 1.7; margin-bottom: 2.5rem;">
+      <p>
+        While Lake Naivasha is celebrated for its aquatic hippo pods and fish eagles, the lake’s surrounding volcanic islands and acacia woodlands support a remarkable assembly of terrestrial African wildlife—many of which can be observed intimately on foot.
+      </p>
+    </div>
+
+    <!-- Feature Image -->
+    <div style="border-radius: var(--radius-card); overflow: hidden; box-shadow: var(--shadow-md); margin-bottom: 3rem; aspect-ratio: 16 / 9; background: var(--papyrus);">
+      <img src="{% static 'images/gallery/crescent-island-waterbuck.jpeg' %}" alt="Maasai giraffes and zebras roaming Crescent Island Sanctuary" style="width: 100%; height: 100%; object-fit: cover;">
+    </div>
+
+    <!-- Animals Profiles -->
+    <article style="margin-bottom: 3.5rem;">
+      <h2 style="font-size: 1.85rem; margin-bottom: 1.5rem; color: var(--ink-forest);">Key Resident Mammals</h2>
+      
+      <div style="display: flex; flex-direction: column; gap: 1.75rem;">
+        
+        <div class="card" style="background: #ffffff; border: 1px solid var(--border-subtle); border-radius: var(--radius-card); padding: 1.75rem;">
+          <h3 style="font-size: 1.35rem; margin-bottom: 0.5rem; color: var(--ink-forest);">1. Maasai Giraffe (<em>Giraffa camelopardalis tippelskirchi</em>)</h3>
+          <p style="color: var(--body-text); font-size: 0.95rem; line-height: 1.6; margin: 0;">
+            Easily distinguished by their irregular, jagged, star-like patterns resembling oak leaves. On Crescent Island, a healthy population roams freely across the central ridge, feeding on tender foliage atop mature fever trees. Because vehicles are absent, they allow visitors on foot to walk quietly to within 20 meters.
+          </p>
+        </div>
+
+        <div class="card" style="background: #ffffff; border: 1px solid var(--border-subtle); border-radius: var(--radius-card); padding: 1.75rem;">
+          <h3 style="font-size: 1.35rem; margin-bottom: 0.5rem; color: var(--ink-forest);">2. Burchell's Zebra (<em>Equus quagga burchellii</em>)</h3>
+          <p style="color: var(--body-text); font-size: 0.95rem; line-height: 1.6; margin: 0;">
+            Zebras graze in family harems across the open savannah meadows of Crescent Island and Sanctuary Farm. They share grazing areas peacefully with wildebeests, often alerting the herds with sharp whinnies when startled.
+          </p>
+        </div>
+
+        <div class="card" style="background: #ffffff; border: 1px solid var(--border-subtle); border-radius: var(--radius-card); padding: 1.75rem;">
+          <h3 style="font-size: 1.35rem; margin-bottom: 0.5rem; color: var(--ink-forest);">3. Defassa Waterbuck (<em>Kobus ellipsiprymnus defassa</em>)</h3>
+          <p style="color: var(--body-text); font-size: 0.95rem; line-height: 1.6; margin: 0;">
+            Unlike common waterbucks which feature an elliptical white ring on the rump, the Defassa subspecies has a solid white patch. They have thick, shaggy coats that secrete a water-repellent musk, allowing them to wade comfortably into papyrus reeds to feed on succulent water grasses.
+          </p>
+        </div>
+
+        <div class="card" style="background: #ffffff; border: 1px solid var(--border-subtle); border-radius: var(--radius-card); padding: 1.75rem;">
+          <h3 style="font-size: 1.35rem; margin-bottom: 0.5rem; color: var(--ink-forest);">4. Black-and-White Colobus Monkey (<em>Colobus guereza</em>)</h3>
+          <p style="color: var(--body-text); font-size: 0.95rem; line-height: 1.6; margin: 0;">
+            High up in the fever tree canopies along South Lake Road and riparian lodge grounds, family troops of colobus monkeys leap acrobatically between branches. Their long, flowing white mantles and fluffy white tails stand out strikingly against dark foliage.
+          </p>
+        </div>
+
+      </div>
+    </article>
+
+    <!-- Walking Safari Rules -->
+    <div style="background: var(--papyrus-light); border-radius: var(--radius-card); padding: 2.25rem; margin-bottom: 3.5rem;">
+      <h3 style="font-size: 1.35rem; margin-bottom: 0.75rem; color: var(--ink-forest);">Ethical Walking Safari Guidelines</h3>
+      <ul style="color: var(--body-text); font-size: 0.925rem; line-height: 1.65; padding-left: 1.25rem; margin: 0;">
+        <li><strong>Stay on Designated Footpaths:</strong> Follow your sanctuary guide at all times to avoid stepping into concealed burrows.</li>
+        <li><strong>Maintain a 15–20m Distance:</strong> Never encircle or corner wildlife. Always provide animals a clear retreat pathway.</li>
+        <li><strong>Keep Voice Low:</strong> Quiet walking prevents startled herd stamps and keeps animals calmly grazing around you.</li>
+      </ul>
+    </div>
+
+    <!-- Conversion Card -->
+    <div class="card" style="background: #ffffff; border: 2px solid var(--border-papyrus); border-radius: var(--radius-card); padding: 2.25rem; text-align: center;">
+      <h3 style="font-size: 1.5rem; margin-bottom: 0.5rem; color: var(--ink-forest);">Combine Boat Cruise & Wildlife Walk</h3>
+      <p style="color: var(--body-muted); font-size: 0.95rem; max-width: 48ch; margin-inline: auto; margin-bottom: 1.5rem;">
+        Our Crescent Island Boat Ride takes you by water to the sanctuary dock and waits while you walk among giraffes and zebras.
+      </p>
+      <div class="btn-row" style="justify-content: center;">
+        <a href="/crescent-island/" class="btn btn-forest">
+          <span>Read Crescent Island Pillar Guide</span>
+        </a>
+        <a href="{{ whatsapp_book_url }}" target="_blank" rel="noopener" class="btn btn-primary">
+          <i data-lucide="message-circle" style="width: 16px; height: 16px;"></i>
+          <span>Inquire on WhatsApp</span>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+{% endblock %}

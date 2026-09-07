@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% load static humanize %}
+
+{% block meta_title %}{{ meta_title }}{% endblock %}
+{% block meta_description %}{{ meta_description }}{% endblock %}
+
+{% block content %}
+<section class="section-spacing" style="background: var(--ivory);">
+  <div class="site-container">
+    
+    <!-- Hero Header -->
+    <div style="max-width: 760px; margin-bottom: 3.5rem;">
+      <p class="eyebrow eyebrow-gold">Verified Guest Feedback</p>
+      <h1 class="hero-h1" style="margin-bottom: 1rem;">Real Stories from the Water</h1>
+      <p class="lead-text">
+        Transparent, unedited reviews from travelers, families, and photographers who have taken Lake Naivasha boat safaris with Mosety captains.
+      </p>
+    </div>
+
+    <!-- Authenticity Commitment Notice -->
+    <div style="background: var(--papyrus-light); border: 1px solid var(--border-papyrus); border-radius: var(--radius-card); padding: 1.5rem 2rem; margin-bottom: 3rem; display: flex; align-items: center; gap: 1.25rem;">
+      <div style="width: 42px; height: 42px; border-radius: 50%; background: var(--papyrus); display: grid; place-items: center; color: var(--rift-gold); flex-shrink: 0;">
+        <i data-lucide="shield-check" style="width: 22px; height: 22px; stroke-width: 2.5;"></i>
+      </div>
+      <div>
+        <strong style="color: var(--ink-forest); font-size: 0.95rem; display: block; margin-bottom: 0.2rem;">Our Zero-Fabrication Integrity Policy</strong>
+        <p style="font-size: 0.875rem; color: var(--body-muted); margin: 0; line-height: 1.5;">
+          Mosety never buys fake reviews, invents artificial 5-star ratings, or creates mock guest personas. Every story below is based on genuine guest feedback submitted via Google Reviews or post-trip WhatsApp correspondence.
+        </p>
+      </div>
+    </div>
+
+    <!-- Reviews Feed Grid -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; margin-bottom: 4rem;">
+      {% for review in reviews %}
+      <article class="card" style="background: #ffffff; border: 1px solid var(--border-subtle); border-radius: var(--radius-card); padding: 2rem; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; justify-content: space-between;">
+        <div>
+          <!-- Star Rating -->
+          <div style="color: var(--rift-gold); margin-bottom: 1rem; display: flex; gap: 0.25rem;">
+            {% for _ in "12345"|slice:review.rating %}
+            <i data-lucide="star" style="width: 17px; height: 17px; fill: currentColor;"></i>
+            {% endfor %}
+          </div>
+
+          <!-- Review Body -->
+          <p style="font-size: 1rem; line-height: 1.6; color: var(--body-text); margin-bottom: 1.5rem; font-style: italic;">
+            &ldquo;{{ review.review_text }}&rdquo;
+          </p>
+        </div>
+
+        <!-- Reviewer Meta -->
+        <div style="border-top: 1px solid var(--border-subtle); padding-top: 1rem; display: flex; justify-content: space-between; align-items: center; font-size: 0.8125rem;">
+          <div>
+            <strong style="color: var(--ink-forest); font-size: 0.9rem; display: block;">{{ review.display_name }}</strong>
+            <span style="color: var(--lake-sage);">{{ review.source }}</span>
+          </div>
+          <span style="color: var(--body-muted);">{{ review.review_date|date:"M Y" }}</span>
+        </div>
+      </article>
+      {% empty %}
+      <p>Reviews feed is loading.</p>
+      {% endfor %}
+    </div>
+
+    <!-- Booking CTA Strip -->
+    <div style="background: var(--ink-forest); color: var(--ivory); border-radius: var(--radius-card); padding: 2.5rem; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1.5rem;">
+      <div>
+        <h3 style="color: var(--ivory); margin-bottom: 0.35rem;">Experience Lake Naivasha Yourself</h3>
+        <p style="color: var(--papyrus); font-size: 0.9375rem; margin: 0;">
+          Book directly with local captains for verified pier rates and flexible schedules.
+        </p>
+      </div>
+
+      <div class="btn-row">
+        <a href="/boat-rides/" class="btn btn-outline" style="color: var(--ivory); border-color: rgba(234, 225, 209, 0.4);">
+          <span>Browse Rides</span>
+        </a>
+        <a href="{{ whatsapp_book_url }}" target="_blank" rel="noopener" class="btn btn-primary">
+          <i data-lucide="message-circle" style="width: 16px; height: 16px;"></i>
+          <span>Chat with Mosety</span>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+{% endblock %}

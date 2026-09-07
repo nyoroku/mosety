@@ -1,0 +1,57 @@
+{% load static humanize %}
+<div class="card" style="display: grid; grid-template-columns: 1fr; @media(min-width: 768px){ grid-template-columns: 0.9fr 1.1fr; } background: #ffffff; border: 2px solid var(--border-subtle); border-radius: var(--radius-card); overflow: hidden; box-shadow: var(--shadow-card);" id="ride-recommendation-panel">
+  
+  <!-- Image -->
+  <div style="position: relative; background: var(--papyrus); min-height: 240px;">
+    {% if tour.hero_image %}
+    <img src="{{ tour.hero_image.url }}" alt="{{ tour.name }}" style="width: 100%; height: 100%; object-fit: cover;">
+    {% else %}
+    <img src="{% static 'images/gallery/naivasha-boat-passenger.jpeg' %}" alt="{{ tour.name }}" style="width: 100%; height: 100%; object-fit: cover;">
+    {% endif %}
+    <span class="tour-badge" style="background: var(--ink-forest); color: var(--rift-gold); border: 1px solid rgba(217, 164, 65, 0.4);">
+      Recommended For You
+    </span>
+  </div>
+
+  <!-- Content -->
+  <div style="padding: clamp(1.5rem, 3vw, 2rem); display: flex; flex-direction: column; justify-content: space-between;">
+    <div>
+      <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.5rem;">
+        <span class="fact-chip"><i data-lucide="clock"></i> {{ tour.duration_display }}</span>
+        <span class="fact-chip"><i data-lucide="users"></i> Up to {{ tour.max_guests }} Guests</span>
+      </div>
+
+      <h3 style="font-size: 1.5rem; margin-bottom: 0.65rem; color: var(--ink-forest);">{{ tour.name }}</h3>
+      
+      <p style="font-size: 0.95rem; color: var(--body-text); font-weight: 600; margin-bottom: 0.85rem; line-height: 1.5;">
+        {{ reason }}
+      </p>
+
+      <p style="font-size: 0.875rem; color: var(--body-muted); margin-bottom: 1.25rem;">
+        {{ tour.summary }}
+      </p>
+    </div>
+
+    <!-- Actions & Pricing -->
+    <div style="padding-top: 1rem; border-top: 1px solid var(--border-subtle); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem;">
+      <div>
+        <span style="font-size: 0.75rem; text-transform: uppercase; color: var(--lake-sage); font-weight: 700; display: block;">From</span>
+        <span style="font-family: var(--font-display); font-size: 1.45rem; font-weight: 700; color: var(--ink-forest);">
+          KES {{ tour.starting_price_kes|intcomma }}
+        </span>
+      </div>
+
+      <div class="btn-row" style="gap: 0.5rem;">
+        <a href="{{ tour.get_absolute_url }}" class="btn btn-sm btn-forest">
+          <span>View Ride Details</span>
+          <i data-lucide="arrow-right" style="width: 14px; height: 14px;"></i>
+        </a>
+        <a href="{{ site.build_whatsapp_url }}" target="_blank" rel="noopener" class="btn btn-sm btn-primary">
+          <i data-lucide="message-circle" style="width: 15px; height: 15px;"></i>
+          <span>WhatsApp</span>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</div>

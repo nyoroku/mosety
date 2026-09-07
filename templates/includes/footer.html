@@ -1,0 +1,89 @@
+<footer class="site-footer">
+  <div class="site-container">
+    <div class="footer-grid">
+      <!-- Col 1: Brand & Contact -->
+      <div>
+        <div class="brand-link" style="margin-bottom: 0.5rem;">
+          <span class="brand-title" style="color: var(--ivory); font-size: 1.6rem;">Mosety</span>
+          <span class="brand-sub" style="color: var(--rift-gold);">Boat Rides Naivasha</span>
+        </div>
+        <p class="footer-brand-desc">
+          Local lake experiences, clearly priced and expertly guided. Hippo safaris, Crescent Island walking trips, and private cruises on Lake Naivasha.
+        </p>
+        
+        <div style="margin-top: 1.5rem; display: flex; flex-direction: column; gap: 0.65rem;">
+          {% if site.phone_e164 %}
+          <a href="{{ site.tel_url }}" style="display: flex; align-items: center; gap: 0.6rem; color: var(--papyrus);">
+            <i data-lucide="phone" style="width: 16px; height: 16px; color: var(--rift-gold);"></i>
+            <span>{{ site.phone }}</span>
+          </a>
+          {% endif %}
+          <a href="{{ whatsapp_book_url }}" target="_blank" rel="noopener" style="display: flex; align-items: center; gap: 0.6rem; color: var(--papyrus);">
+            <i data-lucide="message-circle" style="width: 16px; height: 16px; color: var(--rift-gold);"></i>
+            <span>WhatsApp Booking</span>
+          </a>
+          <div style="display: flex; align-items: flex-start; gap: 0.6rem; color: rgba(234, 225, 209, 0.7); font-size: 0.875rem;">
+            <i data-lucide="map-pin" style="width: 16px; height: 16px; color: var(--rift-gold); flex-shrink: 0; margin-top: 0.2rem;"></i>
+            <span>{{ site.address_text }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Col 2: Experiences & Services -->
+      <div>
+        <h3 class="footer-col-title">Experiences & Services</h3>
+        <ul class="footer-links">
+          <li><a href="/boat-rides/hippo-bird-safari/">Hippo & Bird Safari</a></li>
+          <li><a href="/boat-rides/crescent-island/">Crescent Island Trip</a></li>
+          <li><a href="/boat-rides/sunset-cruise/">Sunset Cruise</a></li>
+          <li><a href="/boat-rides/private-boat/">Private Boat Charter</a></li>
+          <li><a href="/boat-rides/family-boat-ride/">Family Boat Rides</a></li>
+          <li><a href="/boat-rides/photography-birding/">Photography & Birding</a></li>
+          <li><a href="/boat-rides/groups-corporate/">Groups & Corporate</a></li>
+          <li><a href="/boat-rides/">All Experiences & Services →</a></li>
+        </ul>
+      </div>
+
+      <!-- Col 3: Plan Your Visit -->
+      <div>
+        <h3 class="footer-col-title">Plan Your Visit</h3>
+        <ul class="footer-links">
+          <li><a href="/prices/">Transparent Prices & Quote</a></li>
+          <li><a href="/plan-your-visit/">Planning Overview</a></li>
+          <li><a href="/plan-your-visit/getting-here/">Getting Here from Nairobi</a></li>
+          <li><a href="/plan-your-visit/best-time-to-go/">Best Time to Go</a></li>
+          <li><a href="/plan-your-visit/what-to-bring/">What to Bring</a></li>
+          <li><a href="/plan-your-visit/children/">Visiting with Children</a></li>
+          <li><a href="/safety/">Safety Standards</a></li>
+        </ul>
+      </div>
+
+      <!-- Col 4: Naivasha Guide & Trust -->
+      <div>
+        <h3 class="footer-col-title">Lake Authority</h3>
+        <ul class="footer-links">
+          <li><a href="/journal/" style="color: var(--rift-gold); font-weight: 700;">Captains Journal & Blog</a></li>
+          <li><a href="/naivasha-guide/">Naivasha Destination Guide</a></li>
+          <li><a href="/naivasha-guide/wildlife/">Lake Naivasha Wildlife</a></li>
+          <li><a href="/naivasha-guide/hippos/">Hippo Pods & Viewing</a></li>
+          <li><a href="/naivasha-guide/birds/">400+ Bird Species</a></li>
+          <li><a href="/questions/">Questions & FAQs</a></li>
+          <li><a href="/captains/">Meet Our Captains</a></li>
+          <li><a href="/about/">About Mosety</a></li>
+          <li><a href="/contact/">Directions & Map</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Bottom Legal Row -->
+    <div class="footer-bottom">
+      <p>© 2026 Mosety Boat Rides Naivasha. All rights reserved.</p>
+      <div style="display: flex; gap: 1.5rem;">
+        <a href="/safety/">Safety</a>
+        <a href="/privacy/">Privacy Policy</a>
+        <a href="/terms/">Terms of Service</a>
+      </div>
+      <p>Lake Naivasha, Nakuru County, Kenya</p>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,146 @@
+{% extends 'base.html' %}
+{% load static humanize %}
+
+{% block meta_title %}{{ meta_title }}{% endblock %}
+{% block meta_description %}{{ meta_description }}{% endblock %}
+
+{% block content %}
+<section class="section-spacing" style="background: var(--ivory);" x-data="{ activeCategory: 'all', search: '' }">
+  <div class="site-container">
+    
+    <!-- Hero Header -->
+    <div style="max-width: 780px; margin-bottom: 3rem;">
+      <p class="eyebrow eyebrow-gold">Captains Journal & Lake Blog</p>
+      <h1 class="hero-h1" style="margin-bottom: 1rem;">Field Notes & Lake Guides</h1>
+      <p class="lead-text">
+        First-hand wildlife tracking, seasonal lake condition updates, raptor photography manuals, and transparent travel advice direct from licensed Mosety boat captains on Lake Naivasha.
+      </p>
+    </div>
+
+    <!-- Interactive Filter & Search Bar -->
+    <div style="background: #ffffff; padding: 1.5rem; border-radius: var(--radius-card); border: 1px solid var(--border-subtle); box-shadow: var(--shadow-sm); margin-bottom: 3.5rem; display: flex; flex-direction: column; gap: 1.25rem;">
+      
+      <!-- Search Input -->
+      <div style="position: relative;">
+        <i data-lucide="search" style="position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); width: 18px; height: 18px; color: var(--lake-sage);"></i>
+        <input type="text" 
+               x-model="search" 
+               placeholder="Search field notes by title, topic, or wildlife species (e.g. hippos, fish eagle, prices)..." 
+               class="form-input" 
+               style="width: 100%; padding: 0.85rem 1rem 0.85rem 2.85rem; border: 1px solid var(--border-subtle); border-radius: var(--radius-pill); font-size: 0.95rem; background: var(--ivory);">
+      </div>
+
+      <!-- Filter Pills -->
+      <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center;">
+        <span style="font-size: 0.75rem; text-transform: uppercase; font-weight: 700; color: var(--lake-sage); margin-right: 0.5rem;">Filter:</span>
+        <button type="button" 
+                @click="activeCategory = 'all'" 
+                :class="{ 'btn-forest': activeCategory === 'all', 'btn-outline': activeCategory !== 'all' }" 
+                class="btn btn-sm">
+          All Field Notes ({{ articles|length }})
+        </button>
+        <button type="button" 
+                @click="activeCategory = 'wildlife'" 
+                :class="{ 'btn-forest': activeCategory === 'wildlife', 'btn-outline': activeCategory !== 'wildlife' }" 
+                class="btn btn-sm">
+          Wildlife & Hippos
+        </button>
+        <button type="button" 
+                @click="activeCategory = 'crescent'" 
+                :class="{ 'btn-forest': activeCategory === 'crescent', 'btn-outline': activeCategory !== 'crescent' }" 
+                class="btn btn-sm">
+          Crescent Island
+        </button>
+        <button type="button" 
+                @click="activeCategory = 'photography'" 
+                :class="{ 'btn-forest': activeCategory === 'photography', 'btn-outline': activeCategory !== 'photography' }" 
+                class="btn btn-sm">
+          Photography & Sunsets
+        </button>
+        <button type="button" 
+                @click="activeCategory = 'planning'" 
+                :class="{ 'btn-forest': activeCategory === 'planning', 'btn-outline': activeCategory !== 'planning' }" 
+                class="btn btn-sm">
+          Itineraries & Rates
+        </button>
+      </div>
+    </div>
+
+    <!-- Articles Grid with Search & Filter Filtering -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2.25rem; margin-bottom: 4rem;">
+      {% for article in articles %}
+      <article class="card journal-card" 
+               x-show="(activeCategory === 'all' || 
+                        (activeCategory === 'wildlife' && ('{{ article.slug }}'.includes('hippo') || '{{ article.slug }}'.includes('bird'))) || 
+                        (activeCategory === 'crescent' && '{{ article.slug }}'.includes('crescent')) || 
+                        (activeCategory === 'photography' && ('{{ article.slug }}'.includes('photography') || '{{ article.slug }}'.includes('sunset'))) || 
+                        (activeCategory === 'planning' && ('{{ article.slug }}'.includes('itinerary') || '{{ article.slug }}'.includes('price') || '{{ article.slug }}'.includes('guide')))) && 
+                       ('{{ article.title|lower }}'.includes(search.toLowerCase()) || '{{ article.excerpt|lower }}'.includes(search.toLowerCase()))"
+               x-transition:enter="transition ease-out duration-200"
+               x-transition:enter-start="opacity-0 transform scale-95"
+               x-transition:enter-end="opacity-100 transform scale-100"
+               style="background: #ffffff; border: 1px solid var(--border-subtle); border-radius: var(--radius-card); overflow: hidden; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; justify-content: space-between;">
+        <div>
+          <div style="aspect-ratio: 16 / 10; background: var(--papyrus); overflow: hidden; position: relative;">
+            {% if article.hero_image %}
+            <img src="{{ article.hero_image.url }}" alt="{{ article.title }}" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease;">
+            {% else %}
+            <img src="{% static 'images/gallery/naivasha-boat-passenger.jpeg' %}" alt="{{ article.title }}" style="width: 100%; height: 100%; object-fit: cover;">
+            {% endif %}
+            <span class="tour-badge" style="position: absolute; top: 1rem; left: 1rem; background: var(--ink-forest); color: var(--rift-gold); border: 1px solid rgba(217, 164, 65, 0.4);">
+              {{ article.get_content_type_display|default:"Field Note" }}
+            </span>
+          </div>
+
+          <div style="padding: 1.75rem;">
+            <div style="font-size: 0.75rem; color: var(--lake-sage); text-transform: uppercase; font-weight: 700; margin-bottom: 0.65rem; display: flex; align-items: center; gap: 0.4rem;">
+              <span>{{ article.published_at|date:"d M Y" }}</span>
+              <span>&bull;</span>
+              <span>By {{ article.author_name }}</span>
+            </div>
+            <h2 style="font-size: 1.3rem; margin-bottom: 0.65rem; line-height: 1.35;">
+              <a href="{{ article.get_absolute_url }}" style="color: var(--ink-forest); text-decoration: none;">
+                {{ article.title }}
+              </a>
+            </h2>
+            <p style="color: var(--body-muted); font-size: 0.9rem; line-height: 1.6; margin: 0;">
+              {{ article.excerpt }}
+            </p>
+          </div>
+        </div>
+
+        <div style="padding: 0 1.75rem 1.75rem 1.75rem; border-top: 1px solid var(--border-subtle); padding-top: 1rem; display: flex; justify-content: space-between; align-items: center;">
+          <a href="{{ article.get_absolute_url }}" class="btn btn-sm btn-outline" style="width: 100%;">
+            <span>Read Field Note</span>
+            <i data-lucide="arrow-right" style="width: 14px; height: 14px;"></i>
+          </a>
+        </div>
+      </article>
+      {% empty %}
+      <div style="grid-column: 1 / -1; padding: 3rem; background: var(--papyrus-light); border-radius: var(--radius-card); text-align: center;">
+        <h3 style="color: var(--ink-forest); margin-bottom: 0.5rem;">Field notes are being published.</h3>
+        <p style="color: var(--body-muted); font-size: 0.95rem; margin-bottom: 1.5rem;">
+          Our captains publish regular seasonal observations and lake guides. Check our main destination guide in the meantime.
+        </p>
+        <a href="/naivasha-guide/" class="btn btn-forest">Explore Lake Naivasha Guide</a>
+      </div>
+      {% endfor %}
+    </div>
+
+    <!-- Direct Captain Inquiry Callout -->
+    <div style="background: var(--papyrus-light); border: 1px solid var(--border-papyrus); border-radius: var(--radius-card); padding: 2.5rem; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1.5rem;">
+      <div>
+        <h3 style="margin-bottom: 0.35rem; color: var(--ink-forest);">Have a specific wildlife question for our captains?</h3>
+        <p style="color: var(--body-muted); font-size: 0.9375rem; margin: 0;">
+          Ask about today's lake conditions, water clarity, or hippo pod locations before arriving.
+        </p>
+      </div>
+      <a href="{{ whatsapp_book_url }}" target="_blank" rel="noopener" class="btn btn-primary">
+        <i data-lucide="message-circle" style="width: 16px; height: 16px;"></i>
+        <span>Ask a Captain on WhatsApp</span>
+      </a>
+    </div>
+
+  </div>
+</section>
+{% endblock %}

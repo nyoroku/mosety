@@ -1,0 +1,17 @@
+<div class="text-center py-8 animate-in fade-in zoom-in duration-500">
+    <div
+        class="w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6 text-4xl shadow-lg">
+        <i class="fas fa-check"></i>
+    </div>
+    <h3 class="text-2xl font-bold text-gray-dark mb-3">Booking Received!</h3>
+    <p class="text-gray mb-8 leading-relaxed">
+        Thank you, <strong>{{ tour.name }}</strong> explorer! Our team has received your request and will contact you
+        within the hour to confirm your slot.
+    </p>
+    <a href="https://wa.me/254729360174?text=Hi!%20I%20just%20sent%20a%20booking%20request%20for%20the%20{{ tour.name|urlencode }}."
+        target="_blank"
+        class="inline-flex items-center gap-2 px-6 py-3 bg-[#25D366] text-white font-bold rounded-xl hover:bg-[#128C7E] transition-all shadow-md">
+        <i class="fab fa-whatsapp"></i>
+        Instant Chat Follow-up
+    </a>
+</div>

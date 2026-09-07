@@ -1,0 +1,16 @@
+<!-- templates/testimonials/partials/homepage_testimonial_card.html -->
+<div class="card has-equal-height">
+    <div class="card-image">
+        <figure class="image is-4by3">
+            <img src="{{ testimonial.customer_photo.url }}" alt="{{ testimonial.customer_name }}">
+        </figure>
+    </div>
+    <div class="card-content has-text-centered">
+        <p class="title is-6">{{ testimonial.customer_name }}</p>
+        <p class="subtitle is-7 has-text-grey">{{ testimonial.customer_country }}</p>
+        <div class="content">
+            <p class="is-italic">"{{ testimonial.testimonial_text|truncatewords:15 }}"</p>
+            <div class="star-rating mt-3">{{ testimonial.star_rating|safe }}</div>
+        </div>
+    </div>
+</div>

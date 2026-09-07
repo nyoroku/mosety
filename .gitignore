@@ -1,0 +1,16 @@
+*.py[cod]
+*$py.class
+__pycache__/
+.venv/
+venv/
+ENV/
+env/
+.env
+staticfiles/
+.idea/
+.vscode/
+*.log
+.DS_Store
+media/
+_legacy_scratch/
+masterpiece_articles/

@@ -1,0 +1,186 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta_title %}{{ page.effective_meta_title|default:page.meta_title }}{% endblock %}
+{% block meta_description %}{{ page.meta_description }}{% endblock %}
+
+{% block content %}
+
+<!-- Hero Section -->
+<section class="relative bg-primary pt-24 pb-16 overflow-hidden">
+    <div class="absolute top-0 right-0 w-64 h-64 bg-highlight/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl"></div>
+    <div class="absolute bottom-0 left-0 w-96 h-96 bg-highlight/5 rounded-full translate-y-1/2 -translate-x-1/2 blur-3xl"></div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+        <!-- Breadcrumb -->
+        <nav class="mb-6" aria-label="Breadcrumb">
+            <ol class="flex items-center justify-center gap-2 text-white/60 text-sm flex-wrap">
+                {% for crumb in breadcrumbs %}
+                {% if crumb.url %}
+                <li><a href="{{ crumb.url }}" class="hover:text-highlight transition-colors">{{ crumb.name }}</a></li>
+                <li><i class="fas fa-chevron-right text-xs"></i></li>
+                {% else %}
+                <li class="text-white">{{ crumb.name }}</li>
+                {% endif %}
+                {% endfor %}
+            </ol>
+        </nav>
+        <h1 class="text-3xl sm:text-4xl md:text-5xl text-white font-bold mb-6 max-w-4xl mx-auto">{{ page.effective_h1|default:page.h1|default:page.title }}</h1>
+    </div>
+</section>
+
+<!-- Content Area -->
+<section class="py-16 bg-light-neutral">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col lg:flex-row gap-12">
+            
+            <!-- Main Content -->
+            <article class="flex-1 w-full max-w-3xl">
+                
+                {% if page.intro_answer %}
+                <div class="mb-10 bg-highlight/5 border-l-4 border-highlight p-6 rounded-r-xl">
+                    <p class="text-lg text-gray-dark leading-relaxed m-0 font-medium">
+                        {{ page.intro_answer|safe }}
+                    </p>
+                </div>
+                {% endif %}
+
+                <div class="prose prose-lg max-w-none text-gray-dark prose-headings:text-primary prose-a:text-highlight hover:prose-a:text-primary prose-img:rounded-xl">
+                    {{ page.body|safe }}
+                </div>
+
+                {% if faq_items %}
+                <div class="mt-16">
+                    <h2 class="text-2xl font-bold text-gray-dark mb-6">Frequently Asked Questions</h2>
+                    <div class="space-y-4">
+                        {% for item in faq_items %}
+                        <div class="faq-item bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                            <button type="button" class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none cursor-pointer" onclick="const body = this.nextElementSibling; const isOpen = body.style.display === 'block'; body.style.display = isOpen ? 'none' : 'block'; this.querySelector('i').style.transform = isOpen ? 'rotate(0deg)' : 'rotate(180deg)';">
+                                <span class="font-semibold text-gray-dark pr-4">{{ item.question }}</span>
+                                <i class="fas fa-chevron-down text-highlight transition-transform duration-300"></i>
+                            </button>
+                            <div class="faq-content px-6 pb-4 text-gray border-t border-gray-100 pt-3" style="display: none;">
+                                <p class="m-0">{{ item.answer|linebreaksbr }}</p>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+
+            </article>
+
+            <!-- Sidebar -->
+            <aside class="w-full lg:w-80 shrink-0">
+                <div class="sticky top-24 space-y-6">
+                    
+                    <!-- Pricing Card -->
+                    {% if pricing_tiers %}
+                    <div class="bg-white rounded-2xl p-6 shadow-card border border-gray-100">
+                        <h3 class="font-bold text-lg text-primary mb-4 border-b border-gray-100 pb-3">Popular Packages</h3>
+                        <ul class="space-y-3 mb-4">
+                            {% for tier in pricing_tiers|slice:":3" %}
+                            <li class="flex justify-between items-center text-sm">
+                                <span class="text-gray">{{ tier.tour_type }}</span>
+                                <span class="font-bold text-primary">{{ tier.price_kes }}</span>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                        <a href="{% url 'resources:pricing' %}" class="block text-center text-sm text-highlight font-medium hover:text-primary transition-colors">See full pricing &rarr;</a>
+                    </div>
+                    {% endif %}
+
+                    <!-- WhatsApp CTA -->
+                    <div class="bg-gradient-to-br from-green-500 to-green-600 rounded-2xl p-6 shadow-card text-white text-center">
+                        <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center text-2xl mx-auto mb-4">
+                            <i class="fab fa-whatsapp"></i>
+                        </div>
+                        <h3 class="font-bold text-lg mb-2">Book Your Ride</h3>
+                        <p class="text-sm text-white/90 mb-4">Fast response & direct booking via WhatsApp.</p>
+                        <a href="{{ site.whatsapp_url }}" target="_blank" rel="noopener noreferrer" class="block w-full py-2 bg-white text-green-600 font-bold rounded-full hover:bg-gray-50 transition-colors text-sm shadow-md">
+                            Chat Now
+                        </a>
+                    </div>
+
+                    <!-- Related Guides -->
+                    {% if related_guides %}
+                    <div class="bg-white rounded-2xl p-6 shadow-card border border-gray-100">
+                        <h3 class="font-bold text-lg text-gray-dark mb-4">Related Guides</h3>
+                        <ul class="space-y-3">
+                            {% for guide in related_guides %}
+                            <li>
+                                <a href="{{ guide.get_absolute_url }}" class="text-sm text-gray hover:text-highlight flex gap-2">
+                                    <i class="fas fa-angle-right mt-1 text-highlight"></i>
+                                    <span>{{ guide.title }}</span>
+                                </a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
+
+                    <!-- Trust Badges -->
+                    <div class="bg-white rounded-2xl p-6 shadow-card border border-gray-100">
+                        <ul class="space-y-4">
+                            <li class="flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-full bg-blue-50 text-blue-500 flex items-center justify-center"><i class="fas fa-shield-alt text-sm"></i></div>
+                                <span class="text-sm font-medium text-gray-dark">Safe & Secure</span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-full bg-accent-gold/10 text-accent-gold flex items-center justify-center"><i class="fas fa-star text-sm"></i></div>
+                                <span class="text-sm font-medium text-gray-dark">Expert Guides</span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-full bg-green-50 text-green-500 flex items-center justify-center"><i class="fas fa-check-circle text-sm"></i></div>
+                                <span class="text-sm font-medium text-gray-dark">No Hidden Fees</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+            </aside>
+
+        </div>
+
+        <!-- Related Resources Grid (Bottom) -->
+        <div class="mt-16 pt-16 border-t border-gray-200">
+            <h2 class="text-2xl font-bold text-gray-dark mb-8 text-center">More Resources</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+                {% if not page.is_pillar %}
+                {% if featured_guide %}<a href="{{ featured_guide.get_absolute_url }}" class="bg-white p-6 rounded-2xl shadow-card hover:shadow-xl transition-shadow border border-gray-100 group">
+                    <div class="w-12 h-12 bg-primary/5 rounded-xl flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors mb-4">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <h3 class="font-bold text-gray-dark mb-2 group-hover:text-primary transition-colors">Ultimate Guide</h3>
+                    <p class="text-sm text-gray">Everything you need to know about Lake Naivasha boat rides in one comprehensive guide.</p>
+                </a>{% endif %}
+                {% endif %}
+                <a href="{% url 'resources:pricing' %}" class="bg-white p-6 rounded-2xl shadow-card hover:shadow-xl transition-shadow border border-gray-100 group">
+                    <div class="w-12 h-12 bg-accent-gold/10 rounded-xl flex items-center justify-center text-accent-gold group-hover:bg-accent-gold group-hover:text-white transition-colors mb-4">
+                        <i class="fas fa-tag"></i>
+                    </div>
+                    <h3 class="font-bold text-gray-dark mb-2 group-hover:text-accent-gold transition-colors">Tour Pricing</h3>
+                    <p class="text-sm text-gray">Compare rates and packages for different group sizes.</p>
+                </a>
+                <a href="{% url 'resources:faq' %}" class="bg-white p-6 rounded-2xl shadow-card hover:shadow-xl transition-shadow border border-gray-100 group">
+                    <div class="w-12 h-12 bg-highlight/10 rounded-xl flex items-center justify-center text-highlight group-hover:bg-highlight group-hover:text-white transition-colors mb-4">
+                        <i class="fas fa-question-circle"></i>
+                    </div>
+                    <h3 class="font-bold text-gray-dark mb-2 group-hover:text-highlight transition-colors">Help Center</h3>
+                    <p class="text-sm text-gray">Browse frequently asked questions about booking, safety, and specifics.</p>
+                </a>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- Schemas -->
+{% include 'resources/_breadcrumb_schema.html' %}
+{% include 'resources/_faq_schema.html' %}
+
+<style>
+    .faq-item.active .faq-content { display: block; }
+    .faq-item.active button i { transform: rotate(180deg); }
+</style>
+
+{% endblock %}

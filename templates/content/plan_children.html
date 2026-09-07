@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% load static humanize %}
+
+{% block meta_title %}{{ meta_title }}{% endblock %}
+{% block meta_description %}{{ meta_description }}{% endblock %}
+
+{% block content %}
+<section class="section-spacing" style="background: var(--ivory);">
+  <div class="site-container-narrow">
+    
+    <!-- Breadcrumb Nav -->
+    <nav style="font-size: 0.85rem; color: var(--lake-sage); margin-bottom: 1.5rem;" aria-label="Breadcrumb">
+      <a href="/" style="color: var(--lake-sage);">Home</a> &rsaquo;
+      <a href="/plan-your-visit/" style="color: var(--lake-sage);">Plan Your Visit</a> &rsaquo;
+      <span style="color: var(--ink-forest); font-weight: 600;">Visiting with Children</span>
+    </nav>
+
+    <p class="eyebrow eyebrow-gold">Family Travel & Marine Safety</p>
+    <h1 class="hero-h1" style="margin-bottom: 1.25rem;">Visiting Lake Naivasha with Children: A Parent's Guide</h1>
+    
+    <div style="color: var(--body-text); font-size: 1.05rem; line-height: 1.7; margin-bottom: 2.5rem;">
+      <p>
+        A boat safari on Lake Naivasha is one of the most enriching wildlife experiences a child can have in Kenya—watching wild hippos surface with a blow of water spray, spotting pelican flocks taking flight, and walking alongside towering giraffes on Crescent Island. Here is how Mosety ensures family trips are calm, safe, and stress-free for parents.
+      </p>
+    </div>
+
+    <!-- Safety Commitments for Families -->
+    <div style="display: flex; flex-direction: column; gap: 1.5rem; margin-bottom: 3.5rem;">
+      
+      <div class="card" style="background: #ffffff; border: 1px solid var(--border-subtle); border-radius: var(--radius-card); padding: 2rem; border-left: 4px solid var(--rift-gold);">
+        <h2 style="font-size: 1.35rem; margin-bottom: 0.5rem; color: var(--ink-forest);">Certified Infant & Toddler Life Jackets</h2>
+        <p style="color: var(--body-muted); font-size: 0.95rem; line-height: 1.6; margin: 0;">
+          Unlike many informal dock operators who only carry adult-sized vests, Mosety stocks dedicated commercial infant life vests (with buoyant head support collars and crotch straps for under 15kg) and child-sized vests (15–35kg). Your captain personally fits and tests every strap before your child steps onto the boat.
+        </p>
+      </div>
+
+      <div class="card" style="background: #ffffff; border: 1px solid var(--border-subtle); border-radius: var(--radius-card); padding: 2rem; border-left: 4px solid var(--rift-gold);">
+        <h2 style="font-size: 1.35rem; margin-bottom: 0.5rem; color: var(--ink-forest);">Gentle Boarding & Steady Craft</h2>
+        <p style="color: var(--body-muted); font-size: 0.95rem; line-height: 1.6; margin: 0;">
+          Our wide-beam fiberglass safari vessels feature stable hulls that minimize rolling. Your captain assists each child one-by-one during boarding and seating. We position younger children in sheltered central bench seats where they can comfortably see the water without leaning out.
+        </p>
+      </div>
+
+      <div class="card" style="background: #ffffff; border: 1px solid var(--border-subtle); border-radius: var(--radius-card); padding: 2rem; border-left: 4px solid var(--rift-gold);">
+        <h2 style="font-size: 1.35rem; margin-bottom: 0.5rem; color: var(--ink-forest);">Pacing for Curious Minds</h2>
+        <p style="color: var(--body-muted); font-size: 0.95rem; line-height: 1.6; margin: 0;">
+          Family safaris are never rushed. Captains slow down to point out baby hippos swimming close to their mothers, demonstrate how water lily leaves repel water droplets, and let kids watch fish eagles swoop down from yellow acacia branches.
+        </p>
+      </div>
+
+    </div>
+
+    <!-- Practical Logistics for Parents -->
+    <div style="background: var(--papyrus-light); border-radius: var(--radius-card); padding: 2.25rem; margin-bottom: 3.5rem;">
+      <h2 style="font-size: 1.5rem; margin-bottom: 1.25rem; color: var(--ink-forest);">Practical Tips for Parents</h2>
+      
+      <div style="display: flex; flex-direction: column; gap: 1rem; font-size: 0.925rem; line-height: 1.6; color: var(--body-text);">
+        <div>
+          <strong>Stroller vs. Baby Carrier:</strong>
+          While strollers can be stored on the boat during your ride, Crescent Island consists of grass and dirt tracks. We strongly recommend bringing an ergonomic baby carrier or sling for walking on the island rather than a wheeled stroller.
+        </div>
+        <div>
+          <strong>Best Departure Window:</strong>
+          Aim for <strong>08:30 AM to 10:00 AM</strong>. The water is glassy and calm, avoiding any bumpy afternoon chop that might unnerve younger children.
+        </div>
+        <div>
+          <strong>Sun & Hydration:</strong>
+          Bring sun hats with tie straps (lake breezes love to blow loose hats into the water) and a favorite water bottle or juice box for the ride.
+        </div>
+        <div>
+          <strong>Restroom Availability:</strong>
+          Restrooms are available at Karagita Beach before departure, and basic eco-toilets are available at the Crescent Island landing gate.
+        </div>
+      </div>
+    </div>
+
+    <!-- Direct Family Booking Card -->
+    <div style="border: 2px solid var(--border-subtle); border-radius: var(--radius-card); padding: 2rem; background: #ffffff; text-align: center;">
+      <h3 style="font-size: 1.45rem; margin-bottom: 0.5rem; color: var(--ink-forest);">Planning a Family Ride?</h3>
+      <p style="color: var(--body-muted); font-size: 0.95rem; margin-bottom: 1.5rem; max-width: 48ch; margin-inline: auto;">
+        Our Family Boat Ride is tailored for children of all ages, with standard dock rates and fitted life jackets included for the whole family.
+      </p>
+
+      <div class="btn-row" style="justify-content: center;">
+        <a href="/boat-rides/family-boat-ride/" class="btn btn-forest">
+          <span>View Family Boat Ride (KES 3,500)</span>
+        </a>
+        <a href="{{ whatsapp_book_url }}" target="_blank" rel="noopener" class="btn btn-primary">
+          <i data-lucide="message-circle" style="width: 16px; height: 16px;"></i>
+          <span>Chat on WhatsApp</span>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+{% endblock %}

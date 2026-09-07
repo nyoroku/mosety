@@ -1,0 +1,43 @@
+<div class="overflow-x-auto">
+    <table class="ops-table">
+        <thead>
+            <tr>
+                <th>Item</th>
+                <th>Category</th>
+                <th>Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for expense in recent_expenses %}
+            <tr class="ops-row">
+                <td>
+                    <div class="font-bold text-primary text-sm">{{ expense.description }}</div>
+                    <div class="text-[11px] text-slate-400 font-medium">{{ expense.date_incurred|date:"M d, Y" }}</div>
+                </td>
+                <td>
+                    <span class="category-tag">{{ expense.category.name }}</span>
+                </td>
+                <td>
+                    <div class="font-bold text-rose-500 text-sm">KES {{ expense.amount|floatformat:0 }}</div>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="3" class="py-10 text-center text-slate-400 italic">No recent expenses recorded.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<style>
+    .category-tag {
+        padding: 4px 10px;
+        border-radius: 100px;
+        font-size: 10px;
+        font-weight: 700;
+        background: #f1f5f9;
+        color: #64748b;
+        text-transform: uppercase;
+    }
+</style>

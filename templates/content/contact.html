@@ -1,0 +1,154 @@
+{% extends 'base.html' %}
+{% load static humanize %}
+
+{% block meta_title %}{{ meta_title }}{% endblock %}
+{% block meta_description %}{{ meta_description }}{% endblock %}
+
+{% block content %}
+<section class="section-spacing" style="background: var(--ivory);">
+  <div class="site-container">
+    
+    <!-- Hero Header -->
+    <div style="max-width: 760px; margin-bottom: 3.5rem;">
+      <p class="eyebrow eyebrow-gold">Pier Location & Directions</p>
+      <h1 class="hero-h1" style="margin-bottom: 1rem;">Finding Mosety at Karagita Beach</h1>
+      <p class="lead-text">
+        Mosety departs directly from the Karagita Public Beach boat staging pier along South Lake Road, Lake Naivasha. Convenient vehicle parking, clear shoreline access, and direct boarding onto our safari craft.
+      </p>
+    </div>
+
+    <!-- Contact & Location Split -->
+    <div style="display: grid; grid-template-columns: 1fr; @media(min-width: 900px){ grid-template-columns: 1.15fr 0.85fr; } gap: 3.5rem; align-items: start; margin-bottom: 4rem;">
+      
+      <!-- Left Column: Arrival Directions -->
+      <div>
+        
+        <!-- Pier Details Card -->
+        <div class="card" style="background: #ffffff; border: 1px solid var(--border-subtle); border-radius: var(--radius-card); padding: 2rem; margin-bottom: 2.5rem; box-shadow: var(--shadow-sm);">
+          <span class="eyebrow eyebrow-gold">Launch Point Details</span>
+          <h2 style="font-size: 1.6rem; margin-bottom: 1rem; color: var(--ink-forest);">Karagita Boat Launch Pier</h2>
+          
+          <div style="display: flex; flex-direction: column; gap: 0.75rem; font-size: 0.95rem; color: var(--body-text); margin-bottom: 1.5rem;">
+            <div style="display: flex; align-items: flex-start; gap: 0.75rem;">
+              <i data-lucide="map-pin" style="width: 20px; height: 20px; color: var(--rift-gold); flex-shrink: 0; margin-top: 0.2rem;"></i>
+              <div>
+                <strong>Physical Address:</strong><br>
+                Karagita Public Beach, off South Lake Road, Lake Naivasha, Nakuru County, Kenya
+              </div>
+            </div>
+
+            <div style="display: flex; align-items: center; gap: 0.75rem;">
+              <i data-lucide="navigation" style="width: 20px; height: 20px; color: var(--rift-gold); flex-shrink: 0;"></i>
+              <div>
+                <strong>GPS Coordinates:</strong> -0.7483° S, 36.4255° E
+              </div>
+            </div>
+
+            <div style="display: flex; align-items: center; gap: 0.75rem;">
+              <i data-lucide="clock" style="width: 20px; height: 20px; color: var(--rift-gold); flex-shrink: 0;"></i>
+              <div>
+                <strong>Operating Hours:</strong> 06:30 AM – 18:30 PM daily (All week)
+              </div>
+            </div>
+          </div>
+
+          <div class="btn-row">
+            <a href="https://maps.google.com/?q=-0.7483,36.4255" target="_blank" rel="noopener" class="btn btn-sm btn-forest">
+              <i data-lucide="map" style="width: 15px; height: 15px;"></i>
+              <span>Open in Google Maps</span>
+            </a>
+            <a href="{{ whatsapp_book_url }}" target="_blank" rel="noopener" class="btn btn-sm btn-primary">
+              <i data-lucide="message-circle" style="width: 15px; height: 15px;"></i>
+              <span>Share Location on WhatsApp</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Driving Directions Accordion / Guide -->
+        <h3 style="font-size: 1.5rem; margin-bottom: 1.25rem; color: var(--ink-forest);">How to Reach Karagita Pier</h3>
+        
+        <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+          
+          <div style="background: var(--papyrus-light); padding: 1.5rem; border-radius: var(--radius-sm); border-left: 3px solid var(--rift-gold);">
+            <h4 style="font-size: 1.15rem; margin-bottom: 0.5rem; color: var(--ink-forest);">
+              1. Driving from Nairobi via Mai Mahiu (Scenic Route ~1.5 - 2 Hours)
+            </h4>
+            <p style="font-size: 0.9rem; line-height: 1.6; color: var(--body-text); margin: 0;">
+              Take the lower Rift Valley escarpment road (B3 via Mai Mahiu). As you approach Naivasha town, turn left onto Moi South Lake Road. Continue along South Lake Road for approximately 8 kilometers until you reach the Karagita junction. Follow the signed beach access road down to the public boat pier.
+            </p>
+          </div>
+
+          <div style="background: var(--papyrus-light); padding: 1.5rem; border-radius: var(--radius-sm); border-left: 3px solid var(--rift-gold);">
+            <h4 style="font-size: 1.15rem; margin-bottom: 0.5rem; color: var(--ink-forest);">
+              2. Driving from Nairobi via Flyover / Naivasha Town (~2 Hours)
+            </h4>
+            <p style="font-size: 0.9rem; line-height: 1.6; color: var(--body-text); margin: 0;">
+              Take the upper dual carriageway (A104). Turn into Naivasha Town at the main roundabout and branch south onto Moi South Lake Road towards Hell's Gate and Karagita. The beach pier is an easy 10-minute drive from town center.
+            </p>
+          </div>
+
+          <div style="background: var(--papyrus-light); padding: 1.5rem; border-radius: var(--radius-sm); border-left: 3px solid var(--rift-gold);">
+            <h4 style="font-size: 1.15rem; margin-bottom: 0.5rem; color: var(--ink-forest);">
+              3. Public Transport (Matatu from Nairobi)
+            </h4>
+            <p style="font-size: 0.9rem; line-height: 1.6; color: var(--body-text); margin: 0;">
+              Board a Naivasha-bound matatu from the Nairobi CBD (Accra Road / Railways terminals). At the Naivasha main stage, board a local Karagita-bound matatu (KES 50–70) and alight at the Karagita Beach stage, followed by a short 3-minute walk to the boat pier.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Right Column: Direct Contact & Inquiry Form -->
+      <aside style="position: sticky; top: calc(var(--header-height) + 20px);">
+        
+        <div class="card" style="padding: 2rem; background: #ffffff; border: 2px solid var(--border-papyrus); box-shadow: var(--shadow-card); margin-bottom: 2rem;">
+          <span class="eyebrow eyebrow-gold">Direct Communications</span>
+          <h3 style="font-size: 1.45rem; margin-bottom: 0.5rem; color: var(--ink-forest);">Talk Directly with a Captain</h3>
+          <p style="font-size: 0.875rem; color: var(--body-muted); margin-bottom: 1.5rem; line-height: 1.5;">
+            Whether you need pin-drop directions, want to verify morning wind conditions, or have special accessibility needs, we respond promptly.
+          </p>
+
+          <div style="display: flex; flex-direction: column; gap: 0.85rem; margin-bottom: 1.75rem;">
+            <a href="{{ whatsapp_book_url }}" target="_blank" rel="noopener" class="btn btn-primary" style="width: 100%;">
+              <i data-lucide="message-circle" style="width: 18px; height: 18px;"></i>
+              <span>WhatsApp: {{ site.whatsapp_number }}</span>
+            </a>
+            
+            {% if site.tel_url %}
+            <a href="{{ site.tel_url }}" class="btn btn-outline" style="width: 100%;">
+              <i data-lucide="phone" style="width: 17px; height: 17px;"></i>
+              <span>Call: {{ site.phone }}</span>
+            </a>
+            {% endif %}
+
+            <a href="mailto:{{ site.email }}" class="btn btn-outline" style="width: 100%;">
+              <i data-lucide="mail" style="width: 17px; height: 17px;"></i>
+              <span>Email: {{ site.email }}</span>
+            </a>
+          </div>
+
+          <div style="border-top: 1px solid var(--border-subtle); padding-top: 1.25rem; font-size: 0.8125rem; color: var(--lake-sage); display: flex; flex-direction: column; gap: 0.5rem;">
+            <div>&bull; Secure visitor parking available on site</div>
+            <div>&bull; Restroom facilities available at beach entrance</div>
+            <div>&bull; Local captain on standby for early dawn departures (06:30 AM)</div>
+          </div>
+        </div>
+
+        <div style="background: var(--papyrus-light); border-radius: var(--radius-card); padding: 1.5rem; text-align: center;">
+          <strong style="color: var(--ink-forest); display: block; margin-bottom: 0.35rem;">Planning a full day in Naivasha?</strong>
+          <p style="font-size: 0.875rem; color: var(--body-muted); margin-bottom: 1rem;">
+            Read our complete traveler guide covering clothing, seasons, and Crescent Island.
+          </p>
+          <a href="/plan-your-visit/" class="btn btn-sm btn-forest">
+            <span>Open Planning Guide</span>
+          </a>
+        </div>
+
+      </aside>
+
+    </div>
+  </div>
+</section>
+{% endblock %}

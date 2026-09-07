@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% load static humanize %}
+
+{% block meta_title %}{{ meta_title }}{% endblock %}
+{% block meta_description %}{{ meta_description }}{% endblock %}
+
+{% block content %}
+<section class="section-spacing" style="background: var(--ivory);">
+  <div class="site-container-narrow">
+    
+    <!-- Breadcrumb Nav -->
+    <nav style="font-size: 0.85rem; color: var(--lake-sage); margin-bottom: 1.5rem;" aria-label="Breadcrumb">
+      <a href="/" style="color: var(--lake-sage);">Home</a> &rsaquo;
+      <a href="/naivasha-guide/" style="color: var(--lake-sage);">Lake Naivasha Guide</a> &rsaquo;
+      <span style="color: var(--ink-forest); font-weight: 600;">Hippo Pods</span>
+    </nav>
+
+    <p class="eyebrow eyebrow-gold">Wildlife Field Guide</p>
+    <h1 class="hero-h1" style="margin-bottom: 1.25rem;">Lake Naivasha Hippos: Pod Locations, Behaviors & Ethical Observation</h1>
+    
+    <div style="color: var(--body-text); font-size: 1.05rem; line-height: 1.7; margin-bottom: 2.5rem;">
+      <p>
+        The common hippopotamus (<em>Hippopotamus amphibius</em>) is the undisputed signature mammal of Lake Naivasha. With an estimated population exceeding 1,500 individuals, Lake Naivasha is one of the premier locations in all of Africa to view wild hippo pods from the water.
+      </p>
+    </div>
+
+    <!-- Editorial Image -->
+    <div style="border-radius: var(--radius-card); overflow: hidden; box-shadow: var(--shadow-md); margin-bottom: 3rem; aspect-ratio: 16 / 9; background: var(--papyrus);">
+      <img src="{% static 'images/gallery/lake-naivasha-hippo-pod.jpeg' %}" alt="Family pod of hippos resting in the calm shallows of Lake Naivasha" style="width: 100%; height: 100%; object-fit: cover;">
+    </div>
+
+    <!-- Pod Dynamics Section -->
+    <article style="margin-bottom: 3.5rem;">
+      <h2 style="font-size: 1.85rem; margin-bottom: 1rem; color: var(--ink-forest);">Where the Pods Congregate</h2>
+      <p style="font-size: 1rem; line-height: 1.7; color: var(--body-text); margin-bottom: 1.25rem;">
+        Hippos do not spend their days swimming in deep, open waters. Instead, pods gather in shallow bays where the water is between 1.2 and 2 meters deep, backed by thick papyrus swamps (<em>Cyperus papyrus</em>). Key congregation areas include the sheltered eastern shores near Crescent Island, the Karagita shallows, and the lagoons near Oloidien and Sanctuary Farm.
+      </p>
+      <p style="font-size: 1rem; line-height: 1.7; color: var(--body-text);">
+        A single pod typically consists of a dominant bull, several breeding females, and calves of various ages. Numbers range from 8 to over 30 animals resting huddled tightly together to conserve energy and keep skin moist.
+      </p>
+    </article>
+
+    <!-- Diurnal Habits -->
+    <article style="margin-bottom: 3.5rem;">
+      <h2 style="font-size: 1.85rem; margin-bottom: 1rem; color: var(--ink-forest);">Day vs. Night Life Cycle</h2>
+      <div style="display: grid; grid-template-columns: 1fr; @media(min-width: 600px){ grid-template-columns: 1fr 1fr; } gap: 1.5rem;">
+        <div style="background: #ffffff; padding: 1.5rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+          <strong style="color: var(--ink-forest); font-size: 1.1rem; display: block; margin-bottom: 0.5rem;">Daytime in the Water</strong>
+          <p style="font-size: 0.9rem; color: var(--body-muted); line-height: 1.6; margin: 0;">
+            Hippo skin lacks sweat glands and dries out quickly under equatorial sun. Submerging in cool fresh water protects them from sunburn. They surface every 3 to 5 minutes to breathe, blowing a characteristic fine spray of water vapor.
+          </p>
+        </div>
+        <div style="background: #ffffff; padding: 1.5rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+          <strong style="color: var(--ink-forest); font-size: 1.1rem; display: block; margin-bottom: 0.5rem;">Night Grazing on Land</strong>
+          <p style="font-size: 0.9rem; color: var(--body-muted); line-height: 1.6; margin: 0;">
+            At dusk, hippos emerge from the water along well-worn trails (hippo runs) to graze on shoreline grasses. A single adult consumes up to 40 kilograms of grass each night, sometimes traveling several kilometers inland before returning before dawn.
+          </p>
+        </div>
+      </div>
+    </article>
+
+    <!-- Ethical Buffer Policy -->
+    <div style="background: var(--papyrus-light); border-left: 4px solid var(--rift-gold); border-radius: 0 var(--radius-card) var(--radius-card) 0; padding: 2rem; margin-bottom: 3.5rem;">
+      <h3 style="font-size: 1.35rem; margin-bottom: 0.75rem; color: var(--ink-forest);">Mosety's Strict 30–50m Safety Buffer</h3>
+      <p style="font-size: 0.95rem; line-height: 1.65; color: var(--body-text); margin-bottom: 1rem;">
+        Hippos can run up to 30 km/h in shallow water and possess immense bite force. When approached aggressively, a bull may launch a defensive charge toward boats.
+      </p>
+      <p style="font-size: 0.95rem; line-height: 1.65; color: var(--body-text); margin: 0;">
+        Mosety captains maintain an unshakeable 30 to 50-meter buffer from active pods. Engines are shifted into neutral drift. This distance keeps both passengers and hippos calm, allowing you to observe relaxed natural behaviors—mothers nudging newborns, playful head-butting, and wide-mouthed territorial yawns.
+      </p>
+    </div>
+
+    <!-- Booking Card -->
+    <div class="card" style="background: #ffffff; border: 2px solid var(--border-papyrus); border-radius: var(--radius-card); padding: 2.25rem; text-align: center;">
+      <span class="eyebrow eyebrow-gold" style="justify-content: center;">Signature Experience</span>
+      <h3 style="font-size: 1.5rem; margin-bottom: 0.5rem; color: var(--ink-forest);">Ready to See the Pods?</h3>
+      <p style="color: var(--body-muted); font-size: 0.95rem; max-width: 48ch; margin-inline: auto; margin-bottom: 1.5rem;">
+        Our 1-hour Hippo & Bird Safari is the definitive Naivasha wildlife tour. Certified life jackets, local captains, and guaranteed pod viewing.
+      </p>
+      <div class="btn-row" style="justify-content: center;">
+        <a href="/boat-rides/hippo-bird-safari/" class="btn btn-forest">
+          <span>View Hippo & Bird Safari (KES 3,500)</span>
+        </a>
+        <a href="{{ whatsapp_book_url }}" target="_blank" rel="noopener" class="btn btn-primary">
+          <i data-lucide="message-circle" style="width: 16px; height: 16px;"></i>
+          <span>Book on WhatsApp</span>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,63 @@
+{% load humanize %}
+<div class="quote-result-box" style="background: var(--ivory); border: 2px solid var(--border-papyrus); border-radius: var(--radius-card); padding: clamp(1.5rem, 3vw, 2.25rem); box-shadow: var(--shadow-sm);">
+  
+  <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: 1rem; margin-bottom: 1.5rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border-subtle);">
+    <div>
+      <span class="eyebrow eyebrow-gold" style="margin-bottom: 0.25rem;">Estimated Total</span>
+      <div style="font-family: var(--font-display); font-size: clamp(2rem, 3.5vw, 2.75rem); font-weight: 700; color: var(--ink-forest); line-height: 1;">
+        KES {{ total_kes|floatformat:0|intcomma }}
+      </div>
+      <div style="font-size: 0.875rem; color: var(--lake-sage); font-weight: 600; margin-top: 0.35rem;">
+        Approx. KES {{ per_person_kes|floatformat:0|intcomma }} per person for {{ party_size }} guest{{ party_size|pluralize }}
+      </div>
+    </div>
+
+    <div style="text-align: right;">
+      <span class="fact-chip" style="background: var(--papyrus);"><i data-lucide="clock"></i> {{ tour.duration_display }}</span>
+      <div style="font-size: 0.75rem; color: var(--lake-sage); margin-top: 0.45rem; text-transform: uppercase; font-weight: 700;">
+        {{ tier.label }}
+      </div>
+    </div>
+  </div>
+
+  <!-- Included details -->
+  <div style="margin-bottom: 1.5rem;">
+    <h4 style="font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--lake-sage); margin-bottom: 0.65rem;">
+      What is included:
+    </h4>
+    <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.45rem; font-size: 0.875rem; color: var(--body-muted);">
+      <li style="display: flex; align-items: center; gap: 0.5rem;">
+        <i data-lucide="check" style="width: 15px; height: 15px; color: var(--rift-gold);"></i>
+        <span>Full private boat charter with licensed local captain</span>
+      </li>
+      <li style="display: flex; align-items: center; gap: 0.5rem;">
+        <i data-lucide="check" style="width: 15px; height: 15px; color: var(--rift-gold);"></i>
+        <span>Certified, fitted life jackets for all {{ party_size }} guest{{ party_size|pluralize }}</span>
+      </li>
+      <li style="display: flex; align-items: center; gap: 0.5rem;">
+        <i data-lucide="check" style="width: 15px; height: 15px; color: var(--rift-gold);"></i>
+        <span>Vessel fuel and guided navigation along hippo bays</span>
+      </li>
+      {% if 'crescent' in tour.slug %}
+      <li style="display: flex; align-items: center; gap: 0.5rem; color: #8C5311;">
+        <i data-lucide="alert-circle" style="width: 15px; height: 15px; color: var(--rift-gold);"></i>
+        <span>Note: Crescent Island walking fee paid separately at sanctuary gate (KES 1,000 resident / $33 non-resident).</span>
+      </li>
+      {% endif %}
+    </ul>
+  </div>
+
+  <!-- Direct Conversion Button -->
+  <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+    <a href="{{ whatsapp_url }}" target="_blank" rel="noopener" class="btn btn-primary" style="width: 100%; font-size: 1rem;">
+      <i data-lucide="message-circle" style="width: 18px; height: 18px;"></i>
+      <span>Lock in This Quote on WhatsApp</span>
+    </a>
+    
+    <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.75rem; color: var(--lake-sage);">
+      <span>Direct dock pricing • No middleman fees</span>
+      <span>Verified {{ site.price_verified_at|date:"M Y" }}</span>
+    </div>
+  </div>
+
+</div>
