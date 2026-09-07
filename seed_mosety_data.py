@@ -166,8 +166,8 @@ def run_seed():
 
     print("4. Seeding Captains...")
     captains_data = [
-        ('Joseph Kimani', 'joseph-kimani', 'Born and raised along the Karagita shoreline with 14 years of certified navigation on Lake Naivasha.', 14, 'Hippo pod tracking, sunset navigation', 'static/images/gallery/naivasha-captain.jpeg'),
-        ('Peter Mwangi', 'peter-mwangi', 'Specialist in ornithology and raptor flight paths with over a decade of Lake Naivasha guiding.', 11, 'Fish eagle observation, photography angles', 'static/images/gallery/naivasha-guest-captain.jpeg'),
+        ('Moses Kamau', 'moses-kamau', 'Born and raised in Naivasha, Captain Moses Kamau has over 15 years of professional boat safari experience piloting from Karagita Beach across Crescent Island channels and Oloidien Bay. Licensed by the Kenya Maritime Authority, Moses is renowned for his deep understanding of resident hippo families, water currents, and calm, reassuring navigation.', 15, 'Hippo pod behavior, Crescent Island navigation, golden hour photography, sunrise boat rides', 'static/images/captains/captain-moses-kamau.jpeg'),
+        ('Joseph Njuguna', 'joseph-njuguna', 'Captain Joseph Njuguna is an experienced Lake Naivasha boat captain and certified birding specialist with 12 years piloting safari craft from Karagita Pier. Renowned for his sharp wildlife spotting, encyclopedic bird knowledge, and gentle handling of family groups, Joseph guarantees every guest enjoys the best boat ride on Lake Naivasha with complete safety.', 12, 'African fish eagle feeding spots, water bird identification, family & group boat rides, eco-tours', 'static/images/captains/captain-joseph-njuguna.jpeg'),
     ]
     for name, slug, bio, years, spec, img in captains_data:
         capt, _ = Captain.objects.get_or_create(

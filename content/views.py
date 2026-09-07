@@ -54,7 +54,7 @@ class CaptainsListView(ListView):
     context_object_name = 'captains'
 
     def get_queryset(self):
-        return Captain.objects.filter(is_active=True).order_by('name')
+        return Captain.objects.filter(is_active=True).order_by('-years_on_lake')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
