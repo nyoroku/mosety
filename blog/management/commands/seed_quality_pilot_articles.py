@@ -140,7 +140,7 @@ ARTICLES = [
   <li><a href="https://meteo.go.ke/Services/climate/" target="_blank" rel="noopener">Kenya Meteorological Department: Climate Services</a></li>
 </ul>
 
-<p><strong>Next step:</strong> Review the <a href="/tours/">current Lake Naivasha boat rides</a>. For availability, send your date, preferred time, number of adults and children, and main interest to <a href="https://wa.me/254729360174">Paradise Boat Rides Naivasha on WhatsApp</a>.</p>
+<p><strong>Next step:</strong> Review the <a href="/boat-rides/">current Lake Naivasha boat rides</a>. For availability, send your date, preferred time, number of adults and children, and main interest to <a href="https://wa.me/254114182706">Mosety Boat Rides Naivasha on WhatsApp</a>.</p>
 ''',
     },
     {
@@ -287,7 +287,7 @@ ARTICLES = [
   <li><a href="https://www.crescentisland.co/important-info" target="_blank" rel="noopener">Crescent Island Game Sanctuary: Important Visitor Information</a></li>
 </ul>
 
-<p><strong>Next step:</strong> Compare the <a href="/tours/">available Naivasha boat rides</a> using the scorecard. To request a complete quote, message <a href="https://wa.me/254729360174">0729360174 on WhatsApp</a> with your date, group size and priority.</p>
+<p><strong>Next step:</strong> Compare the <a href="/boat-rides/">available Naivasha boat rides</a> using the scorecard. To request a complete quote, message <a href="https://wa.me/254114182706">+254 114 182706 on WhatsApp</a> with your date, group size and priority.</p>
 ''',
     },
     {
@@ -447,7 +447,7 @@ ARTICLES = [
   <li><a href="https://meteo.go.ke/Services/climate/" target="_blank" rel="noopener">Kenya Meteorological Department: Climate Services</a></li>
 </ul>
 
-<p><strong>Next step:</strong> Check the sanctuary’s official visitor page, then request a separate <a href="/tours/">Lake Naivasha boat transfer</a>. Send the date, passenger number and desired walking time to <a href="https://wa.me/254729360174">Paradise Boat Rides Naivasha on WhatsApp</a>.</p>
+<p><strong>Next step:</strong> Check the sanctuary’s official visitor page, then request a separate <a href="/boat-rides/">Lake Naivasha boat transfer</a>. Send the date, passenger number and desired walking time to <a href="https://wa.me/254114182706">Mosety Boat Rides Naivasha on WhatsApp</a>.</p>
 ''',
     },
     {
@@ -599,7 +599,7 @@ ARTICLES = [
   <li><a href="https://www.kws.go.ke/article/kenya-commemorates-international-vulture-awareness-day" target="_blank" rel="noopener">Kenya Wildlife Service: Lake Naivasha Human-Wildlife Conflict Context</a></li>
 </ul>
 
-<p><strong>Next step:</strong> Compare the <a href="/tours/">current wildlife boat rides</a>. For a responsible hippo-viewing enquiry, message <a href="https://wa.me/254729360174">Paradise Boat Rides Naivasha</a> with the date, passenger ages and preferred duration.</p>
+<p><strong>Next step:</strong> Compare the <a href="/boat-rides/">current wildlife boat rides</a>. For a responsible hippo-viewing enquiry, message <a href="https://wa.me/254114182706">Mosety Boat Rides Naivasha</a> with the date, passenger ages and preferred duration.</p>
 ''',
     },
     {
@@ -759,7 +759,7 @@ ARTICLES = [
   <li><a href="https://kma.go.ke/download/maritime-safety-tips/" target="_blank" rel="noopener">Kenya Maritime Authority: Maritime Safety Tips</a></li>
 </ul>
 
-<p><strong>Next step:</strong> Ask for a bird-focused route when reviewing the <a href="/tours/">Lake Naivasha boat rides</a>. Message <a href="https://wa.me/254729360174">Paradise Boat Rides Naivasha</a> with your date, camera or binocular needs, preferred duration and whether you want a private pace.</p>
+<p><strong>Next step:</strong> Ask for a bird-focused route when reviewing the <a href="/boat-rides/">Lake Naivasha boat rides</a>. Message <a href="https://wa.me/254114182706">Mosety Boat Rides Naivasha</a> with your date, camera or binocular needs, preferred duration and whether you want a private pace.</p>
 ''',
     },
 ]

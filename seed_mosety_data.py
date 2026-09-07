@@ -18,8 +18,8 @@ def run_seed():
     site = SiteSettings.get_solo()
     site.business_name = "Mosety Boat Rides Naivasha"
     site.tagline = "See Naivasha from the water."
-    site.phone = "+254 700 000000"
-    site.whatsapp_number = "+254 700 000000"
+    site.phone = "+254 114 182706"
+    site.whatsapp_number = "+254 114 182706"
     site.base_url = "https://mosety.pythonanywhere.com"
     site.address_text = "Karagita Public Beach, South Lake Road, Lake Naivasha, Kenya"
     site.save()

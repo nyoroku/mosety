@@ -11,8 +11,8 @@ class SiteSettings(models.Model):
     legal_name = models.CharField(max_length=150, default="Mosety Boat Rides Naivasha")
     tagline = models.CharField(max_length=255, default="See Naivasha from the water.")
     
-    phone = models.CharField(max_length=30, default="+254 700 000000")
-    whatsapp_number = models.CharField(max_length=30, default="+254 700 000000")
+    phone = models.CharField(max_length=30, default="+254 114 182706")
+    whatsapp_number = models.CharField(max_length=30, default="+254 114 182706")
     email = models.EmailField(default="info@mosety.co.ke")
     
     address_text = models.CharField(max_length=255, default="Karagita Public Beach, South Lake Road, Lake Naivasha, Kenya")

@@ -131,7 +131,7 @@ class TestHomepageShellAndZeroResidue(TestCase):
         # Verify single H1 tag on homepage
         h1_matches = re.findall(r'<h1[^>]*>(.*?)</h1>', content, re.DOTALL)
         self.assertEqual(len(h1_matches), 1, f"Expected exactly 1 H1 tag, found {len(h1_matches)}")
-        self.assertIn("See Naivasha from the water.", h1_matches[0])
+        self.assertIn("Unforgettable boat rides on Lake Naivasha", h1_matches[0])
 
         # Verify page title and meta description
         self.assertIn("<title>Mosety Boat Rides Naivasha", content)

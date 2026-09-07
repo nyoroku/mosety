@@ -196,7 +196,8 @@ ADMIN_INDEX_TITLE = "Mosety Operations & Content Management"
 ADMIN_NAME = "Mosety Boat Rides Naivasha"
 
 # Launch-sensitive business details
-SITE_WHATSAPP_NUMBER = config('SITE_WHATSAPP_NUMBER', default='+254 700 000000')
+SITE_WHATSAPP_NUMBER = config('SITE_WHATSAPP_NUMBER', default='+254 114 182706')
+SITE_PHONE_NUMBER = config('SITE_PHONE_NUMBER', default='+254 114 182706')
 SITE_BASE_URL = config('SITE_BASE_URL', default='https://mosety.co.ke').rstrip('/')
 SITE_LAUNCH_POINT = config('SITE_LAUNCH_POINT', default='Karagita Public Beach / South Lake Road, Lake Naivasha')
 SITE_LATITUDE = config('SITE_LATITUDE', default='-0.763400')

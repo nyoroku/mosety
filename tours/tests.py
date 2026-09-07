@@ -50,7 +50,7 @@ class ToursAndCalculatorTests(TestCase):
         response = self.client.get('/boat-rides/hippo-bird-safari/')
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Hippo &amp; Bird Safari")
-        self.assertContains(response, "KES 3500")
+        self.assertContains(response, "KES 3,500")
         self.assertContains(response, "https://wa.me/254700123456")
 
     def test_find_your_ride_htmx_endpoint(self):
