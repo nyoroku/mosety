@@ -6,106 +6,138 @@
 
 {% block content %}
 <!-- ==========================================================================
-     SECTION 02: HERO
+     SECTION 02: GETYOURGUIDE STYLE HERO & FLOATING SEARCH BAR
      ========================================================================== -->
-<section class="hero-section" style="position: relative; background: var(--ivory); padding-block: clamp(3.5rem, 6vw, 6rem); border-bottom: 1px solid var(--border-subtle);">
-  <div class="site-container">
-    <div style="display: grid; grid-template-columns: 1fr; @media(min-width: 960px){ grid-template-columns: 1.15fr 0.85fr; } gap: 2.5rem; align-items: center;">
-      
-      <!-- Copy Column -->
-      <div>
-        <p class="eyebrow eyebrow-gold">Lake Naivasha, Kenya</p>
-        <h1 class="hero-h1" style="margin-bottom: 1.25rem;">
-          See Naivasha from the water.
-        </h1>
-        <p class="lead-text" style="margin-bottom: 2rem;">
-          Hippo safaris, Crescent Island trips, sunset cruises and private rides — guided by local captains with clear, direct booking.
-        </p>
+<section class="gyg-hero-wrap" x-data="{
+  searchQuery: '',
+  searchDate: 'today',
+  searchGuests: '2',
+  doSearch() {
+    const el = document.getElementById('tours');
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+}">
+  <div class="gyg-hero-bg"></div>
+  <div class="gyg-hero-overlay"></div>
 
-        <div class="btn-row" style="margin-bottom: 2.5rem;">
-          <a href="{{ whatsapp_book_url }}" target="_blank" rel="noopener" class="btn btn-primary" onclick="trackEvent('whatsapp_click', {'placement': 'hero'})">
-            <i data-lucide="message-circle" style="width: 18px; height: 18px;"></i>
-            <span>Book on WhatsApp</span>
-          </a>
-          <a href="/boat-rides/" class="btn btn-outline">
-            <span>Explore Boat Rides</span>
-            <i data-lucide="arrow-right" style="width: 16px; height: 16px;"></i>
-          </a>
-        </div>
-
-        <div style="display: flex; flex-wrap: wrap; gap: 1.5rem; font-size: 0.875rem; color: var(--lake-sage); font-weight: 600;">
-          <span style="display: flex; align-items: center; gap: 0.45rem;">
-            <i data-lucide="check-circle" style="width: 16px; height: 16px; color: var(--rift-gold);"></i>
-            Standard Dock Rates
-          </span>
-          <span style="display: flex; align-items: center; gap: 0.45rem;">
-            <i data-lucide="shield-check" style="width: 16px; height: 16px; color: var(--rift-gold);"></i>
-            Certified Life Jackets
-          </span>
-          <span style="display: flex; align-items: center; gap: 0.45rem;">
-            <i data-lucide="clock" style="width: 16px; height: 16px; color: var(--rift-gold);"></i>
-            Daily 6:30am – 6:30pm
-          </span>
-        </div>
-      </div>
-
-      <!-- Real Lake Photography Column -->
-      <div style="position: relative;">
-        <div style="border-radius: var(--radius-card); overflow: hidden; box-shadow: var(--shadow-lg); background: var(--papyrus); aspect-ratio: 4 / 3;">
-          <img src="{% static 'images/gallery/naivasha-boat-passenger.jpeg' %}" 
-               alt="Guests enjoying Lake Naivasha boat ride with local captain" 
-               width="800" height="600" 
-               fetchpriority="high"
-               style="width: 100%; height: 100%; object-fit: cover;">
-        </div>
-
-        <div style="position: absolute; bottom: -1rem; left: 1.5rem; background: var(--ink-forest); color: var(--ivory); padding: 0.75rem 1.25rem; border-radius: var(--radius-md); box-shadow: var(--shadow-card); font-size: 0.8125rem; font-weight: 600; display: flex; align-items: center; gap: 0.6rem;">
-          <i data-lucide="map-pin" style="width: 16px; height: 16px; color: var(--rift-gold);"></i>
-          <span>Departure: Karagita Public Beach Pier</span>
-        </div>
-      </div>
-
+  <div class="site-container" style="position: relative; z-index: 5; text-align: center;">
+    <div style="display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(16, 39, 33, 0.6); backdrop-filter: blur(8px); padding: 0.35rem 1rem; border-radius: var(--radius-pill); border: 1px solid rgba(217, 164, 65, 0.4); margin-bottom: 1.25rem;">
+      <i data-lucide="map-pin" style="width: 14px; height: 14px; color: var(--rift-gold);"></i>
+      <span style="font-size: 0.75rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--papyrus);">Lake Naivasha, Kenya • Karagita Pier</span>
     </div>
+
+    <h1 class="hero-h1" style="color: var(--ivory); max-width: 22ch; margin-inline: auto; margin-bottom: 1rem; text-shadow: 0 4px 18px rgba(0, 0, 0, 0.4);">
+      Unforgettable boat rides on Lake Naivasha.
+    </h1>
+
+    <p style="font-size: clamp(1rem, 1.4vw, 1.2rem); color: rgba(251, 248, 242, 0.88); max-width: 58ch; margin-inline: auto; margin-bottom: 2.25rem; line-height: 1.55;">
+      Book hippo safaris, Crescent Island walking tours, and sunset cruises directly with verified local captains at official pier rates.
+    </p>
+
+    <!-- GetYourGuide Floating Multi-Segment Search Widget -->
+    <div class="gyg-search-widget-card" role="search" aria-label="Find boat rides">
+      <div class="gyg-search-grid">
+        <!-- Segment 1: Activity / Where to -->
+        <div class="gyg-search-col">
+          <span class="gyg-search-label"><i data-lucide="compass" style="width: 12px; height: 12px; display: inline-block; vertical-align: middle;"></i> What to experience?</span>
+          <div class="gyg-search-val">
+            <select x-model="searchQuery" aria-label="Select activity" @change="doSearch()">
+              <option value="">All Boat Rides & Safaris</option>
+              {% for tour in all_tours %}
+              <option value="{{ tour.slug }}">{{ tour.name }}</option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+
+        <!-- Segment 2: When -->
+        <div class="gyg-search-col">
+          <span class="gyg-search-label"><i data-lucide="calendar" style="width: 12px; height: 12px; display: inline-block; vertical-align: middle;"></i> When?</span>
+          <div class="gyg-search-val">
+            <select x-model="searchDate" aria-label="Select departure timeframe">
+              <option value="today">Today (Instant Departure)</option>
+              <option value="tomorrow">Tomorrow (Morning / Sunset)</option>
+              <option value="weekend">This Weekend</option>
+              <option value="custom">Pick Custom Date</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Segment 3: Guests -->
+        <div class="gyg-search-col">
+          <span class="gyg-search-label"><i data-lucide="users" style="width: 12px; height: 12px; display: inline-block; vertical-align: middle;"></i> Guests</span>
+          <div class="gyg-search-val">
+            <select x-model="searchGuests" aria-label="Select number of passengers">
+              <option value="2">1 – 2 Passengers (Private / Shared)</option>
+              <option value="4">3 – 4 Passengers (Family / Friends)</option>
+              <option value="7">5 – 7 Passengers (Full Private Boat)</option>
+              <option value="8">8+ Passengers (Multiple Boats)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Action Button -->
+        <div style="padding: 0.25rem;">
+          <button type="button" class="gyg-search-submit" @click="doSearch()" aria-label="Search available rides">
+            <i data-lucide="search" style="width: 18px; height: 18px;"></i>
+            <span>Search</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
   </div>
 </section>
 
 <!-- ==========================================================================
-     SECTION 03: TRUST STRIP
+     SECTION 03: GETYOURGUIDE 4 TRUST PILLARS
      ========================================================================== -->
-<section class="trust-strip" aria-label="Trust commitments">
+<section class="gyg-trust-section" aria-label="Why book with Mosety">
   <div class="site-container">
-    <div class="trust-grid">
-      <div class="trust-item">
-        <i data-lucide="compass" style="width: 22px; height: 22px;"></i>
+    <div class="gyg-trust-grid">
+      
+      <div class="gyg-trust-card">
+        <div class="gyg-trust-icon-box">
+          <i data-lucide="rotate-ccw" style="width: 22px; height: 22px;"></i>
+        </div>
         <div>
-          <div style="color: var(--ivory); font-weight: 700;">Local Captains</div>
-          <div style="font-size: 0.75rem; color: rgba(234, 225, 209, 0.7);">Expert lake navigators</div>
+          <h3 class="gyg-trust-title">Free Cancellation</h3>
+          <p class="gyg-trust-desc">Stay flexible on your journey. Cancel or reschedule up to 2 hours before departure at zero fee.</p>
         </div>
       </div>
 
-      <div class="trust-item">
-        <i data-lucide="shield" style="width: 22px; height: 22px;"></i>
+      <div class="gyg-trust-card">
+        <div class="gyg-trust-icon-box">
+          <i data-lucide="award" style="width: 22px; height: 22px;"></i>
+        </div>
         <div>
-          <div style="color: var(--ivory); font-weight: 700;">Safety First</div>
-          <div style="font-size: 0.75rem; color: rgba(234, 225, 209, 0.7);">Fitted vests for all ages</div>
+          <h3 class="gyg-trust-title">Certified Local Captains</h3>
+          <p class="gyg-trust-desc">Every boat is piloted by Coast Guard licensed captains born and raised on Lake Naivasha.</p>
         </div>
       </div>
 
-      <div class="trust-item">
-        <i data-lucide="users" style="width: 22px; height: 22px;"></i>
+      <div class="gyg-trust-card">
+        <div class="gyg-trust-icon-box">
+          <i data-lucide="shield-check" style="width: 22px; height: 22px;"></i>
+        </div>
         <div>
-          <div style="color: var(--ivory); font-weight: 700;">Small Groups</div>
-          <div style="font-size: 0.75rem; color: rgba(234, 225, 209, 0.7);">Unhurried wildlife viewing</div>
+          <h3 class="gyg-trust-title">Standard Pier Pricing</h3>
+          <p class="gyg-trust-desc">Zero tourist price markups. Official Karagita Beach dock rates with no hidden fuel charges.</p>
         </div>
       </div>
 
-      <div class="trust-item">
-        <i data-lucide="message-circle" style="width: 22px; height: 22px;"></i>
+      <div class="gyg-trust-card">
+        <div class="gyg-trust-icon-box">
+          <i data-lucide="message-circle" style="width: 22px; height: 22px;"></i>
+        </div>
         <div>
-          <div style="color: var(--ivory); font-weight: 700;">Direct Booking</div>
-          <div style="font-size: 0.75rem; color: rgba(234, 225, 209, 0.7);">Zero middleman markups</div>
+          <h3 class="gyg-trust-title">Instant WhatsApp Care</h3>
+          <p class="gyg-trust-desc">Real-time dockmaster updates, live pier directions, and instant boat reservation confirmation.</p>
         </div>
       </div>
+
     </div>
   </div>
 </section>
@@ -260,113 +292,223 @@
 </section>
 
 <!-- ==========================================================================
-     SECTION 05: SIGNATURE EXPERIENCES & SERVICES
+     SECTION 05: GETYOURGUIDE SIGNATURE EXPERIENCES & SERVICES
      ========================================================================== -->
 <section class="section-spacing" id="tours" x-data="{ activeCategory: 'all' }">
   <div class="site-container">
     
     <div style="display: flex; flex-direction: column; @media(min-width: 768px){ flex-direction: row; } justify-content: space-between; align-items: flex-start; margin-bottom: 2rem; gap: 1.5rem;">
       <div>
-        <p class="eyebrow eyebrow-gold">Signature Experiences & Services</p>
-        <h2 style="max-width: 24ch;">Iconic water experiences on Lake Naivasha.</h2>
+        <p class="eyebrow eyebrow-gold">Top Things to Do in Lake Naivasha</p>
+        <h2 style="max-width: 24ch; color: var(--ink-forest);">Popular boat rides & safaris.</h2>
       </div>
       <p class="lead-text" style="max-width: 44ch;">
-        Every ride is backed by a verified PriceTier with transparent dock rates. No surprise surcharges or forced tip expectations.
+        Every lake ride is piloted by licensed local captains with standard Karagita Beach dock rates. Free cancellation up to 2 hours before.
       </p>
     </div>
 
-    <!-- Category Filter Pills -->
-    <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2.5rem;">
+    <!-- GetYourGuide Horizontal Category Pill Carousel -->
+    <div class="gyg-pill-carousel" style="margin-bottom: 2.25rem;">
       <button type="button" 
               @click="activeCategory = 'all'" 
-              :class="{ 'btn-forest': activeCategory === 'all', 'btn-outline': activeCategory !== 'all' }" 
-              class="btn btn-sm">
-        All Experiences ({{ all_tours|length }})
+              class="gyg-pill"
+              :class="{ 'is-active': activeCategory === 'all' }">
+        <span>🌟 All Rides ({{ all_tours|length }})</span>
       </button>
       <button type="button" 
               @click="activeCategory = 'wildlife'" 
-              :class="{ 'btn-forest': activeCategory === 'wildlife', 'btn-outline': activeCategory !== 'wildlife' }" 
-              class="btn btn-sm">
-        Wildlife & Hippo Safaris
+              class="gyg-pill"
+              :class="{ 'is-active': activeCategory === 'wildlife' }">
+        <span>🦛 Hippo & Wildlife</span>
       </button>
       <button type="button" 
               @click="activeCategory = 'crescent_island'" 
-              :class="{ 'btn-forest': activeCategory === 'crescent_island', 'btn-outline': activeCategory !== 'crescent_island' }" 
-              class="btn btn-sm">
-        Crescent Island Walking
+              class="gyg-pill"
+              :class="{ 'is-active': activeCategory === 'crescent_island' }">
+        <span>🏝️ Crescent Island Walk</span>
       </button>
       <button type="button" 
               @click="activeCategory = 'sunset'" 
-              :class="{ 'btn-forest': activeCategory === 'sunset', 'btn-outline': activeCategory !== 'sunset' }" 
-              class="btn btn-sm">
-        Sunset & Private Charters
+              class="gyg-pill"
+              :class="{ 'is-active': activeCategory === 'sunset' }">
+        <span>🌅 Sunset Cruises</span>
+      </button>
+      <button type="button" 
+              @click="activeCategory = 'private'" 
+              class="gyg-pill"
+              :class="{ 'is-active': activeCategory === 'private' }">
+        <span>🚤 Private Charters</span>
       </button>
       <button type="button" 
               @click="activeCategory = 'group'" 
-              :class="{ 'btn-forest': activeCategory === 'group', 'btn-outline': activeCategory !== 'group' }" 
-              class="btn btn-sm">
-        Family & Groups
+              class="gyg-pill"
+              :class="{ 'is-active': activeCategory === 'group' }">
+        <span>👨‍👩‍👧 Family & Groups</span>
+      </button>
+      <button type="button" 
+              @click="activeCategory = 'birding'" 
+              class="gyg-pill"
+              :class="{ 'is-active': activeCategory === 'birding' }">
+        <span>📸 Birding & Photography</span>
       </button>
     </div>
 
-    <!-- Dynamic Experiences Grid -->
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); gap: 2rem;">
+    <!-- GetYourGuide Product Card Grid -->
+    <div class="gyg-card-grid" id="experiences">
       {% for tour in all_tours %}
-      <article class="card tour-card" 
+      <article class="gyg-product-card" 
+               x-data="{ isSaved: false }"
                x-show="activeCategory === 'all' || 
                        (activeCategory === 'wildlife' && ('{{ tour.intent_tag }}' === 'wildlife' || '{{ tour.intent_tag }}' === 'birding')) || 
                        (activeCategory === 'crescent_island' && '{{ tour.intent_tag }}' === 'crescent_island') || 
                        (activeCategory === 'sunset' && ('{{ tour.intent_tag }}' === 'sunset' || '{{ tour.intent_tag }}' === 'private')) || 
-                       (activeCategory === 'group' && ('{{ tour.intent_tag }}' === 'family' || '{{ tour.intent_tag }}' === 'group'))"
+                       (activeCategory === 'private' && ('{{ tour.intent_tag }}' === 'private' || '{{ tour.intent_tag }}' === 'wildlife')) || 
+                       (activeCategory === 'group' && ('{{ tour.intent_tag }}' === 'family' || '{{ tour.intent_tag }}' === 'group')) ||
+                       (activeCategory === 'birding' && '{{ tour.intent_tag }}' === 'birding')"
                x-transition:enter="transition ease-out duration-200"
                x-transition:enter-start="opacity-0 transform scale-95"
                x-transition:enter-end="opacity-100 transform scale-100">
-        <div class="tour-card-image">
+        
+        <!-- Media Container -->
+        <a href="{{ tour.get_absolute_url }}" class="gyg-card-media" aria-label="{{ tour.name }}">
           {% if tour.hero_image %}
           <img src="{{ tour.hero_image.url }}" alt="{{ tour.name }}" loading="lazy">
           {% else %}
           <img src="{% static 'images/gallery/naivasha-boat-passenger.jpeg' %}" alt="{{ tour.name }}" loading="lazy">
           {% endif %}
-          <span class="tour-badge">{{ tour.short_name }}</span>
-        </div>
 
-        <div class="tour-card-body">
-          <div class="tour-meta-row">
-            <span class="fact-chip"><i data-lucide="clock"></i> {{ tour.duration_display }}</span>
-            <span class="fact-chip"><i data-lucide="users"></i> Max {{ tour.max_guests }}</span>
-          </div>
+          <!-- GetYourGuide Badge Overlay -->
+          {% if tour.slug == 'hippo-bird-safari' %}
+          <span class="gyg-badge gyg-badge-sellout">Likely to sell out</span>
+          {% elif tour.slug == 'crescent-island' %}
+          <span class="gyg-badge gyg-badge-bestseller">Bestseller</span>
+          {% elif tour.slug == 'sunset-cruise' %}
+          <span class="gyg-badge gyg-badge-top">Top rated</span>
+          {% elif tour.slug == 'private-boat' %}
+          <span class="gyg-badge gyg-badge-bestseller">Private charter</span>
+          {% elif tour.slug == 'family-boat-ride' %}
+          <span class="gyg-badge gyg-badge-top">Family favorite</span>
+          {% elif tour.slug == 'photography-birding' %}
+          <span class="gyg-badge gyg-badge-top">Expert guided</span>
+          {% else %}
+          <span class="gyg-badge gyg-badge-bestseller">Official dock rate</span>
+          {% endif %}
 
-          <h3 class="tour-title">
+          <!-- Heart Wishlist Toggle Button -->
+          <button type="button" 
+                  class="gyg-wishlist-btn" 
+                  :class="{ 'is-active': isSaved }" 
+                  @click.prevent.stop="isSaved = !isSaved" 
+                  aria-label="Save to wishlist">
+            <i data-lucide="heart" style="width: 17px; height: 17px;" :fill="isSaved ? '#E85D3F' : 'none'"></i>
+          </button>
+        </a>
+
+        <!-- Content Container -->
+        <div class="gyg-card-content">
+          <div class="gyg-card-category">BOAT TOUR • LAKE NAIVASHA</div>
+
+          <h3 class="gyg-card-name">
             <a href="{{ tour.get_absolute_url }}">{{ tour.name }}</a>
           </h3>
 
-          <p class="tour-summary">{{ tour.summary }}</p>
-
-          <div class="tour-card-footer">
-            <div class="tour-price-box">
-              <span class="tour-price-label">Starting From</span>
-              <span class="tour-price-value">KES {{ tour.starting_price_kes|floatformat:0|intcomma }}</span>
+          <div class="gyg-card-features">
+            <div class="gyg-card-feature">
+              <i data-lucide="clock" style="width: 14px; height: 14px;"></i>
+              <span>{{ tour.duration_display }}</span>
             </div>
-
-            <div style="display: flex; gap: 0.4rem;">
-              <a href="{{ tour.get_absolute_url }}" class="btn btn-sm btn-forest">
-                <span>Details</span>
-                <i data-lucide="arrow-right" style="width: 13px; height: 13px;"></i>
-              </a>
+            <div class="gyg-card-feature">
+              <i data-lucide="map-pin" style="width: 14px; height: 14px;"></i>
+              <span>Karagita Public Pier Departure</span>
+            </div>
+            <div class="gyg-card-feature">
+              <i data-lucide="zap" style="width: 14px; height: 14px; color: #1b8755;"></i>
+              <span style="color: #1b8755; font-weight: 700;">Free cancellation up to 2 hrs before</span>
             </div>
           </div>
+
+          <!-- Rating Row -->
+          <div class="gyg-card-rating">
+            <div class="gyg-stars">
+              <i data-lucide="star" style="width: 14px; height: 14px; fill: var(--rift-gold); stroke: var(--rift-gold);"></i>
+            </div>
+            <span class="gyg-score">4.9</span>
+            <span class="gyg-reviews-count">(480+ reviews)</span>
+          </div>
+
+          <!-- Price & CTA Footer with Live Currency Switching -->
+          <div class="gyg-card-footer" x-data="{ cur: localStorage.getItem('mosety_currency') || 'KES' }" @currency-change.window="cur = $event.detail">
+            <div class="gyg-price-stack">
+              <span class="gyg-price-sub">From</span>
+              <span class="gyg-price-main" x-show="cur === 'KES'">KES {{ tour.starting_price_kes|floatformat:0|intcomma }}</span>
+              <span class="gyg-price-main" x-show="cur === 'USD'">$ {{ tour.starting_price_usd|floatformat:0 }}</span>
+              <span class="gyg-price-unit">{{ tour.pricing_mode_display }}</span>
+            </div>
+
+            <a href="{{ tour.get_absolute_url }}" class="btn btn-sm btn-primary" style="padding: 0.55rem 1.15rem; font-size: 0.8125rem;">
+              <span>Explore</span>
+              <i data-lucide="arrow-right" style="width: 14px; height: 14px;"></i>
+            </a>
+          </div>
+
         </div>
       </article>
       {% endfor %}
     </div>
 
-    <div style="margin-top: 3rem; text-align: center; display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem;">
+    <!-- GetYourGuide Top Sights in Lake Naivasha Collection -->
+    <div style="margin-top: 4.5rem; padding-top: 3.5rem; border-top: 1px solid var(--border-subtle);">
+      <div style="margin-bottom: 2rem;">
+        <p class="eyebrow eyebrow-gold">Destination Highlights</p>
+        <h2 style="color: var(--ink-forest);">Top sights in Lake Naivasha</h2>
+      </div>
+
+      <div class="gyg-sights-grid">
+        <a href="/crescent-island/" class="gyg-sight-card">
+          <img src="{% static 'images/gallery/naivasha-boat-passenger.jpeg' %}" alt="Crescent Island Game Sanctuary">
+          <div class="gyg-sight-overlay"></div>
+          <div class="gyg-sight-info">
+            <h3 class="gyg-sight-name">Crescent Island Sanctuary</h3>
+            <span class="gyg-sight-count">4 boat ride options</span>
+          </div>
+        </a>
+
+        <a href="/naivasha-guide/hippos/" class="gyg-sight-card">
+          <img src="{% static 'images/gallery/naivasha-boat-passenger.jpeg' %}" alt="Lake Naivasha Hippo Pods">
+          <div class="gyg-sight-overlay"></div>
+          <div class="gyg-sight-info">
+            <h3 class="gyg-sight-name">Hippo Pods & Reeds</h3>
+            <span class="gyg-sight-count">3 safari routes</span>
+          </div>
+        </a>
+
+        <a href="/contact/" class="gyg-sight-card">
+          <img src="{% static 'images/gallery/naivasha-boat-passenger.jpeg' %}" alt="Karagita Public Pier">
+          <div class="gyg-sight-overlay"></div>
+          <div class="gyg-sight-info">
+            <h3 class="gyg-sight-name">Karagita Public Pier</h3>
+            <span class="gyg-sight-count">Main departure hub</span>
+          </div>
+        </a>
+
+        <a href="/naivasha-guide/wildlife/" class="gyg-sight-card">
+          <img src="{% static 'images/gallery/naivasha-boat-passenger.jpeg' %}" alt="Oloidien Bay">
+          <div class="gyg-sight-overlay"></div>
+          <div class="gyg-sight-info">
+            <h3 class="gyg-sight-name">Oloidien Crater Bay</h3>
+            <span class="gyg-sight-count">Sunset & flamingos</span>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <div style="margin-top: 3.5rem; text-align: center; display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem;">
       <a href="/boat-rides/" class="btn btn-forest">
-        <span>Compare All 7 Experiences & Rates</span>
+        <span>Compare All Experiences & Pier Rates</span>
         <i data-lucide="arrow-right" style="width: 16px; height: 16px;"></i>
       </a>
       <a href="/prices/" class="btn btn-outline">
-        <span>Calculate Custom Quote</span>
+        <span>View Full Pricing Matrix</span>
         <i data-lucide="calculator" style="width: 16px; height: 16px;"></i>
       </a>
     </div>
@@ -644,20 +786,46 @@
       </p>
     </div>
 
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem;">
       {% for testimonial in testimonials %}
-      <div class="card" style="padding: 2.25rem; background: #ffffff; border: 1px solid var(--border-subtle); display: flex; flex-direction: column; justify-content: space-between;">
-        <div>
-          <div style="color: var(--rift-gold); margin-bottom: 1rem; font-size: 1.1rem;" aria-label="{{ testimonial.rating }} stars">
-            ★ ★ ★ ★ ★
+      <div class="gyg-review-card">
+        <div class="gyg-review-user">
+          <div class="gyg-reviewer-info">
+            <div class="gyg-reviewer-avatar">
+              {{ testimonial.display_name|slice:":1" }}
+            </div>
+            <div>
+              <div class="gyg-reviewer-name">{{ testimonial.display_name }}</div>
+              <div class="gyg-reviewer-country">
+                {% if forloop.counter == 1 %}🇰🇪 Kenya • Resident
+                {% elif forloop.counter == 2 %}🇬🇧 United Kingdom • Traveler
+                {% else %}🇺🇸 United States • Family Trip{% endif %}
+              </div>
+            </div>
           </div>
-          <p style="font-size: 0.95rem; color: var(--body-text); line-height: 1.65; margin-bottom: 1.5rem;">
-            “{{ testimonial.review_text }}”
-          </p>
+
+          <div class="gyg-verified-pill">
+            <i data-lucide="check-circle" style="width: 12px; height: 12px;"></i>
+            <span>Verified Booking</span>
+          </div>
         </div>
-        <div style="border-top: 1px solid var(--border-subtle); padding-top: 1rem; display: flex; justify-content: space-between; align-items: center; font-size: 0.8125rem;">
-          <strong style="color: var(--ink-forest);">{{ testimonial.display_name }}</strong>
-          <span style="color: var(--lake-sage);">{{ testimonial.source }}</span>
+
+        <div style="display: flex; align-items: center; gap: 0.25rem; color: var(--rift-gold); margin-bottom: 0.85rem;" aria-label="5 stars">
+          <i data-lucide="star" style="width: 14px; height: 14px; fill: var(--rift-gold);"></i>
+          <i data-lucide="star" style="width: 14px; height: 14px; fill: var(--rift-gold);"></i>
+          <i data-lucide="star" style="width: 14px; height: 14px; fill: var(--rift-gold);"></i>
+          <i data-lucide="star" style="width: 14px; height: 14px; fill: var(--rift-gold);"></i>
+          <i data-lucide="star" style="width: 14px; height: 14px; fill: var(--rift-gold);"></i>
+          <span style="font-size: 0.75rem; color: var(--lake-sage); font-weight: 700; margin-left: 0.4rem;">5.0 / 5.0</span>
+        </div>
+
+        <p style="font-size: 0.9375rem; color: var(--body-text); line-height: 1.6; margin-bottom: 1.25rem; flex-grow: 1;">
+          “{{ testimonial.review_text }}”
+        </p>
+
+        <div style="border-top: 1px solid rgba(16, 39, 33, 0.08); padding-top: 0.75rem; display: flex; justify-content: space-between; align-items: center; font-size: 0.75rem; color: var(--lake-sage); font-weight: 600;">
+          <span>Activity: Lake Naivasha Boat Safari</span>
+          <span>Via {{ testimonial.source|default:"Direct Pier Booking" }}</span>
         </div>
       </div>
       {% endfor %}

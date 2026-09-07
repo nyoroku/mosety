@@ -854,3 +854,644 @@ details[open] .faq-icon {
   }
 }
 
+
+/* ==========================================================================
+   GETYOURGUIDE UI / UX DESIGN SYSTEM PATTERNS (MOSETY RIFT GOLD PALETTE)
+   ========================================================================== */
+
+/* 1. Header Wordmark & Currency Toggle */
+.gyg-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  text-decoration: none;
+}
+.gyg-logo-text {
+  font-family: var(--font-body);
+  font-size: 1.65rem;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  color: var(--ink-forest);
+  line-height: 1;
+  display: inline-flex;
+  align-items: baseline;
+}
+.gyg-logo-dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: var(--rift-gold);
+  margin-left: 1px;
+}
+.gyg-logo-tag {
+  font-size: 0.6875rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--lake-sage);
+  background: var(--papyrus-light);
+  padding: 3px 8px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border-papyrus);
+}
+
+.gyg-currency-switch {
+  display: inline-flex;
+  align-items: center;
+  background: var(--papyrus-light);
+  border: 1px solid var(--border-papyrus);
+  border-radius: var(--radius-pill);
+  padding: 2px;
+}
+.gyg-currency-btn {
+  padding: 4px 10px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  border-radius: var(--radius-pill);
+  color: var(--lake-sage);
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.gyg-currency-btn.is-active {
+  background: var(--ink-forest);
+  color: var(--ivory);
+  box-shadow: var(--shadow-sm);
+}
+
+/* 2. GetYourGuide Floating Multi-Segment Search Widget */
+.gyg-hero-wrap {
+  position: relative;
+  background: linear-gradient(180deg, #102721 0%, #173b32 65%, #224d42 100%);
+  color: var(--ivory);
+  padding-top: clamp(3rem, 6vw, 5rem);
+  padding-bottom: clamp(4.5rem, 8vw, 7rem);
+  overflow: hidden;
+}
+.gyg-hero-bg {
+  position: absolute;
+  inset: 0;
+  opacity: 0.28;
+  mix-blend-mode: luminosity;
+  background-image: url('/static/images/gallery/naivasha-boat-passenger.jpeg');
+  background-size: cover;
+  background-position: center;
+}
+.gyg-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 30%, rgba(217, 164, 65, 0.15) 0%, transparent 60%);
+}
+
+.gyg-search-widget-card {
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 16px 45px rgba(16, 39, 33, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  padding: 0.5rem;
+  max-width: 980px;
+  margin-inline: auto;
+  margin-top: 2rem;
+  position: relative;
+  z-index: 10;
+}
+.gyg-search-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: center;
+  gap: 0.25rem;
+}
+@media (min-width: 768px) {
+  .gyg-search-grid {
+    grid-template-columns: 1.4fr 1fr 1fr auto;
+  }
+}
+.gyg-search-col {
+  padding: 0.75rem 1.15rem;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  position: relative;
+}
+.gyg-search-col:hover {
+  background-color: var(--papyrus-light);
+}
+.gyg-col-divider {
+  display: none;
+}
+@media (min-width: 768px) {
+  .gyg-search-col:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 20%;
+    bottom: 20%;
+    width: 1px;
+    background-color: rgba(86, 113, 102, 0.2);
+  }
+}
+.gyg-search-label {
+  display: block;
+  font-size: 0.6875rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--lake-sage);
+  margin-bottom: 0.2rem;
+}
+.gyg-search-val {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--ink-forest);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.gyg-search-val input, .gyg-search-val select {
+  border: none;
+  background: transparent;
+  width: 100%;
+  font-weight: 700;
+  color: var(--ink-forest);
+  cursor: pointer;
+  outline: none;
+  font-size: 0.9375rem;
+}
+.gyg-search-submit {
+  background: var(--rift-gold);
+  color: var(--ink-forest);
+  border: none;
+  border-radius: 14px;
+  font-weight: 800;
+  font-size: 0.9375rem;
+  padding: 0.95rem 1.85rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 14px rgba(217, 164, 65, 0.35);
+  width: 100%;
+}
+@media (min-width: 768px) {
+  .gyg-search-submit {
+    width: auto;
+  }
+}
+.gyg-search-submit:hover {
+  background: var(--rift-gold-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(217, 164, 65, 0.45);
+}
+
+/* 3. Category Filter Pill Bar (Horizontal Scroll) */
+.gyg-pill-carousel {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  overflow-x: auto;
+  padding-block: 0.75rem;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+.gyg-pill-carousel::-webkit-scrollbar {
+  display: none;
+}
+.gyg-pill {
+  white-space: nowrap;
+  background: #ffffff;
+  border: 1.5px solid var(--border-subtle);
+  color: var(--body-text);
+  font-size: 0.875rem;
+  font-weight: 700;
+  padding: 0.55rem 1.25rem;
+  border-radius: var(--radius-pill);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+.gyg-pill:hover {
+  border-color: var(--ink-forest);
+  background: var(--papyrus-light);
+}
+.gyg-pill.is-active {
+  background: var(--ink-forest);
+  color: var(--ivory);
+  border-color: var(--ink-forest);
+  box-shadow: 0 4px 12px rgba(16, 39, 33, 0.15);
+}
+
+/* 4. GetYourGuide Signature Product Card */
+.gyg-card-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+@media (min-width: 640px) {
+  .gyg-card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (min-width: 1024px) {
+  .gyg-card-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (min-width: 1280px) {
+  .gyg-card-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.gyg-product-card {
+  background: #ffffff;
+  border-radius: 16px;
+  border: 1px solid rgba(16, 39, 33, 0.08);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.28s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease;
+  box-shadow: 0 4px 16px rgba(16, 39, 33, 0.04);
+}
+.gyg-product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 16px 36px rgba(16, 39, 33, 0.1);
+  border-color: rgba(217, 164, 65, 0.4);
+}
+
+.gyg-card-media {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background-color: var(--papyrus);
+}
+.gyg-card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.gyg-product-card:hover .gyg-card-media img {
+  transform: scale(1.06);
+}
+
+.gyg-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  font-size: 0.6875rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 4px 9px;
+  border-radius: 6px;
+  z-index: 2;
+}
+.gyg-badge-sellout {
+  background: #E85D3F;
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(232, 93, 63, 0.3);
+}
+.gyg-badge-bestseller {
+  background: var(--rift-gold);
+  color: var(--ink-forest);
+  box-shadow: 0 2px 8px rgba(217, 164, 65, 0.3);
+}
+.gyg-badge-top {
+  background: var(--ink-forest);
+  color: var(--ivory);
+  box-shadow: 0 2px 8px rgba(16, 39, 33, 0.3);
+}
+
+.gyg-wishlist-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  color: var(--ink-forest);
+  transition: all 0.2s ease;
+  z-index: 2;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+.gyg-wishlist-btn:hover {
+  transform: scale(1.1);
+  background: #ffffff;
+  color: #E85D3F;
+}
+.gyg-wishlist-btn.is-active {
+  color: #E85D3F;
+}
+
+.gyg-card-content {
+  padding: 1.25rem 1.35rem 1.35rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+.gyg-card-category {
+  font-size: 0.6875rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--lake-sage);
+  margin-bottom: 0.4rem;
+}
+.gyg-card-name {
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  font-weight: 800;
+  line-height: 1.35;
+  color: var(--ink-forest);
+  margin-bottom: 0.65rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  transition: color 0.2s ease;
+}
+.gyg-product-card:hover .gyg-card-name {
+  color: var(--rift-gold);
+}
+
+.gyg-card-features {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-size: 0.8125rem;
+  color: var(--body-muted);
+  margin-bottom: 0.85rem;
+}
+.gyg-card-feature {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.gyg-card-feature i {
+  color: var(--lake-sage);
+  flex-shrink: 0;
+}
+
+.gyg-card-rating {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.8125rem;
+  margin-bottom: 0.85rem;
+}
+.gyg-stars {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  color: var(--rift-gold);
+}
+.gyg-score {
+  font-weight: 800;
+  color: var(--ink-forest);
+}
+.gyg-reviews-count {
+  color: var(--lake-sage);
+  font-weight: 600;
+}
+
+.gyg-card-footer {
+  margin-top: auto;
+  padding-top: 0.85rem;
+  border-top: 1px solid rgba(16, 39, 33, 0.08);
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+.gyg-price-stack {
+  display: flex;
+  flex-direction: column;
+}
+.gyg-price-sub {
+  font-size: 0.75rem;
+  color: var(--lake-sage);
+  font-weight: 600;
+}
+.gyg-price-main {
+  font-family: var(--font-body);
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--ink-forest);
+  line-height: 1.1;
+}
+.gyg-price-unit {
+  font-size: 0.6875rem;
+  color: var(--body-muted);
+  font-weight: 600;
+}
+
+/* 5. GetYourGuide Trust Pillars (4-Grid) */
+.gyg-trust-section {
+  padding-block: clamp(3rem, 5vw, 4.5rem);
+  background: #ffffff;
+  border-bottom: 1px solid var(--border-subtle);
+}
+.gyg-trust-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+@media (min-width: 640px) {
+  .gyg-trust-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (min-width: 1024px) {
+  .gyg-trust-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+.gyg-trust-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1.25rem;
+  border-radius: 14px;
+  background: var(--ivory);
+  border: 1px solid var(--border-papyrus);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.gyg-trust-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-card);
+}
+.gyg-trust-icon-box {
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  background: var(--ink-forest);
+  color: var(--rift-gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.gyg-trust-title {
+  font-size: 0.9375rem;
+  font-weight: 800;
+  color: var(--ink-forest);
+  margin-bottom: 0.25rem;
+}
+.gyg-trust-desc {
+  font-size: 0.8125rem;
+  color: var(--body-muted);
+  line-height: 1.45;
+}
+
+/* 6. GetYourGuide Top Sights Visual Grid */
+.gyg-sights-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+@media (min-width: 768px) {
+  .gyg-sights-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+.gyg-sight-card {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  padding: 1rem;
+  color: var(--ivory);
+  text-decoration: none;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.28s ease, box-shadow 0.28s ease;
+}
+.gyg-sight-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+.gyg-sight-card img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+.gyg-sight-card:hover img {
+  transform: scale(1.08);
+}
+.gyg-sight-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 40%, rgba(16, 39, 33, 0.85) 100%);
+}
+.gyg-sight-info {
+  position: relative;
+  z-index: 2;
+}
+.gyg-sight-name {
+  font-size: 1rem;
+  font-weight: 800;
+  line-height: 1.25;
+}
+.gyg-sight-count {
+  font-size: 0.75rem;
+  color: var(--papyrus);
+}
+
+/* 7. GetYourGuide Traveler Review Cards */
+.gyg-review-card {
+  background: #ffffff;
+  border-radius: 16px;
+  border: 1px solid rgba(16, 39, 33, 0.08);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  box-shadow: var(--shadow-sm);
+}
+.gyg-review-user {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+.gyg-reviewer-info {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+.gyg-reviewer-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--papyrus-light);
+  color: var(--ink-forest);
+  font-weight: 800;
+  font-size: 0.9375rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border-papyrus);
+}
+.gyg-reviewer-name {
+  font-size: 0.875rem;
+  font-weight: 800;
+  color: var(--ink-forest);
+}
+.gyg-reviewer-country {
+  font-size: 0.75rem;
+  color: var(--lake-sage);
+}
+.gyg-verified-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.6875rem;
+  font-weight: 800;
+  color: #1b8755;
+  background: rgba(27, 135, 85, 0.08);
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+}
+
+/* 8. GetYourGuide Sticky Tour Detail Booking Box */
+.gyg-detail-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+}
+@media (min-width: 960px) {
+  .gyg-detail-layout {
+    grid-template-columns: 1.6fr 1fr;
+    align-items: start;
+  }
+}
+.gyg-sticky-box {
+  background: #ffffff;
+  border-radius: 20px;
+  border: 1px solid rgba(16, 39, 33, 0.1);
+  box-shadow: 0 12px 35px rgba(16, 39, 33, 0.08);
+  padding: 1.75rem;
+  position: sticky;
+  top: calc(var(--header-height) + 20px);
+}

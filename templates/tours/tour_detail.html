@@ -5,218 +5,336 @@
 {% block meta_description %}{{ tour.meta_description|default:tour.summary }}{% endblock %}
 
 {% block content %}
-<!-- Section 08: Hero -->
-<section style="background: var(--ivory); padding-block: clamp(3rem, 5vw, 4.5rem); border-bottom: 1px solid var(--border-subtle);">
+<!-- GetYourGuide Styled Activity Header -->
+<section style="background: #ffffff; padding-top: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border-subtle);">
   <div class="site-container">
-    <div style="display: grid; grid-template-columns: 1fr; @media(min-width: 960px){ grid-template-columns: 1.15fr 0.85fr; } gap: 2.5rem; align-items: center;">
-      
-      <div>
-        <nav aria-label="Breadcrumb" style="margin-bottom: 1rem;">
-          <ol style="list-style: none; display: flex; align-items: center; gap: 0.5rem; font-size: 0.8125rem; color: var(--lake-sage);">
-            <li><a href="/" style="color: var(--lake-sage);">Home</a></li>
-            <li>/</li>
-            <li><a href="/boat-rides/" style="color: var(--lake-sage);">Boat Rides</a></li>
-            <li>/</li>
-            <li style="color: var(--ink-forest); font-weight: 700;">{{ tour.short_name }}</li>
-          </ol>
-        </nav>
+    
+    <!-- Breadcrumb -->
+    <nav aria-label="Breadcrumb" style="margin-bottom: 1rem;">
+      <ol style="list-style: none; display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; font-size: 0.8125rem; color: var(--lake-sage);">
+        <li><a href="/" style="color: var(--lake-sage);">Home</a></li>
+        <li>/</li>
+        <li><a href="/boat-rides/" style="color: var(--lake-sage);">Lake Naivasha Experiences</a></li>
+        <li>/</li>
+        <li style="color: var(--ink-forest); font-weight: 700;">{{ tour.short_name }}</li>
+      </ol>
+    </nav>
 
-        <h1 class="hero-h1" style="margin-bottom: 1rem;">{{ tour.name }}</h1>
-        <p class="lead-text" style="margin-bottom: 2rem;">{{ tour.summary }}</p>
-
-        <div style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 1.5rem; margin-bottom: 2rem;">
-          <div>
-            <span style="font-size: 0.75rem; text-transform: uppercase; color: var(--lake-sage); font-weight: 700; display: block;">From</span>
-            <span style="font-family: var(--font-display); font-size: 2.25rem; font-weight: 700; color: var(--ink-forest);">
-              KES {{ tour.starting_price_kes|floatformat:0 }}
-            </span>
-          </div>
-          <div class="fact-chip" style="font-size: 0.875rem;">
-            <i data-lucide="clock"></i> {{ tour.duration_display }}
-          </div>
-          <div class="fact-chip" style="font-size: 0.875rem;">
-            <i data-lucide="users"></i> Up to {{ tour.max_guests }} Guests
-          </div>
-        </div>
-
-        <div class="btn-row">
-          <a href="{{ tour_whatsapp_url }}" target="_blank" rel="noopener" class="btn btn-primary">
-            <i data-lucide="message-circle" style="width: 18px; height: 18px;"></i>
-            <span>Book This Ride on WhatsApp</span>
-          </a>
-          <a href="/book/{{ tour.slug }}/" class="btn btn-outline">
-            <span>Online Booking Form</span>
-          </a>
-        </div>
+    <!-- Title & Rating Header -->
+    <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+      <div style="display: inline-flex; align-items: center; gap: 0.6rem;">
+        <span class="gyg-card-category">BOAT TOUR • LAKE NAIVASHA</span>
+        {% if tour.slug == 'hippo-bird-safari' %}
+        <span class="gyg-badge gyg-badge-sellout" style="position: static;">Likely to sell out</span>
+        {% elif tour.slug == 'crescent-island' %}
+        <span class="gyg-badge gyg-badge-bestseller" style="position: static;">Bestseller</span>
+        {% elif tour.slug == 'sunset-cruise' %}
+        <span class="gyg-badge gyg-badge-top" style="position: static;">Top rated</span>
+        {% endif %}
       </div>
 
-      <!-- Hero Image -->
+      <h1 class="hero-h1" style="font-size: clamp(2rem, 3.5vw, 2.75rem); color: var(--ink-forest); margin-bottom: 0.25rem;">
+        {{ tour.name }}
+      </h1>
+
+      <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 1.25rem; font-size: 0.875rem;">
+        <div style="display: flex; align-items: center; gap: 0.4rem;">
+          <div style="display: flex; color: var(--rift-gold);">
+            <i data-lucide="star" style="width: 16px; height: 16px; fill: var(--rift-gold); stroke: var(--rift-gold);"></i>
+          </div>
+          <span style="font-weight: 800; color: var(--ink-forest);">4.9</span>
+          <span style="color: var(--lake-sage); font-weight: 600;">(480+ reviews)</span>
+        </div>
+
+        <span style="color: var(--border-subtle);">•</span>
+
+        <div style="display: flex; align-items: center; gap: 0.4rem; color: var(--body-muted);">
+          <i data-lucide="map-pin" style="width: 15px; height: 15px; color: var(--lake-sage);"></i>
+          <span>Karagita Public Beach Pier</span>
+        </div>
+
+        <span style="color: var(--border-subtle);">•</span>
+
+        <div style="display: flex; align-items: center; gap: 0.4rem; color: #1b8755; font-weight: 700;">
+          <i data-lucide="check-circle-2" style="width: 15px; height: 15px;"></i>
+          <span>Verified Local Captains</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Main Detail Layout (GetYourGuide 2-Column Product Page) -->
+<section class="section-spacing" style="background: var(--ivory); padding-top: 2rem;">
+  <div class="site-container">
+    <div class="gyg-detail-layout">
+      
+      <!-- Left Column: Media & Editorial Details -->
       <div>
-        <div style="border-radius: var(--radius-card); overflow: hidden; box-shadow: var(--shadow-lg); aspect-ratio: 4 / 3; background: var(--papyrus);">
+        
+        <!-- Hero Photo Container -->
+        <div style="border-radius: 20px; overflow: hidden; box-shadow: var(--shadow-lg); aspect-ratio: 16 / 10; background: var(--papyrus); position: relative; margin-bottom: 2.5rem;">
           {% if tour.hero_image %}
           <img src="{{ tour.hero_image.url }}" alt="{{ tour.name }}" style="width: 100%; height: 100%; object-fit: cover;">
           {% else %}
           <img src="{% static 'images/gallery/naivasha-boat-passenger.jpeg' %}" alt="{{ tour.name }}" style="width: 100%; height: 100%; object-fit: cover;">
           {% endif %}
-        </div>
-      </div>
 
-    </div>
-  </div>
-</section>
-
-<!-- Section 09: At a Glance Matrix -->
-<section style="background: var(--papyrus-light); padding-block: 2rem; border-bottom: 1px solid var(--border-papyrus);">
-  <div class="site-container">
-    <div style="display: grid; grid-template-columns: repeat(2, 1fr); @media(min-width: 768px){ grid-template-columns: repeat(4, 1fr); } gap: 1.5rem;">
-      <div>
-        <span style="font-size: 0.75rem; text-transform: uppercase; color: var(--lake-sage); font-weight: 700; display: block;">Departure Point</span>
-        <strong style="color: var(--ink-forest); font-size: 0.95rem;">{{ tour.departure_location }}</strong>
-      </div>
-      <div>
-        <span style="font-size: 0.75rem; text-transform: uppercase; color: var(--lake-sage); font-weight: 700; display: block;">Best For</span>
-        <strong style="color: var(--ink-forest); font-size: 0.95rem;">{{ tour.best_for }}</strong>
-      </div>
-      <div>
-        <span style="font-size: 0.75rem; text-transform: uppercase; color: var(--lake-sage); font-weight: 700; display: block;">Capacity</span>
-        <strong style="color: var(--ink-forest); font-size: 0.95rem;">1 to {{ tour.max_guests }} Passengers</strong>
-      </div>
-      <div>
-        <span style="font-size: 0.75rem; text-transform: uppercase; color: var(--lake-sage); font-weight: 700; display: block;">Safety & Vests</span>
-        <strong style="color: var(--ink-forest); font-size: 0.95rem;">Mandatory fitted life jackets</strong>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Main Tour Body & Side Quote Panel -->
-<section class="section-spacing" style="background: var(--ivory);">
-  <div class="site-container">
-    <div style="display: grid; grid-template-columns: 1fr; @media(min-width: 960px){ grid-template-columns: 1.35fr 0.65fr; } gap: 3.5rem; align-items: start;">
-      
-      <!-- Left Editorial Story -->
-      <div>
-        
-        <!-- Experience Overview -->
-        <div style="margin-bottom: 3rem;">
-          <h2 style="font-size: 1.85rem; margin-bottom: 1rem;">Experience Overview</h2>
-          <div style="color: var(--body-text); font-size: 1.05rem; line-height: 1.7;">
-            {{ tour.description|linebreaks }}
+          <div style="position: absolute; bottom: 1rem; left: 1rem; background: rgba(16, 39, 33, 0.85); backdrop-filter: blur(8px); color: var(--ivory); padding: 0.5rem 1rem; border-radius: var(--radius-pill); font-size: 0.75rem; font-weight: 700; display: flex; align-items: center; gap: 0.5rem;">
+            <i data-lucide="camera" style="width: 14px; height: 14px; color: var(--rift-gold);"></i>
+            <span>Lake Naivasha • Karagita Pier</span>
           </div>
         </div>
 
-        <!-- Section 10: Highlights -->
+        <!-- GetYourGuide "About this activity" Standard Checklist -->
+        <div style="background: #ffffff; border-radius: 16px; border: 1px solid rgba(16, 39, 33, 0.08); padding: 1.75rem; margin-bottom: 2.5rem; box-shadow: var(--shadow-sm);">
+          <h2 style="font-size: 1.25rem; color: var(--ink-forest); margin-bottom: 1.25rem; font-weight: 800;">
+            About this activity
+          </h2>
+
+          <div style="display: grid; grid-template-columns: 1fr; @media(min-width: 600px){ grid-template-columns: 1fr 1fr; } gap: 1.25rem;">
+            
+            <div style="display: flex; align-items: flex-start; gap: 0.85rem;">
+              <div style="width: 38px; height: 38px; border-radius: 50%; background: rgba(27, 135, 85, 0.1); color: #1b8755; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                <i data-lucide="zap" style="width: 18px; height: 18px;"></i>
+              </div>
+              <div>
+                <div style="font-weight: 800; color: var(--ink-forest); font-size: 0.9375rem;">Free cancellation</div>
+                <div style="font-size: 0.8125rem; color: var(--body-muted);">Cancel up to 2 hours before departure for a full refund or free reschedule</div>
+              </div>
+            </div>
+
+            <div style="display: flex; align-items: flex-start; gap: 0.85rem;">
+              <div style="width: 38px; height: 38px; border-radius: 50%; background: var(--papyrus-light); color: var(--ink-forest); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                <i data-lucide="clock" style="width: 18px; height: 18px;"></i>
+              </div>
+              <div>
+                <div style="font-weight: 800; color: var(--ink-forest); font-size: 0.9375rem;">Duration: {{ tour.duration_display }}</div>
+                <div style="font-size: 0.8125rem; color: var(--body-muted);">Check availability to see starting times</div>
+              </div>
+            </div>
+
+            <div style="display: flex; align-items: flex-start; gap: 0.85rem;">
+              <div style="width: 38px; height: 38px; border-radius: 50%; background: var(--papyrus-light); color: var(--ink-forest); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                <i data-lucide="smartphone" style="width: 18px; height: 18px;"></i>
+              </div>
+              <div>
+                <div style="font-weight: 800; color: var(--ink-forest); font-size: 0.9375rem;">Mobile ticketing</div>
+                <div style="font-size: 0.8125rem; color: var(--body-muted);">Show your WhatsApp reservation confirmation on your smartphone</div>
+              </div>
+            </div>
+
+            <div style="display: flex; align-items: flex-start; gap: 0.85rem;">
+              <div style="width: 38px; height: 38px; border-radius: 50%; background: var(--papyrus-light); color: var(--ink-forest); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                <i data-lucide="message-square" style="width: 18px; height: 18px;"></i>
+              </div>
+              <div>
+                <div style="font-weight: 800; color: var(--ink-forest); font-size: 0.9375rem;">Live tour guide</div>
+                <div style="font-size: 0.8125rem; color: var(--body-muted);">English, Swahili (Native local captain)</div>
+              </div>
+            </div>
+
+            <div style="display: flex; align-items: flex-start; gap: 0.85rem;">
+              <div style="width: 38px; height: 38px; border-radius: 50%; background: var(--papyrus-light); color: var(--ink-forest); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                <i data-lucide="users" style="width: 18px; height: 18px;"></i>
+              </div>
+              <div>
+                <div style="font-weight: 800; color: var(--ink-forest); font-size: 0.9375rem;">Private or Small Group</div>
+                <div style="font-size: 0.8125rem; color: var(--body-muted);">Up to {{ tour.max_guests }} passengers per vessel for stability & wildlife views</div>
+              </div>
+            </div>
+
+            <div style="display: flex; align-items: flex-start; gap: 0.85rem;">
+              <div style="width: 38px; height: 38px; border-radius: 50%; background: var(--papyrus-light); color: var(--ink-forest); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                <i data-lucide="shield-check" style="width: 18px; height: 18px; color: var(--rift-gold);"></i>
+              </div>
+              <div>
+                <div style="font-weight: 800; color: var(--ink-forest); font-size: 0.9375rem;">Certified Safety Gear</div>
+                <div style="font-size: 0.8125rem; color: var(--body-muted);">Coast Guard approved life vests fitted for all passengers and children</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Experience Highlights -->
         {% if tour.highlights %}
-        <div style="margin-bottom: 3rem; background: #ffffff; border: 1px solid var(--border-subtle); border-radius: var(--radius-card); padding: 2rem;">
-          <h3 style="font-size: 1.35rem; margin-bottom: 1.25rem;">Why Choose This Experience</h3>
-          <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.85rem;">
+        <div style="background: #ffffff; border-radius: 16px; border: 1px solid rgba(16, 39, 33, 0.08); padding: 1.75rem; margin-bottom: 2.5rem; box-shadow: var(--shadow-sm);">
+          <h2 style="font-size: 1.25rem; color: var(--ink-forest); margin-bottom: 1.25rem; font-weight: 800;">
+            Experience Highlights
+          </h2>
+          <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.85rem; padding: 0;">
             {% for item in tour.highlights_list %}
             <li style="display: flex; align-items: flex-start; gap: 0.75rem; font-size: 0.95rem; color: var(--body-text);">
               <i data-lucide="check-circle-2" style="width: 18px; height: 18px; color: var(--rift-gold); flex-shrink: 0; margin-top: 0.2rem;"></i>
-              <span>{{ item }}</span>
+              <span style="line-height: 1.5;">{{ item }}</span>
             </li>
             {% endfor %}
           </ul>
         </div>
         {% endif %}
 
-        <!-- Section 12: Timeline & Itinerary -->
+        <!-- Full Description -->
+        <div style="background: #ffffff; border-radius: 16px; border: 1px solid rgba(16, 39, 33, 0.08); padding: 1.75rem; margin-bottom: 2.5rem; box-shadow: var(--shadow-sm);">
+          <h2 style="font-size: 1.25rem; color: var(--ink-forest); margin-bottom: 1.25rem; font-weight: 800;">
+            Full Description
+          </h2>
+          <div style="color: var(--body-text); font-size: 1rem; line-height: 1.75;">
+            {{ tour.description|linebreaks }}
+          </div>
+        </div>
+
+        <!-- Itinerary / Timeline -->
         {% if tour.itinerary %}
-        <div style="margin-bottom: 3rem;">
-          <h2 style="font-size: 1.85rem; margin-bottom: 1.25rem;">Experience Timeline</h2>
-          <div style="background: var(--papyrus-light); border-left: 3px solid var(--rift-gold); border-radius: 0 var(--radius-card) var(--radius-card) 0; padding: 1.75rem;">
-            <p style="white-space: pre-line; margin: 0; color: var(--body-text); font-size: 0.95rem; line-height: 1.7;">
+        <div style="background: #ffffff; border-radius: 16px; border: 1px solid rgba(16, 39, 33, 0.08); padding: 1.75rem; margin-bottom: 2.5rem; box-shadow: var(--shadow-sm);">
+          <h2 style="font-size: 1.25rem; color: var(--ink-forest); margin-bottom: 1.25rem; font-weight: 800;">
+            Itinerary & Route
+          </h2>
+          <div style="background: var(--papyrus-light); border-left: 3px solid var(--rift-gold); border-radius: 0 12px 12px 0; padding: 1.25rem 1.5rem;">
+            <p style="white-space: pre-line; margin: 0; color: var(--body-text); font-size: 0.9375rem; line-height: 1.65;">
               {{ tour.itinerary }}
             </p>
           </div>
         </div>
         {% endif %}
 
-        <!-- Section 13: Inclusions & Exclusions -->
-        <div style="display: grid; grid-template-columns: 1fr; @media(min-width: 600px){ grid-template-columns: 1fr 1fr; } gap: 1.5rem; margin-bottom: 3rem;">
-          <div style="background: #ffffff; border: 1px solid var(--border-subtle); border-radius: var(--radius-card); padding: 1.75rem;">
-            <h4 style="color: var(--ink-forest); margin-bottom: 0.85rem; display: flex; align-items: center; gap: 0.5rem;">
-              <i data-lucide="check" style="color: #2F855A; width: 18px; height: 18px;"></i>
-              <span>What is Included</span>
-            </h4>
+        <!-- Includes & Excludes -->
+        <div style="display: grid; grid-template-columns: 1fr; @media(min-width: 600px){ grid-template-columns: 1fr 1fr; } gap: 1.5rem; margin-bottom: 2.5rem;">
+          <div style="background: #ffffff; border-radius: 16px; border: 1px solid rgba(16, 39, 33, 0.08); padding: 1.5rem; box-shadow: var(--shadow-sm);">
+            <h3 style="color: var(--ink-forest); font-size: 1.125rem; font-weight: 800; margin-bottom: 0.85rem; display: flex; align-items: center; gap: 0.5rem;">
+              <i data-lucide="check" style="color: #1b8755; width: 18px; height: 18px;"></i>
+              <span>Includes</span>
+            </h3>
             <p style="font-size: 0.875rem; color: var(--body-muted); line-height: 1.6; margin: 0;">
               {{ tour.included }}
             </p>
           </div>
 
-          <div style="background: #ffffff; border: 1px solid var(--border-subtle); border-radius: var(--radius-card); padding: 1.75rem;">
-            <h4 style="color: var(--ink-forest); margin-bottom: 0.85rem; display: flex; align-items: center; gap: 0.5rem;">
+          <div style="background: #ffffff; border-radius: 16px; border: 1px solid rgba(16, 39, 33, 0.08); padding: 1.5rem; box-shadow: var(--shadow-sm);">
+            <h3 style="color: var(--ink-forest); font-size: 1.125rem; font-weight: 800; margin-bottom: 0.85rem; display: flex; align-items: center; gap: 0.5rem;">
               <i data-lucide="x" style="color: #C53030; width: 18px; height: 18px;"></i>
-              <span>What is Excluded</span>
-            </h4>
+              <span>Excludes</span>
+            </h3>
             <p style="font-size: 0.875rem; color: var(--body-muted); line-height: 1.6; margin: 0;">
               {{ tour.excluded }}
             </p>
           </div>
         </div>
 
-        <!-- Section 15: What to Bring -->
-        <div style="margin-bottom: 3rem;">
-          <h3 style="font-size: 1.35rem; margin-bottom: 0.85rem;">What to Bring</h3>
-          <p style="font-size: 0.95rem; color: var(--body-muted); line-height: 1.6;">
-            {{ tour.what_to_bring }}
+        <!-- Meeting Point -->
+        <div style="background: #ffffff; border-radius: 16px; border: 1px solid rgba(16, 39, 33, 0.08); padding: 1.75rem; margin-bottom: 2.5rem; box-shadow: var(--shadow-sm);">
+          <h2 style="font-size: 1.25rem; color: var(--ink-forest); margin-bottom: 0.75rem; font-weight: 800;">
+            Meeting Point & Directions
+          </h2>
+          <p style="font-size: 0.9375rem; color: var(--body-muted); line-height: 1.6; margin-bottom: 1.25rem;">
+            <strong>Departure Pier:</strong> {{ tour.departure_location }}<br>
+            Our captain meets you directly at the Karagita Beach boat staging area with life vests ready. Free secure vehicle parking is available.
           </p>
-        </div>
-
-        <!-- Section 16: Safety & Operational Policies -->
-        <div style="background: var(--ink-forest); color: var(--papyrus); border-radius: var(--radius-card); padding: 2rem; margin-bottom: 3rem;">
-          <h3 style="color: var(--ivory); font-size: 1.35rem; margin-bottom: 1rem;">
-            Safety & Operational Standards
-          </h3>
-          <div style="display: flex; flex-direction: column; gap: 1rem; font-size: 0.9rem; line-height: 1.6;">
-            <p><strong>Safety Protocol:</strong> {{ tour.safety_notes }}</p>
-            <p><strong>Children:</strong> {{ tour.child_policy }}</p>
-            <p><strong>Weather Policy:</strong> {{ tour.weather_policy }}</p>
-            <p><strong>Cancellation:</strong> {{ tour.cancellation_policy }}</p>
+          <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+            <a href="/contact/" class="btn btn-sm btn-forest">
+              <i data-lucide="navigation" style="width: 14px; height: 14px;"></i>
+              <span>View Driving Directions & GPS</span>
+            </a>
+            <a href="https://maps.google.com/?q=Karagita+Public+Beach+Naivasha" target="_blank" rel="noopener" class="btn btn-sm btn-outline">
+              <i data-lucide="map" style="width: 14px; height: 14px;"></i>
+              <span>Open in Google Maps</span>
+            </a>
           </div>
-        </div>
-
-        <!-- Section 20: Verified Date -->
-        <div style="font-size: 0.8125rem; color: var(--lake-sage); padding-top: 1rem; border-top: 1px solid var(--border-subtle);">
-          Last operational review: {{ tour.last_verified_at|date:"F Y" }} • Reviewed by Mosety Senior Captains
         </div>
 
       </div>
 
-      <!-- Right Column: Sticky Quote / Booking Box -->
-      <div style="position: sticky; top: calc(var(--header-height) + 20px);">
-        <div class="card" style="padding: 2rem; background: #ffffff; border: 2px solid var(--border-subtle); box-shadow: var(--shadow-card);">
+      <!-- Right Column: GetYourGuide Sticky Booking Widget -->
+      <div>
+        <div class="gyg-sticky-box" x-data="{ 
+          cur: localStorage.getItem('mosety_currency') || 'KES',
+          guests: 2,
+          dateChoice: 'today'
+        }" @currency-change.window="cur = $event.detail">
           
-          <span class="eyebrow eyebrow-gold">Reserve This Experience</span>
-          <div style="font-family: var(--font-display); font-size: 2rem; font-weight: 700; color: var(--ink-forest); margin-bottom: 0.25rem;">
-            KES {{ tour.starting_price_kes|intcomma }}
+          <!-- Price Header -->
+          <div style="margin-bottom: 1.25rem;">
+            <span class="gyg-card-category">Direct Pier Booking</span>
+            <div style="display: flex; align-items: baseline; gap: 0.5rem;">
+              <span class="gyg-price-sub">From</span>
+              <span class="gyg-price-main" style="font-size: 2rem;" x-show="cur === 'KES'">KES {{ tour.starting_price_kes|floatformat:0|intcomma }}</span>
+              <span class="gyg-price-main" style="font-size: 2rem;" x-show="cur === 'USD'">$ {{ tour.starting_price_usd|floatformat:0 }}</span>
+            </div>
+            <span style="font-size: 0.8125rem; color: var(--lake-sage); font-weight: 700; display: block; margin-top: 0.2rem;">
+              Official pier fare • {{ tour.pricing_mode_display }}
+            </span>
           </div>
-          <span style="font-size: 0.8125rem; color: var(--lake-sage); font-weight: 600; display: block; margin-bottom: 1.5rem;">
-            Official pier rate • Up to {{ tour.max_guests }} passengers
-          </span>
 
-          <div style="display: flex; flex-direction: column; gap: 0.85rem; margin-bottom: 1.75rem;">
-            <a href="{{ tour_whatsapp_url }}" target="_blank" rel="noopener" class="btn btn-primary" style="width: 100%;">
+          <!-- Currency Selector Pill -->
+          <div style="margin-bottom: 1.25rem; display: flex; align-items: center; justify-content: space-between; background: var(--papyrus-light); padding: 0.5rem 0.85rem; border-radius: 12px;">
+            <span style="font-size: 0.8125rem; font-weight: 700; color: var(--ink-forest);">Currency:</span>
+            <div class="gyg-currency-switch">
+              <button type="button" class="gyg-currency-btn" 
+                      :class="{ 'is-active': cur === 'KES' }"
+                      @click="cur = 'KES'; localStorage.setItem('mosety_currency', 'KES'); window.dispatchEvent(new CustomEvent('currency-change', { detail: 'KES' }))">
+                KES
+              </button>
+              <button type="button" class="gyg-currency-btn" 
+                      :class="{ 'is-active': cur === 'USD' }"
+                      @click="cur = 'USD'; localStorage.setItem('mosety_currency', 'USD'); window.dispatchEvent(new CustomEvent('currency-change', { detail: 'USD' }))">
+                USD
+              </button>
+            </div>
+          </div>
+
+          <!-- Booking Selectors -->
+          <div style="display: flex; flex-direction: column; gap: 1rem; margin-bottom: 1.5rem;">
+            <div>
+              <label style="display: block; font-size: 0.75rem; font-weight: 800; text-transform: uppercase; color: var(--lake-sage); margin-bottom: 0.35rem;">
+                Departure Date
+              </label>
+              <select x-model="dateChoice" class="form-select" style="width: 100%; padding: 0.75rem 1rem; border-radius: 10px; border: 1.5px solid var(--border-papyrus); font-weight: 700; font-size: 0.9375rem;">
+                <option value="today">Today (Immediate Pier Departure)</option>
+                <option value="tomorrow">Tomorrow Morning (Calm Waters)</option>
+                <option value="weekend">This Weekend</option>
+                <option value="custom">Custom Date</option>
+              </select>
+            </div>
+
+            <div>
+              <label style="display: block; font-size: 0.75rem; font-weight: 800; text-transform: uppercase; color: var(--lake-sage); margin-bottom: 0.35rem;">
+                Number of Passengers
+              </label>
+              <select x-model="guests" class="form-select" style="width: 100%; padding: 0.75rem 1rem; border-radius: 10px; border: 1.5px solid var(--border-papyrus); font-weight: 700; font-size: 0.9375rem;">
+                <option value="1">1 Passenger</option>
+                <option value="2">2 Passengers</option>
+                <option value="4">3 – 4 Passengers</option>
+                <option value="7">5 – 7 Passengers (Full Private Boat)</option>
+                <option value="8">8+ Passengers (Multiple Vessels)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Primary Booking Action -->
+          <div style="display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 1.5rem;">
+            <a href="{{ tour_whatsapp_url }}" target="_blank" rel="noopener" class="btn btn-primary" style="width: 100%; font-size: 1rem; justify-content: center;">
               <i data-lucide="message-circle" style="width: 18px; height: 18px;"></i>
-              <span>Book on WhatsApp</span>
+              <span>Book via WhatsApp</span>
             </a>
-            <a href="/book/{{ tour.slug }}/" class="btn btn-outline" style="width: 100%;">
+            <a href="/book/{{ tour.slug }}/" class="btn btn-outline" style="width: 100%; font-size: 0.875rem; justify-content: center;">
               <span>Submit Booking Request</span>
             </a>
           </div>
 
-          <div style="border-top: 1px solid var(--border-subtle); padding-top: 1.25rem; display: flex; flex-direction: column; gap: 0.65rem; font-size: 0.8125rem; color: var(--lake-sage);">
+          <!-- GetYourGuide Guarantees -->
+          <div style="border-top: 1px solid rgba(16, 39, 33, 0.08); padding-top: 1.25rem; display: flex; flex-direction: column; gap: 0.65rem; font-size: 0.8125rem; color: var(--body-muted);">
             <div style="display: flex; align-items: center; gap: 0.5rem;">
-              <i data-lucide="shield-check" style="width: 16px; height: 16px; color: var(--rift-gold);"></i>
-              <span>Certified life jackets included</span>
+              <i data-lucide="check" style="width: 15px; height: 15px; color: #1b8755;"></i>
+              <span><strong>Reserve now & pay on arrival</strong> at Karagita Pier</span>
             </div>
             <div style="display: flex; align-items: center; gap: 0.5rem;">
-              <i data-lucide="clock" style="width: 16px; height: 16px; color: var(--rift-gold);"></i>
-              <span>Free cancellation up to 2 hours prior</span>
+              <i data-lucide="check" style="width: 15px; height: 15px; color: #1b8755;"></i>
+              <span><strong>Free cancellation</strong> up to 2 hours before</span>
             </div>
             <div style="display: flex; align-items: center; gap: 0.5rem;">
-              <i data-lucide="map-pin" style="width: 16px; height: 16px; color: var(--rift-gold);"></i>
-              <span>Departing from Karagita Beach</span>
+              <i data-lucide="check" style="width: 15px; height: 15px; color: #1b8755;"></i>
+              <span><strong>Fitted life jackets</strong> provided for everyone</span>
             </div>
           </div>
 
@@ -227,32 +345,45 @@
   </div>
 </section>
 
-<!-- Section 18: Related Experiences -->
+<!-- Related Experiences -->
 {% if related_tours %}
 <section class="section-spacing-sm" style="background: var(--papyrus-light); border-top: 1px solid var(--border-papyrus);">
   <div class="site-container">
     <div style="margin-bottom: 2rem;">
-      <p class="eyebrow">Alternative Options</p>
-      <h2>More Lake Naivasha Rides</h2>
+      <p class="eyebrow">Similar Activities</p>
+      <h2 style="color: var(--ink-forest);">You might also like</h2>
     </div>
 
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.75rem;">
+    <div class="gyg-card-grid">
       {% for alt_tour in related_tours %}
-      <article class="card tour-card" style="background: #ffffff;">
-        <div class="tour-card-body">
-          <span class="fact-chip" style="margin-bottom: 0.75rem;"><i data-lucide="clock"></i> {{ alt_tour.duration_display }}</span>
-          <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem;">
+      <article class="gyg-product-card">
+        <a href="{{ alt_tour.get_absolute_url }}" class="gyg-card-media">
+          {% if alt_tour.hero_image %}
+          <img src="{{ alt_tour.hero_image.url }}" alt="{{ alt_tour.name }}" loading="lazy">
+          {% else %}
+          <img src="{% static 'images/gallery/naivasha-boat-passenger.jpeg' %}" alt="{{ alt_tour.name }}" loading="lazy">
+          {% endif %}
+          <span class="gyg-badge gyg-badge-bestseller">Recommended</span>
+        </a>
+
+        <div class="gyg-card-content">
+          <div class="gyg-card-category">BOAT TOUR • LAKE NAIVASHA</div>
+          <h3 class="gyg-card-name" style="font-size: 1rem;">
             <a href="{{ alt_tour.get_absolute_url }}">{{ alt_tour.name }}</a>
           </h3>
-          <p style="font-size: 0.875rem; color: var(--body-muted); margin-bottom: 1.25rem;">
-            {{ alt_tour.summary }}
-          </p>
-          <div class="tour-card-footer">
-            <span style="font-family: var(--font-display); font-weight: 700; color: var(--ink-forest);">
-              From KES {{ alt_tour.starting_price_kes|floatformat:0 }}
-            </span>
-            <a href="{{ alt_tour.get_absolute_url }}" class="btn btn-sm btn-outline">
-              <span>Explore</span>
+          <div class="gyg-card-features">
+            <div class="gyg-card-feature">
+              <i data-lucide="clock" style="width: 13px; height: 13px;"></i>
+              <span>{{ alt_tour.duration_display }}</span>
+            </div>
+          </div>
+          <div class="gyg-card-footer">
+            <div class="gyg-price-stack">
+              <span class="gyg-price-sub">From</span>
+              <span class="gyg-price-main">KES {{ alt_tour.starting_price_kes|floatformat:0|intcomma }}</span>
+            </div>
+            <a href="{{ alt_tour.get_absolute_url }}" class="btn btn-sm btn-outline" style="padding: 0.4rem 0.85rem; font-size: 0.75rem;">
+              <span>View</span>
             </a>
           </div>
         </div>

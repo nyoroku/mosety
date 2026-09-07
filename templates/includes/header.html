@@ -3,29 +3,53 @@
         x-init="window.addEventListener('scroll', () => { isScrolled = window.scrollY > 20 })" 
         :class="{ 'is-scrolled': isScrolled }">
   <div class="site-container header-inner">
-    <!-- Brand Identity -->
-    <a href="/" class="brand-link" aria-label="{{ site.business_name }} home">
-      <span class="brand-title">Mosety</span>
-      <span class="brand-sub">Boat Rides Naivasha</span>
+    <!-- Brand Identity (GetYourGuide Styled) -->
+    <a href="/" class="gyg-brand" aria-label="{{ site.business_name }} home">
+      <span class="gyg-logo-text">mosety<span class="gyg-logo-dot"></span></span>
+      <span class="gyg-logo-tag">Lake Naivasha</span>
     </a>
 
     <!-- Desktop Navigation -->
     <nav class="desktop-nav" aria-label="Primary navigation">
-      {% for item in primary_nav %}
-      <a href="{{ item.url }}" class="nav-anchor{% if request.path == item.url %} is-active{% endif %}">
-        {{ item.title }}
+      <a href="/boat-rides/" class="nav-anchor{% if request.path == '/boat-rides/' %} is-active{% endif %}">
+        Experiences
       </a>
-      {% endfor %}
+      <a href="/naivasha-guide/" class="nav-anchor{% if '/naivasha-guide/' in request.path %} is-active{% endif %}">
+        Destinations
+      </a>
+      <a href="/prices/" class="nav-anchor{% if request.path == '/prices/' %} is-active{% endif %}">
+        Prices
+      </a>
+      <a href="/journal/" class="nav-anchor{% if '/journal/' in request.path %} is-active{% endif %}">
+        Field Journal
+      </a>
+      <a href="/safety/" class="nav-anchor{% if request.path == '/safety/' %} is-active{% endif %}">
+        Safety
+      </a>
     </nav>
 
-    <!-- Header Actions -->
-    <div class="header-actions">
-      {% if site.phone_e164 %}
-      <a href="{{ site.tel_url }}" class="btn btn-sm btn-outline" style="display: none; @media(min-width: 1080px){ display: inline-flex; }">
-        <i data-lucide="phone" style="width: 15px; height: 15px;"></i>
-        <span>Call</span>
+    <!-- Header Actions (GetYourGuide Utility Bar) -->
+    <div class="header-actions" x-data="{ currentCur: localStorage.getItem('mosety_currency') || 'KES' }">
+      <!-- Currency Switcher Pill -->
+      <div class="gyg-currency-switch" title="Toggle KES (Kenyan Shilling) or USD">
+        <button type="button" class="gyg-currency-btn" 
+                :class="{ 'is-active': currentCur === 'KES' }"
+                @click="currentCur = 'KES'; localStorage.setItem('mosety_currency', 'KES'); window.dispatchEvent(new CustomEvent('currency-change', { detail: 'KES' }))">
+          KES
+        </button>
+        <button type="button" class="gyg-currency-btn" 
+                :class="{ 'is-active': currentCur === 'USD' }"
+                @click="currentCur = 'USD'; localStorage.setItem('mosety_currency', 'USD'); window.dispatchEvent(new CustomEvent('currency-change', { detail: 'USD' }))">
+          USD
+        </button>
+      </div>
+
+      <!-- Wishlist / Saved Indicator -->
+      <a href="/boat-rides/" class="gyg-wishlist-header-btn" title="Saved Boat Rides" style="display: none; @media(min-width: 840px){ display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; color: var(--ink-forest); background: var(--papyrus-light); border: 1px solid var(--border-papyrus); }">
+        <i data-lucide="heart" style="width: 18px; height: 18px;"></i>
       </a>
-      {% endif %}
+
+      <!-- Direct Booking / WhatsApp Button -->
       <a href="{{ whatsapp_book_url }}" target="_blank" rel="noopener" class="btn btn-sm btn-primary">
         <i data-lucide="message-circle" style="width: 16px; height: 16px;"></i>
         <span>Book on WhatsApp</span>
@@ -66,9 +90,9 @@
        x-cloak>
     
     <div class="mobile-drawer-header">
-      <div class="brand-link">
-        <span class="brand-title">Mosety</span>
-        <span class="brand-sub">Lake Naivasha</span>
+      <div class="gyg-brand">
+        <span class="gyg-logo-text">mosety<span class="gyg-logo-dot"></span></span>
+        <span class="gyg-logo-tag">Lake Naivasha</span>
       </div>
       <button type="button" class="hamburger-btn" @click="mobileNavOpen = false" aria-label="Close navigation menu">
         <i data-lucide="x" style="width: 22px; height: 22px;"></i>

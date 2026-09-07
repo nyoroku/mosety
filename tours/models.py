@@ -92,6 +92,11 @@ class Tour(OptimizedImageMixin, SEOMixin, models.Model):
         return tier.amount_kes if tier else None
 
     @property
+    def starting_price_usd(self):
+        tier = self.primary_price_tier
+        return tier.amount_usd if tier else None
+
+    @property
     def pricing_mode_display(self):
         tier = self.primary_price_tier
         if tier and tier.pricing_mode == 'PER_PERSON':
@@ -136,6 +141,12 @@ class PriceTier(models.Model):
         ordering = ['sort_order', 'amount_kes']
         verbose_name = "Price Tier"
         verbose_name_plural = "Price Tiers"
+
+    @property
+    def amount_usd(self):
+        if self.amount_kes:
+            return round(float(self.amount_kes) / 130.0)
+        return None
 
     def __str__(self):
         return f"{self.tour.name} - {self.label} (KES {self.amount_kes:,.0f} {self.get_pricing_mode_display()})"
