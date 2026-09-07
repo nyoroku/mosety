@@ -36,7 +36,7 @@ def run_seed():
             'max_guests': 7,
             'intent_tag': 'wildlife',
             'is_featured': True,
-            'image': 'static/images/gallery/naivasha-hippo.jpeg',
+            'image': 'static/images/gallery/hippo-shore-roaring.jpeg',
             'tiers': [
                 ('Standard Private Boat (1 Hour)', 3500, 'PER_BOAT'),
                 ('Shared Boat Ride (Per Person)', 1200, 'PER_PERSON'),
@@ -53,7 +53,7 @@ def run_seed():
             'max_guests': 7,
             'intent_tag': 'crescent_island',
             'is_featured': True,
-            'image': 'static/images/gallery/naivasha-giraffes-boat.jpeg',
+            'image': 'static/images/gallery/crescent-island-two-giraffes.jpeg',
             'tiers': [
                 ('Boat Charter (Transfer + 2hr Waiting)', 5000, 'PER_BOAT'),
                 ('Shared Return Boat Transfer', 1500, 'PER_PERSON'),
@@ -69,7 +69,7 @@ def run_seed():
             'max_guests': 7,
             'intent_tag': 'sunset',
             'is_featured': True,
-            'image': 'static/images/gallery/naivasha-sunset-guests.jpeg',
+            'image': 'static/images/gallery/naivasha-acacia-sunset.jpeg',
             'tiers': [
                 ('Private Sunset Charter (1.5 Hours)', 6000, 'PER_BOAT'),
             ]
@@ -84,7 +84,7 @@ def run_seed():
             'max_guests': 7,
             'intent_tag': 'private',
             'is_featured': True,
-            'image': 'static/images/gallery/naivasha-boat-passenger.jpeg',
+            'image': 'static/images/gallery/mosety-boat-fleet-docked.jpeg',
             'tiers': [
                 ('Private Charter (1 Hour)', 4500, 'PER_BOAT'),
                 ('Private Charter (2 Hours)', 8000, 'PER_BOAT'),
@@ -100,7 +100,7 @@ def run_seed():
             'max_guests': 7,
             'intent_tag': 'family',
             'is_featured': False,
-            'image': 'static/images/gallery/naivasha-cruise-guests.jpeg',
+            'image': 'static/images/gallery/crescent-island-grazing-zebra.jpeg',
             'tiers': [
                 ('Private Family Boat (Up to 7 Guests)', 4000, 'PER_BOAT'),
             ]
@@ -115,7 +115,7 @@ def run_seed():
             'max_guests': 6,
             'intent_tag': 'birding',
             'is_featured': False,
-            'image': 'static/images/gallery/naivasha-boat-wildlife.jpeg',
+            'image': 'static/images/gallery/naivasha-wading-marabou-stork.jpeg',
             'tiers': [
                 ('Dedicated Birding Charter (2 Hours)', 7000, 'PER_BOAT'),
             ]
@@ -130,7 +130,7 @@ def run_seed():
             'max_guests': 100,
             'intent_tag': 'group',
             'is_featured': False,
-            'image': 'static/images/gallery/naivasha-group-boat.jpeg',
+            'image': 'static/images/gallery/corporate-group-safari-team.jpeg',
             'tiers': [
                 ('Group Rate (Per Person, Min 8 Guests)', 1000, 'PER_PERSON'),
             ]
@@ -187,12 +187,12 @@ def run_seed():
 
     print("5. Seeding Field Articles & Journal...")
     articles_data = [
-        ('Where & How Lake Naivasha Hippos Are Viewed Safely', 'hippo-viewing-guide-naivasha', 'Why maintaining 30-50m distances protects both guests and nursing mothers in the shallows.', 'static/images/gallery/naivasha-hippo-shore.jpeg'),
-        ('Complete Crescent Island Sanctuary Walking Safari Guide', 'crescent-island-sanctuary-guide', 'How to combine a boat ride with Kenya\'s most famous walking safari: entry fees, animal checklist, and walking loops.', 'static/images/gallery/naivasha-giraffe.jpeg'),
-        ('The Complete One-Day Lake Naivasha Day Trip from Nairobi', 'nairobi-to-naivasha-day-trip-itinerary', 'A realistic timeline for traveling from Nairobi, enjoying morning boat safaris, walking Crescent Island, and returning comfortably.', 'static/images/gallery/naivasha-boats-lake.jpeg'),
-        ('Birdwatching & Raptor Photography on Lake Naivasha: A Captain\'s Field Manual', 'birdwatching-photography-guide-naivasha', 'Field notes on spotting 400+ bird species, tracking African fish eagles, and boat positioning for reflections.', 'static/images/gallery/naivasha-boat-wildlife.jpeg'),
-        ('Lake Naivasha Sunset Boat Rides: Timing, Golden Hour Light & What to Expect', 'sunset-boat-rides-lake-naivasha', 'Why the 5:00 PM to 6:30 PM departure window delivers mirror-calm waters, dramatic Mau Escarpment silhouettes, and evening hippo activity.', 'static/images/gallery/naivasha-sunset-guests.jpeg'),
-        ('Lake Naivasha Boat Ride Prices & Dock Etiquette: 2026 Direct Guide', 'boat-ride-prices-dock-guide-naivasha', 'A transparent breakdown of standard pier rates, private charters vs shared rides, Crescent Island fees, and tipping norms at Karagita Beach.', 'static/images/gallery/naivasha-captain.jpeg'),
+        ('Where & How Lake Naivasha Hippos Are Viewed Safely', 'hippo-viewing-guide-naivasha', 'Why maintaining 30-50m distances protects both guests and nursing mothers in the shallows.', 'static/images/gallery/naivasha-waterbuck-reeds.jpeg'),
+        ('Complete Crescent Island Sanctuary Walking Safari Guide', 'crescent-island-sanctuary-guide', 'How to combine a boat ride with Kenya\'s most famous walking safari: entry fees, animal checklist, and walking loops.', 'static/images/gallery/crescent-island-impalas-herd.jpeg'),
+        ('The Complete One-Day Lake Naivasha Day Trip from Nairobi', 'nairobi-to-naivasha-day-trip-itinerary', 'A realistic timeline for traveling from Nairobi, enjoying morning boat safaris, walking Crescent Island, and returning comfortably.', 'static/images/gallery/naivasha-tall-giraffe-canopy.jpeg'),
+        ('Birdwatching & Raptor Photography on Lake Naivasha: A Captain\'s Field Manual', 'birdwatching-photography-guide-naivasha', 'Field notes on spotting 400+ bird species, tracking African fish eagles, and boat positioning for reflections.', 'static/images/gallery/naivasha-waterbuck-swimming.jpeg'),
+        ('Lake Naivasha Sunset Boat Rides: Timing, Golden Hour Light & What to Expect', 'sunset-boat-rides-lake-naivasha', 'Why the 5:00 PM to 6:30 PM departure window delivers mirror-calm waters, dramatic Mau Escarpment silhouettes, and evening hippo activity.', 'static/images/gallery/guest-speedboat-adventure.jpeg'),
+        ('Lake Naivasha Boat Ride Prices & Dock Etiquette: 2026 Direct Guide', 'boat-ride-prices-dock-guide-naivasha', 'A transparent breakdown of standard pier rates, private charters vs shared rides, Crescent Island fees, and tipping norms at Karagita Beach.', 'static/images/gallery/naivasha-boat-pilot-lake.jpeg'),
     ]
     for title, slug, excerpt, img in articles_data:
         art, _ = GuideArticle.objects.get_or_create(

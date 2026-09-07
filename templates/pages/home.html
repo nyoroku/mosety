@@ -240,11 +240,7 @@
       {% if default_tour %}
       <div class="card" style="display: grid; grid-template-columns: 1fr; @media(min-width: 768px){ grid-template-columns: 0.9fr 1.1fr; } background: #ffffff; border: 2px solid var(--border-subtle); border-radius: var(--radius-card); overflow: hidden; box-shadow: var(--shadow-card);" id="ride-recommendation-panel">
         <div style="position: relative; background: var(--papyrus); min-height: 240px;">
-          {% if default_tour.hero_image %}
-          <img src="{{ default_tour.hero_image.url }}" alt="{{ default_tour.name }}" style="width: 100%; height: 100%; object-fit: cover;">
-          {% else %}
-          <img src="{% static 'images/gallery/naivasha-boat-passenger.jpeg' %}" alt="{{ default_tour.name }}" style="width: 100%; height: 100%; object-fit: cover;">
-          {% endif %}
+          <img src="{% static 'images/gallery/naivasha-guest-captain.jpeg' %}" alt="Mosety boat captain with traveler at Karagita Pier" style="width: 100%; height: 100%; object-fit: cover;">
           <span class="tour-badge" style="background: var(--ink-forest); color: var(--rift-gold); border: 1px solid rgba(217, 164, 65, 0.4);">
             Recommended For You
           </span>
@@ -465,7 +461,7 @@
 
       <div class="gyg-sights-grid">
         <a href="/crescent-island/" class="gyg-sight-card">
-          <img src="{% static 'images/gallery/naivasha-boat-passenger.jpeg' %}" alt="Crescent Island Game Sanctuary">
+          <img src="{% static 'images/gallery/crescent-island-giraffe-family.jpeg' %}" alt="Crescent Island Game Sanctuary">
           <div class="gyg-sight-overlay"></div>
           <div class="gyg-sight-info">
             <h3 class="gyg-sight-name">Crescent Island Sanctuary</h3>
@@ -474,7 +470,7 @@
         </a>
 
         <a href="/naivasha-guide/hippos/" class="gyg-sight-card">
-          <img src="{% static 'images/gallery/naivasha-boat-passenger.jpeg' %}" alt="Lake Naivasha Hippo Pods">
+          <img src="{% static 'images/gallery/lake-naivasha-hippo-pod-water.jpeg' %}" alt="Lake Naivasha Hippo Pods">
           <div class="gyg-sight-overlay"></div>
           <div class="gyg-sight-info">
             <h3 class="gyg-sight-name">Hippo Pods & Reeds</h3>
@@ -483,7 +479,7 @@
         </a>
 
         <a href="/contact/" class="gyg-sight-card">
-          <img src="{% static 'images/gallery/naivasha-boat-passenger.jpeg' %}" alt="Karagita Public Pier">
+          <img src="{% static 'images/gallery/karagita-pier-speedboat.jpeg' %}" alt="Karagita Public Pier">
           <div class="gyg-sight-overlay"></div>
           <div class="gyg-sight-info">
             <h3 class="gyg-sight-name">Karagita Public Pier</h3>
@@ -492,7 +488,7 @@
         </a>
 
         <a href="/naivasha-guide/wildlife/" class="gyg-sight-card">
-          <img src="{% static 'images/gallery/naivasha-boat-passenger.jpeg' %}" alt="Oloidien Bay">
+          <img src="{% static 'images/gallery/oloidien-bay-hippo-sunset.jpeg' %}" alt="Oloidien Bay">
           <div class="gyg-sight-overlay"></div>
           <div class="gyg-sight-info">
             <h3 class="gyg-sight-name">Oloidien Crater Bay</h3>
@@ -525,7 +521,7 @@
       
       <!-- Oversized Wildlife Image -->
       <div style="border-radius: var(--radius-card); overflow: hidden; box-shadow: var(--shadow-lg); background: var(--papyrus); aspect-ratio: 4 / 3;">
-        <img src="{% static 'images/gallery/naivasha-giraffe.jpeg' %}" 
+        <img src="{% static 'images/gallery/wetland-waterbuck-papyrus-island.jpeg' %}" 
              alt="Lake Naivasha wildlife grazing along shoreline" 
              loading="lazy"
              style="width: 100%; height: 100%; object-fit: cover;">
@@ -665,7 +661,7 @@
       </div>
 
       <div style="border-radius: var(--radius-card); overflow: hidden; box-shadow: var(--shadow-lg); background: var(--papyrus); aspect-ratio: 4 / 3;">
-        <img src="{% static 'images/gallery/naivasha-group-boat.jpeg' %}" 
+        <img src="{% static 'images/gallery/crescent-island-boat-arrival.jpeg' %}" 
              alt="Guests landing at Crescent Island Game Sanctuary pier" 
              loading="lazy"
              style="width: 100%; height: 100%; object-fit: cover;">
