@@ -22,6 +22,7 @@ def run_seed():
     site.whatsapp_number = "+254 114 182706"
     site.base_url = "https://mosety.pythonanywhere.com"
     site.address_text = "Karagita Public Beach, South Lake Road, Lake Naivasha, Kenya"
+    site.favicon = "branding/favicon.png"
     site.save()
 
     print("3. Seeding Tours & Price Tiers...")

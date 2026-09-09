@@ -22,6 +22,7 @@ from bookings.views import BookLeadView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('favicon.ico', RedirectView.as_view(url='/static/images/favicon.ico', permanent=True)),
     path('', include('pages.urls')),
     path('', include('tours.urls')),
     path('', include('content.urls')),
