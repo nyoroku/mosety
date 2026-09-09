@@ -37,7 +37,7 @@ def run_seed():
             'max_guests': 7,
             'intent_tag': 'wildlife',
             'is_featured': True,
-            'image': 'static/images/gallery/hippo-shore-roaring.jpeg',
+            'image': 'static/images/gallery/captain-moses-safari-boat.jpeg',
             'tiers': [
                 ('Standard Private Boat (1 Hour)', 3500, 'PER_BOAT'),
                 ('Shared Boat Ride (Per Person)', 1200, 'PER_PERSON'),
