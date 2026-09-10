@@ -43,7 +43,7 @@ class HomeView(TemplateView):
 
         default_tour = MosetyTour.objects.filter(slug='hippo-bird-safari', is_active=True).first() or (all_tours[0] if all_tours else None)
         captains = Captain.objects.filter(is_active=True).order_by('-years_on_lake')[:2]
-        testimonials = ContentTestimonial.objects.filter(is_active=True).order_by('-is_featured', '-review_date')[:3]
+        testimonials = list(ContentTestimonial.objects.filter(is_active=True).order_by('-is_featured', '-review_date')[:6])
         faqs = list(QuestionAnswer.objects.filter(is_active=True).order_by('sort_order')[:8])
         journal_articles = list(GuideArticle.objects.filter(is_active=True).order_by('-published_at')[:3])
 

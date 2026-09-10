@@ -353,8 +353,8 @@
       </button>
     </div>
 
-    <!-- GetYourGuide Product Card Grid -->
-    <div class="gyg-card-grid" id="experiences">
+    <!-- GetYourGuide Product Card Grid (Grid on Desktop / Horizontal Snap Carousel on Mobile) -->
+    <div class="gyg-card-grid gyg-card-snap-mobile" id="experiences">
       {% for tour in all_tours %}
       <article class="gyg-product-card" 
                x-data="{ isSaved: false }"
@@ -458,49 +458,145 @@
       {% endfor %}
     </div>
 
-    <!-- GetYourGuide Top Sights in Lake Naivasha Collection -->
-    <div style="margin-top: 4.5rem; padding-top: 3.5rem; border-top: 1px solid var(--border-subtle);">
-      <div style="margin-bottom: 2rem;">
-        <p class="eyebrow eyebrow-gold">Destination Highlights</p>
-        <h2 style="color: var(--ink-forest);">Top sights in Lake Naivasha</h2>
+    <!-- GetYourGuide Top Sights in Lake Naivasha Destination Carousel -->
+    <div style="margin-top: 4.5rem; padding-top: 3.5rem; border-top: 1px solid var(--border-subtle);"
+         x-data="{
+           canScrollPrev: false,
+           canScrollNext: true,
+           updateStatus() {
+             const el = this.$refs.sightsTrack;
+             if (!el) return;
+             this.canScrollPrev = el.scrollLeft > 15;
+             this.canScrollNext = el.scrollLeft < (el.scrollWidth - el.clientWidth - 15);
+           },
+           scroll(dir) {
+             const el = this.$refs.sightsTrack;
+             if (!el) return;
+             const card = el.querySelector('.gyg-sight-card-carousel');
+             const step = card ? card.offsetWidth + 20 : 320;
+             el.scrollBy({ left: dir * step, behavior: 'smooth' });
+             setTimeout(() => this.updateStatus(), 350);
+           }
+         }"
+         x-init="$nextTick(() => { updateStatus(); if (window.lucide) window.lucide.createIcons(); })">
+      
+      <!-- Carousel Header with Navigation Arrows -->
+      <div class="gyg-carousel-header">
+        <div>
+          <p class="eyebrow eyebrow-gold">Destination Highlights</p>
+          <h2 style="color: var(--ink-forest); margin-bottom: 0.25rem;">Top sights in Lake Naivasha</h2>
+          <p class="lead-text" style="margin-bottom: 0; font-size: 0.95rem;">
+            Explore the most iconic wildlife points, walking sanctuaries, and scenic departure bays.
+          </p>
+        </div>
+
+        <div class="gyg-carousel-nav">
+          <button type="button" 
+                  class="gyg-carousel-btn" 
+                  :class="{ 'is-disabled': !canScrollPrev }" 
+                  :disabled="!canScrollPrev" 
+                  @click="scroll(-1)" 
+                  aria-label="Previous sights">
+            <i data-lucide="chevron-left" style="width: 20px; height: 20px;"></i>
+          </button>
+          <button type="button" 
+                  class="gyg-carousel-btn" 
+                  :class="{ 'is-disabled': !canScrollNext }" 
+                  :disabled="!canScrollNext" 
+                  @click="scroll(1)" 
+                  aria-label="Next sights">
+            <i data-lucide="chevron-right" style="width: 20px; height: 20px;"></i>
+          </button>
+        </div>
       </div>
 
-      <div class="gyg-sights-grid">
-        <a href="/crescent-island/" class="gyg-sight-card">
-          <img src="{% static 'images/gallery/crescent-island-giraffe-family.jpeg' %}" alt="Crescent Island Game Sanctuary">
-          <div class="gyg-sight-overlay"></div>
-          <div class="gyg-sight-info">
-            <h3 class="gyg-sight-name">Crescent Island Sanctuary</h3>
-            <span class="gyg-sight-count">4 boat ride options</span>
-          </div>
-        </a>
+      <!-- Carousel Track & Floating Overlay Arrows -->
+      <div class="gyg-carousel-wrapper">
+        <button type="button" 
+                class="gyg-carousel-btn gyg-carousel-floating-btn gyg-carousel-floating-prev" 
+                :class="{ 'is-disabled': !canScrollPrev }" 
+                :disabled="!canScrollPrev" 
+                @click="scroll(-1)" 
+                aria-label="Previous sights">
+          <i data-lucide="chevron-left" style="width: 20px; height: 20px;"></i>
+        </button>
 
-        <a href="/naivasha-guide/hippos/" class="gyg-sight-card">
-          <img src="{% static 'images/gallery/lake-naivasha-hippo-pod-water.jpeg' %}" alt="Lake Naivasha Hippo Pods">
-          <div class="gyg-sight-overlay"></div>
-          <div class="gyg-sight-info">
-            <h3 class="gyg-sight-name">Hippo Pods & Reeds</h3>
-            <span class="gyg-sight-count">3 safari routes</span>
-          </div>
-        </a>
+        <div class="gyg-carousel-track" x-ref="sightsTrack" @scroll.passive="updateStatus()">
+          <!-- Sight 1: Crescent Island -->
+          <a href="/crescent-island/" class="gyg-sight-card-carousel">
+            <img src="{% static 'images/gallery/crescent-island-giraffe-family.jpeg' %}" alt="Crescent Island Game Sanctuary" loading="lazy">
+            <div class="gyg-sight-overlay"></div>
+            <div class="gyg-sight-info">
+              <span class="gyg-sight-count">4 boat ride options</span>
+              <h3 class="gyg-sight-name">Crescent Island Sanctuary</h3>
+              <span style="font-size: 0.75rem; color: rgba(251, 248, 242, 0.85); display: block; margin-top: 2px;">Giraffe &amp; Zebra Walking Safaris</span>
+            </div>
+          </a>
 
-        <a href="/contact/" class="gyg-sight-card">
-          <img src="{% static 'images/gallery/karagita-pier-speedboat.jpeg' %}" alt="Karagita Public Pier">
-          <div class="gyg-sight-overlay"></div>
-          <div class="gyg-sight-info">
-            <h3 class="gyg-sight-name">Karagita Public Pier</h3>
-            <span class="gyg-sight-count">Main departure hub</span>
-          </div>
-        </a>
+          <!-- Sight 2: Hippo Pods -->
+          <a href="/naivasha-guide/hippos/" class="gyg-sight-card-carousel">
+            <img src="{% static 'images/gallery/lake-naivasha-hippo-pod-water.jpeg' %}" alt="Lake Naivasha Hippo Pods" loading="lazy">
+            <div class="gyg-sight-overlay"></div>
+            <div class="gyg-sight-info">
+              <span class="gyg-sight-count">3 safari routes</span>
+              <h3 class="gyg-sight-name">Hippo Pods &amp; Papyrus Reeds</h3>
+              <span style="font-size: 0.75rem; color: rgba(251, 248, 242, 0.85); display: block; margin-top: 2px;">Ethical 30m Distance Viewing</span>
+            </div>
+          </a>
 
-        <a href="/naivasha-guide/wildlife/" class="gyg-sight-card">
-          <img src="{% static 'images/gallery/oloidien-bay-hippo-sunset.jpeg' %}" alt="Oloidien Bay">
-          <div class="gyg-sight-overlay"></div>
-          <div class="gyg-sight-info">
-            <h3 class="gyg-sight-name">Oloidien Crater Bay</h3>
-            <span class="gyg-sight-count">Sunset & flamingos</span>
-          </div>
-        </a>
+          <!-- Sight 3: Karagita Pier -->
+          <a href="/contact/" class="gyg-sight-card-carousel">
+            <img src="{% static 'images/gallery/karagita-pier-speedboat.jpeg' %}" alt="Karagita Public Pier" loading="lazy">
+            <div class="gyg-sight-overlay"></div>
+            <div class="gyg-sight-info">
+              <span class="gyg-sight-count">Main departure hub</span>
+              <h3 class="gyg-sight-name">Karagita Public Pier</h3>
+              <span style="font-size: 0.75rem; color: rgba(251, 248, 242, 0.85); display: block; margin-top: 2px;">Direct Boat Boarding &amp; Parking</span>
+            </div>
+          </a>
+
+          <!-- Sight 4: Oloidien Bay -->
+          <a href="/naivasha-guide/wildlife/" class="gyg-sight-card-carousel">
+            <img src="{% static 'images/gallery/oloidien-bay-hippo-sunset.jpeg' %}" alt="Oloidien Crater Bay" loading="lazy">
+            <div class="gyg-sight-overlay"></div>
+            <div class="gyg-sight-info">
+              <span class="gyg-sight-count">Sunset &amp; Flamingos</span>
+              <h3 class="gyg-sight-name">Oloidien Crater Bay</h3>
+              <span style="font-size: 0.75rem; color: rgba(251, 248, 242, 0.85); display: block; margin-top: 2px;">Volcanic Bay &amp; Golden Hour</span>
+            </div>
+          </a>
+
+          <!-- Sight 5: Sanctuary Farm -->
+          <a href="/boat-rides/" class="gyg-sight-card-carousel">
+            <img src="{% static 'images/gallery/naivasha-tall-giraffe-canopy.jpeg' %}" alt="Sanctuary Farm Woodlands" loading="lazy">
+            <div class="gyg-sight-overlay"></div>
+            <div class="gyg-sight-info">
+              <span class="gyg-sight-count">Scenic cruising</span>
+              <h3 class="gyg-sight-name">Sanctuary Farm Woodlands</h3>
+              <span style="font-size: 0.75rem; color: rgba(251, 248, 242, 0.85); display: block; margin-top: 2px;">Yellow Fever Acacia Forest</span>
+            </div>
+          </a>
+
+          <!-- Sight 6: Bird Sanctuary -->
+          <a href="/naivasha-guide/birds/" class="gyg-sight-card-carousel">
+            <img src="{% static 'images/gallery/naivasha-wading-marabou-stork.jpeg' %}" alt="Riparian Bird Sanctuary" loading="lazy">
+            <div class="gyg-sight-overlay"></div>
+            <div class="gyg-sight-info">
+              <span class="gyg-sight-count">400+ bird species</span>
+              <h3 class="gyg-sight-name">Riparian Bird Sanctuary</h3>
+              <span style="font-size: 0.75rem; color: rgba(251, 248, 242, 0.85); display: block; margin-top: 2px;">African Fish Eagle Hunting Grounds</span>
+            </div>
+          </a>
+        </div>
+
+        <button type="button" 
+                class="gyg-carousel-btn gyg-carousel-floating-btn gyg-carousel-floating-next" 
+                :class="{ 'is-disabled': !canScrollNext }" 
+                :disabled="!canScrollNext" 
+                @click="scroll(1)" 
+                aria-label="Next sights">
+          <i data-lucide="chevron-right" style="width: 20px; height: 20px;"></i>
+        </button>
       </div>
     </div>
 
@@ -789,63 +885,157 @@
 </section>
 
 <!-- ==========================================================================
-     SECTION 11: GUEST STORIES
+     SECTION 11: GUEST STORIES & VERIFIED REVIEWS CAROUSEL
      ========================================================================== -->
 <section class="section-spacing" style="background: var(--papyrus-light); border-top: 1px solid var(--border-papyrus);">
   <div class="site-container">
-    <div style="text-align: center; max-width: 680px; margin-inline: auto; margin-bottom: 3.5rem;">
-      <p class="eyebrow eyebrow-gold" style="justify-content: center;">Verified Feedback</p>
-      <h2>Good days on the lake, told by our guests.</h2>
-      <p class="lead-text" style="margin-inline: auto;">
-        We believe in honest, unedited feedback from real visitors. Here is what travelers say about their time on the water.
-      </p>
-    </div>
+    <div class="gyg-carousel-wrapper" x-data="{
+      canScrollPrev: false,
+      canScrollNext: true,
+      activeIndex: 0,
+      totalCount: {{ testimonials|length }},
+      updateStatus() {
+        const el = this.$refs.reviewsTrack;
+        if (!el) return;
+        this.canScrollPrev = el.scrollLeft > 15;
+        this.canScrollNext = el.scrollLeft < (el.scrollWidth - el.clientWidth - 15);
+        const card = el.querySelector('.gyg-review-card-carousel');
+        const cardWidth = card ? card.offsetWidth + 20 : 360;
+        this.activeIndex = Math.min(Math.round(el.scrollLeft / cardWidth), this.totalCount - 1);
+      },
+      scroll(dir) {
+        const el = this.$refs.reviewsTrack;
+        if (!el) return;
+        const card = el.querySelector('.gyg-review-card-carousel');
+        const step = card ? card.offsetWidth + 20 : 360;
+        el.scrollBy({ left: dir * step, behavior: 'smooth' });
+        setTimeout(() => this.updateStatus(), 350);
+      },
+      scrollToIndex(idx) {
+        const el = this.$refs.reviewsTrack;
+        if (!el) return;
+        const card = el.querySelector('.gyg-review-card-carousel');
+        const step = card ? card.offsetWidth + 20 : 360;
+        el.scrollTo({ left: idx * step, behavior: 'smooth' });
+        setTimeout(() => this.updateStatus(), 350);
+      }
+    }" x-init="$nextTick(() => { updateStatus(); if (window.lucide) window.lucide.createIcons(); })">
 
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem;">
-      {% for testimonial in testimonials %}
-      <div class="gyg-review-card">
-        <div class="gyg-review-user">
-          <div class="gyg-reviewer-info">
-            <div class="gyg-reviewer-avatar">
-              {{ testimonial.display_name|slice:":1" }}
-            </div>
-            <div>
-              <div class="gyg-reviewer-name">{{ testimonial.display_name }}</div>
-              <div class="gyg-reviewer-country">
-                {% if forloop.counter == 1 %}🇰🇪 Kenya • Resident
-                {% elif forloop.counter == 2 %}🇬🇧 United Kingdom • Traveler
-                {% else %}🇺🇸 United States • Family Trip{% endif %}
-              </div>
-            </div>
+      <!-- Header with GYG Trust Pill and Paging Arrows -->
+      <div class="gyg-carousel-header">
+        <div>
+          <div style="display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(27, 135, 85, 0.1); color: #1b8755; padding: 0.3rem 0.85rem; border-radius: var(--radius-pill); font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.65rem;">
+            <i data-lucide="check-circle" style="width: 14px; height: 14px;"></i>
+            <span>Verified Passenger Reviews • 4.9 out of 5</span>
           </div>
-
-          <div class="gyg-verified-pill">
-            <i data-lucide="check-circle" style="width: 12px; height: 12px;"></i>
-            <span>Verified Booking</span>
-          </div>
+          <h2 style="color: var(--ink-forest); margin-bottom: 0.25rem;">Good days on the lake, told by our guests.</h2>
+          <p class="lead-text" style="margin-bottom: 0; font-size: 0.95rem;">
+            Honest feedback from Kenyan residents and international travelers on Lake Naivasha boat rides.
+          </p>
         </div>
 
-        <div style="display: flex; align-items: center; gap: 0.25rem; color: var(--rift-gold); margin-bottom: 0.85rem;" aria-label="5 stars">
-          <i data-lucide="star" style="width: 14px; height: 14px; fill: var(--rift-gold);"></i>
-          <i data-lucide="star" style="width: 14px; height: 14px; fill: var(--rift-gold);"></i>
-          <i data-lucide="star" style="width: 14px; height: 14px; fill: var(--rift-gold);"></i>
-          <i data-lucide="star" style="width: 14px; height: 14px; fill: var(--rift-gold);"></i>
-          <i data-lucide="star" style="width: 14px; height: 14px; fill: var(--rift-gold);"></i>
-          <span style="font-size: 0.75rem; color: var(--lake-sage); font-weight: 700; margin-left: 0.4rem;">5.0 / 5.0</span>
-        </div>
-
-        <p style="font-size: 0.9375rem; color: var(--body-text); line-height: 1.6; margin-bottom: 1.25rem; flex-grow: 1;">
-          “{{ testimonial.review_text }}”
-        </p>
-
-        <div style="border-top: 1px solid rgba(16, 39, 33, 0.08); padding-top: 0.75rem; display: flex; justify-content: space-between; align-items: center; font-size: 0.75rem; color: var(--lake-sage); font-weight: 600;">
-          <span>Activity: Lake Naivasha Boat Safari</span>
-          <span>Via {{ testimonial.source|default:"Direct Pier Booking" }}</span>
+        <div class="gyg-carousel-nav">
+          <button type="button" 
+                  class="gyg-carousel-btn" 
+                  :class="{ 'is-disabled': !canScrollPrev }" 
+                  :disabled="!canScrollPrev" 
+                  @click="scroll(-1)" 
+                  aria-label="Previous reviews">
+            <i data-lucide="chevron-left" style="width: 20px; height: 20px;"></i>
+          </button>
+          <button type="button" 
+                  class="gyg-carousel-btn" 
+                  :class="{ 'is-disabled': !canScrollNext }" 
+                  :disabled="!canScrollNext" 
+                  @click="scroll(1)" 
+                  aria-label="Next reviews">
+            <i data-lucide="chevron-right" style="width: 20px; height: 20px;"></i>
+          </button>
         </div>
       </div>
-      {% endfor %}
-    </div>
 
+      <!-- Carousel Track & Floating Overlay Arrows -->
+      <div class="gyg-carousel-wrapper">
+        <button type="button" 
+                class="gyg-carousel-btn gyg-carousel-floating-btn gyg-carousel-floating-prev" 
+                :class="{ 'is-disabled': !canScrollPrev }" 
+                :disabled="!canScrollPrev" 
+                @click="scroll(-1)" 
+                aria-label="Previous reviews">
+          <i data-lucide="chevron-left" style="width: 20px; height: 20px;"></i>
+        </button>
+
+        <div class="gyg-carousel-track" x-ref="reviewsTrack" @scroll.passive="updateStatus()">
+          {% for testimonial in testimonials %}
+          <div class="gyg-review-card gyg-review-card-carousel">
+            <div class="gyg-review-user">
+              <div class="gyg-reviewer-info">
+                <div class="gyg-reviewer-avatar">
+                  {{ testimonial.display_name|slice:":1" }}
+                </div>
+                <div>
+                  <div class="gyg-reviewer-name">{{ testimonial.display_name }}</div>
+                  <div class="gyg-reviewer-country">
+                    {% if "Ochieng" in testimonial.display_name %}🇰🇪 Nairobi, Kenya • Group Tour
+                    {% elif "Davies" in testimonial.display_name %}🇬🇧 United Kingdom • Couple Sunset
+                    {% elif "Wanjiku" in testimonial.display_name %}🇰🇪 Kenya • Family with Children
+                    {% elif "Jenkins" in testimonial.display_name %}🇬🇧 UK • Wildlife Photography
+                    {% elif "Shah" in testimonial.display_name %}🇰🇪 Kenya • Weekend Getaway
+                    {% elif "Connor" in testimonial.display_name %}🇮🇪 Ireland • Solo Traveler
+                    {% else %}Verified Traveler • Lake Safari{% endif %}
+                  </div>
+                </div>
+              </div>
+
+              <div class="gyg-verified-pill">
+                <i data-lucide="check-circle" style="width: 12px; height: 12px;"></i>
+                <span>Verified</span>
+              </div>
+            </div>
+
+            <div style="display: flex; align-items: center; gap: 0.25rem; color: var(--rift-gold); margin-bottom: 0.85rem;" aria-label="5 stars">
+              <i data-lucide="star" style="width: 14px; height: 14px; fill: var(--rift-gold);"></i>
+              <i data-lucide="star" style="width: 14px; height: 14px; fill: var(--rift-gold);"></i>
+              <i data-lucide="star" style="width: 14px; height: 14px; fill: var(--rift-gold);"></i>
+              <i data-lucide="star" style="width: 14px; height: 14px; fill: var(--rift-gold);"></i>
+              <i data-lucide="star" style="width: 14px; height: 14px; fill: var(--rift-gold);"></i>
+              <span style="font-size: 0.75rem; color: var(--lake-sage); font-weight: 700; margin-left: 0.4rem;">5.0 / 5.0</span>
+            </div>
+
+            <p style="font-size: 0.9375rem; color: var(--body-text); line-height: 1.6; margin-bottom: 1.25rem; flex-grow: 1;">
+              “{{ testimonial.review_text }}”
+            </p>
+
+            <div style="border-top: 1px solid rgba(16, 39, 33, 0.08); padding-top: 0.75rem; display: flex; justify-content: space-between; align-items: center; font-size: 0.75rem; color: var(--lake-sage); font-weight: 600;">
+              <span>Activity: Lake Naivasha Boat Safari</span>
+              <span>Via {{ testimonial.source|default:"Direct Pier Booking" }}</span>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+
+        <button type="button" 
+                class="gyg-carousel-btn gyg-carousel-floating-btn gyg-carousel-floating-next" 
+                :class="{ 'is-disabled': !canScrollNext }" 
+                :disabled="!canScrollNext" 
+                @click="scroll(1)" 
+                aria-label="Next reviews">
+          <i data-lucide="chevron-right" style="width: 20px; height: 20px;"></i>
+        </button>
+      </div>
+
+      <!-- Dot Indicators -->
+      <div class="gyg-carousel-dots">
+        {% for testimonial in testimonials %}
+        <button type="button" 
+                class="gyg-indicator-dot" 
+                :class="{ 'is-active': activeIndex === {{ forloop.counter0 }} }" 
+                @click="scrollToIndex({{ forloop.counter0 }})" 
+                aria-label="Go to review {{ forloop.counter }}"></button>
+        {% endfor %}
+      </div>
+
+    </div>
   </div>
 </section>
 

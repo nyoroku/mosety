@@ -1143,6 +1143,30 @@ details[open] .faq-icon {
   }
 }
 
+/* Mobile Snap Carousel for Experience Cards */
+@media (max-width: 639px) {
+  .gyg-card-grid.gyg-card-snap-mobile {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-inline: 0.25rem;
+    padding-bottom: 1.25rem;
+    gap: 1.15rem;
+  }
+  .gyg-card-grid.gyg-card-snap-mobile::-webkit-scrollbar {
+    display: none;
+  }
+  .gyg-card-grid.gyg-card-snap-mobile .gyg-product-card {
+    flex: 0 0 84vw;
+    max-width: 320px;
+    scroll-snap-align: start;
+    height: auto;
+  }
+}
+
 .gyg-product-card {
   background: #ffffff;
   border-radius: 16px;
@@ -1391,7 +1415,7 @@ details[open] .faq-icon {
   line-height: 1.45;
 }
 
-/* 6. GetYourGuide Top Sights Visual Grid */
+/* 6. GetYourGuide Top Sights Visual Grid & Carousel */
 .gyg-sights-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -1433,20 +1457,220 @@ details[open] .faq-icon {
 .gyg-sight-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, transparent 40%, rgba(16, 39, 33, 0.85) 100%);
+  background: linear-gradient(180deg, transparent 35%, rgba(16, 39, 33, 0.4) 60%, rgba(16, 39, 33, 0.9) 100%);
 }
 .gyg-sight-info {
   position: relative;
   z-index: 2;
 }
 .gyg-sight-name {
-  font-size: 1rem;
+  font-size: 1.05rem;
   font-weight: 800;
   line-height: 1.25;
+  color: #ffffff;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  margin-bottom: 0.2rem;
 }
 .gyg-sight-count {
   font-size: 0.75rem;
+  font-weight: 700;
   color: var(--papyrus);
+  background: rgba(16, 39, 33, 0.55);
+  backdrop-filter: blur(4px);
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+  display: inline-block;
+}
+
+/* ==========================================================================
+   GETYOURGUIDE CAROUSEL COMPONENT SYSTEM
+   ========================================================================== */
+.gyg-carousel-wrapper {
+  position: relative;
+  width: 100%;
+}
+.gyg-carousel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 1.5rem;
+  gap: 1rem;
+}
+.gyg-carousel-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.gyg-carousel-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 1.5px solid rgba(16, 39, 33, 0.14);
+  color: var(--ink-forest);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 14px rgba(16, 39, 33, 0.08);
+  flex-shrink: 0;
+  user-select: none;
+}
+.gyg-carousel-btn:hover:not(:disabled) {
+  background: #ffffff;
+  color: var(--rift-gold);
+  border-color: var(--rift-gold);
+  transform: scale(1.06);
+  box-shadow: 0 6px 18px rgba(16, 39, 33, 0.16);
+}
+.gyg-carousel-btn:active:not(:disabled) {
+  transform: scale(0.96);
+}
+.gyg-carousel-btn:disabled,
+.gyg-carousel-btn.is-disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+  pointer-events: none;
+}
+.gyg-carousel-floating-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 15;
+  box-shadow: 0 6px 20px rgba(16, 39, 33, 0.18);
+}
+.gyg-carousel-floating-prev {
+  left: -20px;
+}
+.gyg-carousel-floating-next {
+  right: -20px;
+}
+@media (max-width: 1024px) {
+  .gyg-carousel-floating-prev {
+    left: -10px;
+  }
+  .gyg-carousel-floating-next {
+    right: -10px;
+  }
+}
+@media (max-width: 767px) {
+  .gyg-carousel-floating-btn {
+    display: none;
+  }
+}
+.gyg-carousel-track {
+  display: flex;
+  gap: 1.25rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding-block: 0.5rem 1rem;
+}
+.gyg-carousel-track::-webkit-scrollbar {
+  display: none;
+}
+.gyg-carousel-item {
+  scroll-snap-align: start;
+  flex-shrink: 0;
+}
+.gyg-carousel-dots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  margin-top: 1.25rem;
+}
+.gyg-indicator-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-pill);
+  background: rgba(16, 39, 33, 0.2);
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.gyg-indicator-dot.is-active {
+  background: var(--ink-forest);
+  width: 26px;
+  border-radius: var(--radius-pill);
+}
+
+/* Sights Carousel Specifics */
+.gyg-sight-card-carousel {
+  flex: 0 0 78vw;
+  max-width: 290px;
+  height: 340px;
+  position: relative;
+  border-radius: 18px;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  padding: 1.25rem;
+  color: var(--ivory);
+  text-decoration: none;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.28s ease, box-shadow 0.28s ease;
+  scroll-snap-align: start;
+  flex-shrink: 0;
+}
+@media (min-width: 640px) {
+  .gyg-sight-card-carousel {
+    flex: 0 0 calc(50% - 0.75rem);
+    max-width: 340px;
+  }
+}
+@media (min-width: 1024px) {
+  .gyg-sight-card-carousel {
+    flex: 0 0 calc(33.333% - 0.85rem);
+    max-width: none;
+  }
+}
+@media (min-width: 1280px) {
+  .gyg-sight-card-carousel {
+    flex: 0 0 calc(25% - 0.95rem);
+  }
+}
+.gyg-sight-card-carousel:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 16px 36px rgba(16, 39, 33, 0.16);
+}
+.gyg-sight-card-carousel img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.gyg-sight-card-carousel:hover img {
+  transform: scale(1.08);
+}
+
+/* Reviews Carousel Specifics */
+.gyg-review-card-carousel {
+  flex: 0 0 86vw;
+  max-width: 380px;
+  scroll-snap-align: start;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+}
+@media (min-width: 640px) {
+  .gyg-review-card-carousel {
+    flex: 0 0 calc(50% - 0.75rem);
+    max-width: none;
+  }
+}
+@media (min-width: 1024px) {
+  .gyg-review-card-carousel {
+    flex: 0 0 calc(33.333% - 0.85rem);
+  }
 }
 
 /* 7. GetYourGuide Traveler Review Cards */
