@@ -64,9 +64,18 @@ class HomeView(TemplateView):
 
 
 
+def _get_public_base_url(request, site):
+    host = request.get_host().split(':')[0]
+    if 'mosetyboatridesnaivasha.co.ke' in host:
+        return "https://www.mosetyboatridesnaivasha.co.ke"
+    if site.base_url and 'pythonanywhere.com' not in site.base_url:
+        return site.base_url.rstrip('/')
+    return "https://www.mosetyboatridesnaivasha.co.ke"
+
+
 def robots_txt(request):
     site = SiteSettings.get_solo()
-    base_url = (site.base_url or "https://mosety.co.ke").rstrip('/')
+    base_url = _get_public_base_url(request, site)
     lines = [
         'User-agent: *',
         'Allow: /',
@@ -81,7 +90,7 @@ def robots_txt(request):
 
 def llms_txt(request):
     site = SiteSettings.get_solo()
-    base_url = (site.base_url or "https://mosety.co.ke").rstrip('/')
+    base_url = _get_public_base_url(request, site)
     lines = [
         f'# {site.business_name}', '',
         f'> {site.tagline}',

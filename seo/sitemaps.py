@@ -47,6 +47,7 @@ class StaticViewSitemap(Sitemap):
 
 # ---------------- Tours ----------------
 class TourSitemap(Sitemap):
+    protocol = 'https'
     changefreq = 'weekly'
     priority = 1.0
 
@@ -59,6 +60,7 @@ class TourSitemap(Sitemap):
 
 # ---------------- Guide Articles / Field Journal ----------------
 class GuideArticleSitemap(Sitemap):
+    protocol = 'https'
     changefreq = 'weekly'
     priority = 0.8
 
@@ -74,6 +76,7 @@ class GuideArticleSitemap(Sitemap):
 
 # ---------------- Blog Posts ----------------
 class BlogSitemap(Sitemap):
+    protocol = 'https'
     changefreq = 'weekly'
     priority = 0.7
 
@@ -86,6 +89,7 @@ class BlogSitemap(Sitemap):
 
 # ---------------- Local Pages ----------------
 class LocalPageSitemap(Sitemap):
+    protocol = 'https'
     changefreq = 'monthly'
     priority = 0.9
 
@@ -98,6 +102,7 @@ class LocalPageSitemap(Sitemap):
 
 # ---------------- FAQ ----------------
 class FAQSitemap(Sitemap):
+    protocol = 'https'
     changefreq = 'monthly'
     priority = 0.6
 

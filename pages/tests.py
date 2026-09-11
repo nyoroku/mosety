@@ -90,7 +90,10 @@ class ParadiseDynamicSiteTests(TestCase):
         self.assertContains(detail_response, '5.0')
 
     def test_sitemaps_llms_and_internal_routes_remain_dynamic(self):
-        sitemap = self.client.get('/sitemap.xml').content.decode()
+        sitemap_resp = self.client.get('/sitemap.xml')
+        self.assertEqual(sitemap_resp.status_code, 200)
+        self.assertFalse(sitemap_resp.has_header('X-Robots-Tag'), "sitemap.xml must not have X-Robots-Tag header so search engines can read it")
+        sitemap = sitemap_resp.content.decode()
         for path in [
             '/dynamic-destination/',
             '/blog/dynamic-journal-guide/', '/faq/', '/destinations/',

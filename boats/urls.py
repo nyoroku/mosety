@@ -20,6 +20,12 @@ sitemaps = {
 
 from bookings.views import BookLeadView
 
+def sitemap_clean_view(request, *args, **kwargs):
+    response = sitemap(request, *args, **kwargs)
+    if response.has_header('X-Robots-Tag'):
+        del response['X-Robots-Tag']
+    return response
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('favicon.ico', RedirectView.as_view(url='/static/images/favicon.ico', permanent=True)),
@@ -41,7 +47,7 @@ urlpatterns = [
     path('crew/', include('reputation.urls')),
     path('resources/', include('resources.urls')),
     path('', include('seo.urls')),
-    path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='sitemap'),
+    path('sitemap.xml', sitemap_clean_view, {'sitemaps': sitemaps}, name='sitemap'),
 ]
 
 if settings.DEBUG:

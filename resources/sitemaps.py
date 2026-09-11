@@ -3,6 +3,7 @@ from django.urls import reverse
 from .models import GuidePage
 
 class ResourceGuideSitemap(Sitemap):
+    protocol = 'https'
     changefreq = 'monthly'
     priority = 0.8
 
@@ -13,6 +14,7 @@ class ResourceGuideSitemap(Sitemap):
         return obj.updated_at
 
 class ResourceStaticSitemap(Sitemap):
+    protocol = 'https'
     priority = 0.9
     changefreq = 'weekly'
 
