@@ -105,20 +105,44 @@ class ContactView(TemplateView):
     def post(self, request, *args, **kwargs):
         contact_form = ContactForm(request.POST)
         if contact_form.is_valid():
-            contact_form.save() # If you want to save it to a model
-            # For now, we'll just show a success message
+            contact_form.save()
             messages.success(request, f"Thank you, {contact_form.cleaned_data['name']}. Your message has been received. We'll get back to you soon!")
-            # In a real project, you would send an email here using Django's email backend.
-            # from django.core.mail import send_mail
-            # send_mail(
-            #     contact_form.cleaned_data['subject'],
-            #     contact_form.cleaned_data['message'],
-            #     contact_form.cleaned_data['email'],
-            #     ['your-email@paradiseboatridesnaivasha.com'],
-            #     fail_silently=False,
-            # )
         else:
             messages.error(request, "There was an error with your submission. Please check the fields and try again.")
-
-        # For HTMX, we re-render the form with the message
         return render(request, 'pages/partials/contact_form.html', {'contact_form': contact_form})
+
+
+class SitemapView(TemplateView):
+    template_name = 'pages/sitemap.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        site = SiteSettings.get_solo()
+        all_tours = list(MosetyTour.objects.filter(is_active=True).order_by('sort_order'))
+        articles = list(GuideArticle.objects.filter(is_active=True).order_by('-published_at')[:6])
+        faqs = list(QuestionAnswer.objects.filter(is_active=True).order_by('sort_order')[:6])
+        context.update({
+            'site': site,
+            'all_tours': all_tours,
+            'articles': articles,
+            'faqs': faqs,
+        })
+        return context
+
+
+class PrivacyPolicyView(TemplateView):
+    template_name = 'pages/privacy.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['site'] = SiteSettings.get_solo()
+        return context
+
+
+class TermsOfServiceView(TemplateView):
+    template_name = 'pages/terms.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['site'] = SiteSettings.get_solo()
+        return context
