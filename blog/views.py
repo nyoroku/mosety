@@ -21,7 +21,7 @@ class PostDetailView(DetailView):
         if 'katrue' in legacy_slug.lower():
             current_slug = re.sub(
                 r'katrue',
-                'paradise-boat-rides-naivasha',
+                'mosety-boat-rides-naivasha',
                 legacy_slug,
                 flags=re.IGNORECASE,
             )

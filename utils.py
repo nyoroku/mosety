@@ -37,8 +37,8 @@ def auto_link(html):
     soup = BeautifulSoup(html, "html.parser")
 
     # Match the longest phrases first in one pass.  This prevents a broad
-    # phrase such as "Paradise Boat Rides" from being inserted inside a
-    # longer link such as "Paradise Boat Rides Naivasha".
+    # phrase such as "Mosety Boat Rides" from being inserted inside a
+    # longer link such as "Mosety Boat Rides Naivasha".
     links = list(internal_links.values_list('keyword', 'url'))
     links.sort(key=lambda item: len(item[0]), reverse=True)
     keyword_urls = {keyword.casefold(): url for keyword, url in links}

@@ -13,7 +13,7 @@ from testimonials.models import Testimonial
 from utils import auto_link
 
 
-class ParadiseDynamicSiteTests(TestCase):
+class MosetyDynamicSiteTests(TestCase):
     @classmethod
     def setUpTestData(cls):
         author = get_user_model().objects.create_user(username='guide')

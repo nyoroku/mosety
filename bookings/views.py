@@ -36,7 +36,7 @@ class TourListView(ListView):
         context.update({
             'tours': tours,
             'currency_symbol': currency_symbol,
-            "seo_title": "Boat Rides in Naivasha | Paradise Boat Rides",
+            "seo_title": "Boat Rides in Naivasha | Mosety Boat Rides",
             "meta_description": (
                 "Explore the best boat rides on Lake Naivasha. "
                 "Sunset cruises, birthday boat rides, group tours and private experiences."
@@ -57,7 +57,7 @@ class TourDetailRedirectView(View):
         ip = get_client_ip(request)
 
         if 'katrue' in slug.lower():
-            current_slug = slug.lower().replace('katrue', 'paradise-boat-rides-naivasha')
+            current_slug = slug.lower().replace('katrue', 'mosety-boat-rides-naivasha')
             if Tour.objects.filter(slug=current_slug, is_active=True).exists():
                 view_name = 'bookings:tour_detail_resident' if is_resident_ip(ip) else 'bookings:tour_detail_international'
                 return redirect(view_name, slug=current_slug, permanent=True)
@@ -285,7 +285,7 @@ class CreateBookingView(CreateView):
 
 def booking_success_view(request):
     return render(request, 'bookings/booking_success.html', {
-        "seo_title": "Booking Received | Paradise Boat Rides",
+        "seo_title": "Booking Received | Mosety Boat Rides",
         "meta_description": "Your booking request has been received. We will contact you shortly."
     })
 

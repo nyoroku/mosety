@@ -1,5 +1,5 @@
 """
-Seed data management command for Paradise Boat Rides Naivasha website.
+Seed data management command for Mosety Boat Rides Naivasha website.
 Creates sample Tours, Testimonials, FAQs, Blog Posts, and Services.
 """
 from django.core.management.base import BaseCommand
@@ -22,7 +22,7 @@ class Command(BaseCommand):
         # Create admin user if not exists
         admin, created = User.objects.get_or_create(
             username='admin',
-            defaults={'email': 'admin@paradiseboatridesnaivasha.com', 'is_staff': True, 'is_superuser': True}
+            defaults={'email': 'admin@mosetyboatridesnaivasha.co.ke', 'is_staff': True, 'is_superuser': True}
         )
         if created:
             admin.set_password('admin123')
@@ -361,7 +361,7 @@ class Command(BaseCommand):
                 'order': 2,
             },
             {
-                'question': 'How do I book a boat ride with Paradise Boat Rides Naivasha?',
+                'question': 'How do I book a boat ride with Mosety Boat Rides Naivasha?',
                 'answer': '<p>Booking is easy! You can:</p><ul><li>WhatsApp us directly at +254 791 734 268</li><li>Use our online booking form</li><li>Call us to reserve your spot</li></ul><p>We recommend booking at least 24 hours in advance, especially for weekends and holidays.</p>',
                 'plain_answer': 'Book via WhatsApp (+254 791 734 268), online form, or phone. We recommend 24 hours advance booking.',
                 'is_active': True,
@@ -430,7 +430,7 @@ class Command(BaseCommand):
                 <p>The lake offers excellent conditions throughout the year, though early morning and late afternoon trips are recommended for wildlife activity and photography.</p>
                 
                 <h2>Book Your Experience</h2>
-                <p>Ready to experience Kenya's best boat ride? Contact Paradise Boat Rides Naivasha for instant WhatsApp booking.</p>
+                <p>Ready to experience Kenya's best boat ride? Contact Mosety Boat Rides Naivasha for instant WhatsApp booking.</p>
                 ''',
                 'meta_description': 'Discover why Lake Naivasha offers Kenya\'s best boat ride experience. Wildlife, accessibility, and year-round beauty make it the top choice.',
                 'status': 'published',
@@ -457,7 +457,7 @@ class Command(BaseCommand):
                 <p>Tours range from KES 2,500 for a standard safari to KES 15,000 for private charters. Crescent Island entry fees are separate.</p>
                 
                 <h2>How to Book</h2>
-                <p>The easiest way is WhatsApp booking with Paradise Boat Rides Naivasha. Instant confirmation, flexible timing, and local expertise.</p>
+                <p>The easiest way is WhatsApp booking with Mosety Boat Rides Naivasha. Instant confirmation, flexible timing, and local expertise.</p>
                 ''',
                 'meta_description': 'Complete 2025 guide to Lake Naivasha boat rides. Prices, timing, wildlife, and booking tips from local experts.',
                 'status': 'published',
@@ -481,7 +481,7 @@ class Command(BaseCommand):
                 <p>A well-planned Kenya trip often includes Lake Naivasha as a relaxing break between safari parks. The lake's proximity to Nairobi makes it an ideal first or last stop.</p>
                 
                 <h2>Book Smart</h2>
-                <p>For lake experiences, book directly with local operators like Paradise Boat Rides Naivasha for the best rates and authentic experiences.</p>
+                <p>For lake experiences, book directly with local operators like Mosety Boat Rides Naivasha for the best rates and authentic experiences.</p>
                 ''',
                 'meta_description': 'Plan your complete Kenya adventure. Combine Lake Naivasha boat rides with Masai Mara, Amboseli, and more.',
                 'status': 'published',
@@ -502,7 +502,7 @@ class Command(BaseCommand):
             {
                 'title': 'Boat Rides Naivasha',
                 'slug': 'boat-rides-naivasha',
-                'seo_title': 'Boat Rides Naivasha | Best Lake Experiences | Paradise Boat Rides Naivasha',
+                'seo_title': 'Boat Rides Naivasha | Best Lake Experiences | Mosety Boat Rides Naivasha',
                 'meta_description': 'Book the best boat rides in Naivasha. Hippo safaris, sunset cruises, and Crescent Island tours with experienced local guides.',
                 'primary_keyword': 'boat rides naivasha',
                 'location': 'Lake Naivasha',
@@ -512,7 +512,7 @@ class Command(BaseCommand):
             {
                 'title': 'Crescent Island Tours',
                 'slug': 'crescent-island-tours',
-                'seo_title': 'Crescent Island Tours | Walking Safari Naivasha | Paradise Boat Rides Naivasha',
+                'seo_title': 'Crescent Island Tours | Walking Safari Naivasha | Mosety Boat Rides Naivasha',
                 'meta_description': 'Visit Crescent Island by boat and walk among giraffes and zebras. Safe, guided experiences from Lake Naivasha.',
                 'primary_keyword': 'crescent island tours',
                 'location': 'Crescent Island',
@@ -522,7 +522,7 @@ class Command(BaseCommand):
             {
                 'title': 'Sunset Cruises Naivasha',
                 'slug': 'sunset-cruises-naivasha',
-                'seo_title': 'Sunset Cruises Naivasha | Romantic Lake Experiences | Paradise Boat Rides Naivasha',
+                'seo_title': 'Sunset Cruises Naivasha | Romantic Lake Experiences | Mosety Boat Rides Naivasha',
                 'meta_description': 'Book a magical sunset cruise on Lake Naivasha. Golden hour photography, hippo viewing, and mountain views.',
                 'primary_keyword': 'sunset cruises naivasha',
                 'location': 'Lake Naivasha',

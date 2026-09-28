@@ -71,7 +71,7 @@ class Tour(OptimizedImageMixin, models.Model):
 
     @property
     def effective_seo_title(self):
-        return self.seo_title or f"{self.name} | Paradise Boat Rides Naivasha"
+        return self.seo_title or f"{self.name} | Mosety Boat Rides Naivasha"
 
 
 class Booking(models.Model):

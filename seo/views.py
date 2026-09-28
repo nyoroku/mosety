@@ -40,7 +40,7 @@ class LocalPageListView(ListView):
         context = super().get_context_data(**kwargs)
 
         context.update({
-            "meta_title": "Boat Rides & Tours in Lake Naivasha | Paradise Boat Rides",
+            "meta_title": "Boat Rides & Tours in Lake Naivasha | Mosety Boat Rides",
             "meta_description": "Explore boat rides, Crescent Island tours, hippo safaris, sunset cruises, and family-friendly experiences on Lake Naivasha.",
             "canonical_url": self.request.build_absolute_uri(),
         })

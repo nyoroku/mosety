@@ -106,6 +106,6 @@ class RatingSuccessView(TemplateView):
         context['text'] = text
         context['crew_slug'] = crew_slug
         
-        # The actual Paradise Boat Rides Google Review Link
-        context['google_review_url'] = "https://g.page/paradise-boat-rides/review" 
+        # The actual Mosety Boat Rides Google Review Link
+        context['google_review_url'] = "" 
         return context

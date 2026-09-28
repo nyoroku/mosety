@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 const images = editor.getDoc().getElementsByTagName("img");
                 for (let img of images) {
                     if (!img.getAttribute("alt")) {
-                        img.setAttribute("alt", "Paradise Boat Rides in Naivasha");
+                        img.setAttribute("alt", "Mosety Boat Rides in Naivasha");
                     }
                 }
             });

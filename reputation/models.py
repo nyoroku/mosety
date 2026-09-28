@@ -52,7 +52,7 @@ class StaffMember(OptimizedImageMixin, models.Model):
 
     def generate_qr_code(self):
         """Generates a QR code pointing to the staff member's rating page."""
-        qr_data = f"https://paradiseboatrides.pythonanywhere.com/crew/{self.slug}/rate/"
+        qr_data = f"https://www.mosetyboatridesnaivasha.co.ke/crew/{self.slug}/rate/"
         qr = qrcode.QRCode(version=1, box_size=10, border=5)
         qr.add_data(qr_data)
         qr.make(fit=True)

@@ -26,7 +26,7 @@ class ResourcesLandingView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['meta_title'] = 'Resources & Travel Guides | Paradise Boat Rides'
+        context['meta_title'] = 'Resources & Travel Guides | Mosety Boat Rides'
         context['meta_description'] = 'Your complete guide to affordable Lake Naivasha boat rides. Transparent pricing, trip planning, safety information, wildlife guides, and local attractions.'
         context['canonical_url'] = self.request.build_absolute_uri()
         context['featured_guide'] = featured_guide()
@@ -46,7 +46,7 @@ class PricingView(TemplateView):
         context['faq_items'] = FAQItem.objects.filter(is_active=True, category__slug='pricing')[:10]
         context['guide_page'] = guide_page
         context['featured_guide'] = featured_guide()
-        context['meta_title'] = guide_page.meta_title if guide_page and guide_page.meta_title else 'Naivasha Boat Ride Prices — No Hidden Fees | Paradise'
+        context['meta_title'] = guide_page.meta_title if guide_page and guide_page.meta_title else 'Naivasha Boat Ride Prices — No Hidden Fees | Mosety'
         context['meta_description'] = guide_page.meta_description if guide_page and guide_page.meta_description else ''
         context['canonical_url'] = self.request.build_absolute_uri()
         context['breadcrumbs'] = [
@@ -70,7 +70,7 @@ class ResourceFAQView(ListView):
         guide_page = GuidePage.objects.filter(slug='faq', is_active=True).first()
         context['guide_page'] = guide_page
         context['featured_guide'] = featured_guide()
-        context['meta_title'] = guide_page.meta_title if guide_page and guide_page.meta_title else 'Lake Naivasha Boat Ride FAQ | Paradise Boat Rides'
+        context['meta_title'] = guide_page.meta_title if guide_page and guide_page.meta_title else 'Lake Naivasha Boat Ride FAQ | Mosety Boat Rides'
         context['meta_description'] = guide_page.meta_description if guide_page and guide_page.meta_description else ''
         context['canonical_url'] = self.request.build_absolute_uri()
         context['breadcrumbs'] = [

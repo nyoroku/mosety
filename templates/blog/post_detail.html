@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block meta_title %}{{ post.title }} | Paradise Boat Rides Journal{% endblock %}
+{% block meta_title %}{{ post.title }} | Mosety Boat Rides Field Journal{% endblock %}
 {% block meta_description %}
 {% if post.meta_description %}
 {{ post.meta_description }}
 {% else %}
-{{ post.title }} – Expert insights, travel tips and boat ride experiences from Lake Naivasha by Paradise Boat Rides.
+{{ post.title }} – Expert insights, wildlife field notes and lake guides from Lake Naivasha by Mosety Boat Rides.
 {% endif %}
 {% endblock %}
 {% block canonical_url %}{{ site.base_url }}{{ request.path }}{% endblock %}
@@ -50,14 +50,14 @@
   {% endif %}
   "author": {
     "@type": "Organization",
-    "name": "Paradise Boat Rides Naivasha"
+    "name": "Mosety Boat Rides Naivasha"
   },
   "publisher": {
     "@type": "Organization",
-    "name": "Paradise Boat Rides Naivasha",
+    "name": "Mosety Boat Rides Naivasha",
     "logo": {
       "@type": "ImageObject",
-    "url": "{{ site.base_url }}{% static 'images/paradise-logo.jpeg' %}"
+    "url": "{{ site.base_url }}{% static 'images/branding/mosety-logo.png' %}"
     }
   },
   "datePublished": "{{ post.created_at|date:'c' }}",
@@ -124,7 +124,7 @@
     "name": "Mosety Boat Rides Naivasha",
     "logo": {
       "@type": "ImageObject",
-    "url": "{{ site.base_url }}{% static 'images/paradise-logo.jpeg' %}"
+    "url": "{{ site.base_url }}{% static 'images/branding/mosety-logo.png' %}"
     }
   },
   "datePublished": "{{ post.created_at|date:'c' }}",

@@ -22,10 +22,10 @@ class ContentAppViewsTests(TestCase):
         )
 
         self.captain = Captain.objects.create(
-            name="Peter Mwangi",
-            slug="peter-mwangi",
+            name="Moses Kamau",
+            slug="moses-kamau",
             short_bio="Born and raised on the shores of Lake Naivasha.",
-            years_on_lake=14,
+            years_on_lake=15,
             specialties="Hippo pod behavior & raptors",
             languages="English, Swahili",
             is_active=True
@@ -33,7 +33,7 @@ class ContentAppViewsTests(TestCase):
 
         self.faq = QuestionAnswer.objects.create(
             question="How much are Crescent Island sanctuary entrance fees?",
-            answer="Citizens pay KES 1,000 and non-residents pay $33 USD directly at the sanctuary gate.",
+            answer="Citizens pay KES 800 (child KES 400), residents KES 1,100, and non-residents pay $33 USD directly at the sanctuary gate.",
             category="Pricing",
             related_tour=self.tour,
             is_active=True
@@ -52,7 +52,7 @@ class ContentAppViewsTests(TestCase):
             slug="hippo-viewing-guide-naivasha",
             excerpt="A captain's guide to pod dynamics and 30-50m safety buffers.",
             body="Hippos are territorial mammals that require respect.",
-            author_name="Captain Peter Mwangi",
+            author_name="Captain Moses Kamau",
             content_type="JOURNAL",
             is_active=True
         )
@@ -61,7 +61,7 @@ class ContentAppViewsTests(TestCase):
         response = self.client.get('/crescent-island/')
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Crescent Island Game Sanctuary")
-        self.assertContains(response, "KES 1,000 / $33 USD")
+        self.assertContains(response, "From KES 800 (Citizen) / $33 USD (Non-Resident)")
         self.assertContains(response, "Understanding the Two Separate Costs")
 
     def test_safety_standards_view(self):
@@ -74,8 +74,8 @@ class ContentAppViewsTests(TestCase):
     def test_captains_view(self):
         response = self.client.get('/captains/')
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "Captain Peter Mwangi")
-        self.assertContains(response, "14+ Years on Lake Naivasha")
+        self.assertContains(response, "Captain Moses Kamau")
+        self.assertContains(response, "15+ Years on Lake Naivasha")
 
     def test_reviews_view(self):
         response = self.client.get('/reviews/')
@@ -94,7 +94,7 @@ class ContentAppViewsTests(TestCase):
         response = self.client.get('/contact/')
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Karagita Boat Launch Pier")
-        self.assertContains(response, "-0.7483° S, 36.4255° E")
+        self.assertContains(response, "-0.763400° S, 36.425800° E")
         self.assertContains(response, "Mai Mahiu")
 
     def test_faq_hub_view(self):
@@ -133,7 +133,7 @@ class ContentAppViewsTests(TestCase):
 
         res_detail = self.client.get('/journal/hippo-viewing-guide-naivasha/')
         self.assertEqual(res_detail.status_code, 200)
-        self.assertContains(res_detail, "Captain Peter Mwangi")
+        self.assertContains(res_detail, "Captain Moses Kamau")
 
     def test_zero_residue_across_views(self):
         endpoints = [

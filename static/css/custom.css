@@ -333,7 +333,7 @@ p { margin-top: 0; }
 }
 
 /* ==========================================================================
-   Kayak-inspired structural system, using Paradise brand tokens
+   Kayak-inspired structural system, using Mosety brand tokens
    ========================================================================== */
 :root {
   --font-heading: "Manrope", system-ui, sans-serif;
@@ -520,7 +520,7 @@ nav[aria-label="Breadcrumb"] { display: none !important; }
   line-height: .92;
   text-transform: uppercase;
 }
-.brand-copy .brand-paradise {
+.brand-copy .brand-mosety {
   color: var(--logo-orange);
   font-size: 1.18rem;
   font-weight: 900;
@@ -544,7 +544,7 @@ nav[aria-label="Breadcrumb"] { display: none !important; }
   font-size: .64rem;
   letter-spacing: .24em;
 }
-.brand-footer .brand-paradise { font-size: 1.5rem; }
+.brand-footer .brand-mosety { font-size: 1.5rem; }
 .brand-footer .brand-rides { font-size: .88rem; }
 .brand-footer .brand-place { font-size: .78rem; }
 
@@ -552,7 +552,7 @@ nav[aria-label="Breadcrumb"] { display: none !important; }
   .nav-inner { gap: .4rem; }
   .nav-primary { gap: 0; }
   .nav-utility:not(.nav-whatsapp) { display: none; }
-  .brand-copy .brand-paradise { font-size: 1.05rem; }
+  .brand-copy .brand-mosety { font-size: 1.05rem; }
   .brand-copy .brand-rides { font-size: .64rem; }
   .brand-copy .brand-place { font-size: .57rem; }
 }

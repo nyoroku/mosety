@@ -17,7 +17,7 @@ class StaffMemberAdmin(admin.ModelAdmin):
         return super().changelist_view(request, extra_context=extra_context)
 
     def review_link_display(self, obj):
-        url = f"https://paradiseboatrides.pythonanywhere.com/crew/{obj.slug}/rate/"
+        url = f"https://www.mosetyboatridesnaivasha.co.ke/crew/{obj.slug}/rate/"
         return format_html('<a href="{0}" target="_blank">{0}</a>', url)
     
     review_link_display.short_description = "Review Link"

@@ -780,8 +780,8 @@ class Command(BaseCommand):
 
         User = get_user_model()
         author, _ = User.objects.get_or_create(
-            username='paradise-editor',
-            defaults={'email': 'editor@paradiseboatridesnaivasha.com', 'is_staff': True},
+            username='mosety-editor',
+            defaults={'email': 'editor@mosetyboatridesnaivasha.co.ke', 'is_staff': True},
         )
 
         for article in ARTICLES:
