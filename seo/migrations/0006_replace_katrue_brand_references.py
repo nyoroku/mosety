@@ -4,7 +4,7 @@ from django.db import migrations
 
 
 BRAND_RE = re.compile(r"katrue(?:\s+boat\s+rides?)?", re.IGNORECASE)
-BRAND_NAME = "Paradise Boat Rides Naivasha"
+BRAND_NAME = "Mosety Boat Rides Naivasha"
 
 
 def replace_brand_references(apps, schema_editor):
@@ -39,8 +39,8 @@ def replace_brand_references(apps, schema_editor):
 
     internal_link = apps.get_model('seo', 'InternalLink')
     keyword_map = {
-        'Katrue Boat Rides': 'Paradise Boat Rides',
-        'Katrue': 'Paradise Boat Rides Naivasha',
+        'Katrue Boat Rides': 'Mosety Boat Rides',
+        'Katrue': 'Mosety Boat Rides Naivasha',
     }
     for old_keyword, new_keyword in keyword_map.items():
         old_link = internal_link.objects.filter(keyword__iexact=old_keyword).first()
@@ -55,10 +55,10 @@ def replace_brand_references(apps, schema_editor):
             old_link.save(update_fields=['keyword', 'url'])
 
     for keyword, url in [
-        ('Paradise Boat Rides', '/'),
-        ('Paradise Boat Rides Naivasha', '/'),
-        ('call Paradise Boat Rides', 'tel:+254729360174'),
-        ('book Paradise Boat Rides', '/tours/'),
+        ('Mosety Boat Rides', '/'),
+        ('Mosety Boat Rides Naivasha', '/'),
+        ('call Mosety Boat Rides', 'tel:+254114182706'),
+        ('book Mosety Boat Rides', '/tours/'),
     ]:
         internal_link.objects.get_or_create(keyword=keyword, defaults={'url': url, 'is_active': True})
 

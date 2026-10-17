@@ -8,8 +8,8 @@ from django.db import migrations
 def rename_blog_images(apps, schema_editor):
     post = apps.get_model('blog', 'Post')
     for old_name, new_name in [
-        ('blog_images/katrue_wildlife_0.jpg', 'blog_images/paradise_wildlife_0.jpg'),
-        ('blog_images/katrue_wildlife_1.jpg', 'blog_images/paradise_wildlife_1.jpg'),
+        ('blog_images/katrue_wildlife_0.jpg', 'blog_images/mosety_wildlife_0.jpg'),
+        ('blog_images/katrue_wildlife_1.jpg', 'blog_images/mosety_wildlife_1.jpg'),
     ]:
         source = Path(settings.MEDIA_ROOT) / old_name
         target = Path(settings.MEDIA_ROOT) / new_name

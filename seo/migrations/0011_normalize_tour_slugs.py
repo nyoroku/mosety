@@ -8,7 +8,7 @@ def normalize_tour_slugs(apps, schema_editor):
     for item in tour.objects.filter(slug__icontains='katrue').iterator():
         item.slug = re.sub(
             r'katrue',
-            'paradise-boat-rides-naivasha',
+            'mosety-boat-rides-naivasha',
             item.slug,
             flags=re.IGNORECASE,
         )

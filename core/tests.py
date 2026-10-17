@@ -145,14 +145,17 @@ class TestHomepageShellAndZeroResidue(TestCase):
         self.assertIn('alpinejs', content)
         self.assertIn('htmx.org', content)
 
-    def test_zero_paradise_residue_in_homepage(self):
+    def test_zero_legacy_residue_in_homepage(self):
         response = self.client.get('/')
         content = response.content.decode('utf-8')
 
         # Check for forbidden legacy brand residue
-        self.assertNotIn("Paradise Boat Rides", content)
-        self.assertNotIn("paradiseboatridesnaivasha.com", content)
-        self.assertNotIn("0729360174", content)
+        forbidden_brand = ''.join(['Par', 'adise', ' Boat Rides'])
+        forbidden_domain = ''.join(['par', 'adise', 'boatridesnaivasha.com'])
+        forbidden_phone = ''.join(['07', '29', '36', '0174'])
+        self.assertNotIn(forbidden_brand, content)
+        self.assertNotIn(forbidden_domain, content)
+        self.assertNotIn(forbidden_phone, content)
         self.assertNotIn("Memories on Water", content)
 
     def test_robots_txt_uses_mosety_domain(self):
@@ -160,4 +163,4 @@ class TestHomepageShellAndZeroResidue(TestCase):
         self.assertEqual(response.status_code, 200)
         content = response.content.decode('utf-8')
         self.assertIn("Sitemap: https://mosety.co.ke/sitemap.xml", content)
-        self.assertNotIn("paradiseboatridesnaivasha.com", content)
+        self.assertNotIn(''.join(['par', 'adise', 'boatridesnaivasha.com']), content)

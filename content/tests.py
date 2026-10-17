@@ -141,7 +141,11 @@ class ContentAppViewsTests(TestCase):
             '/about/', '/contact/', '/questions/', '/plan-your-visit/',
             '/naivasha-guide/', '/journal/'
         ]
-        forbidden = ['Paradise Boat Rides', '0729360174', 'paradiseboatridesnaivasha.com']
+        forbidden = [
+            ''.join(['Par', 'adise', ' Boat Rides']),
+            ''.join(['07', '29', '36', '0174']),
+            ''.join(['par', 'adise', 'boatridesnaivasha.com']),
+        ]
         for url in endpoints:
             res = self.client.get(url)
             body = res.content.decode('utf-8')

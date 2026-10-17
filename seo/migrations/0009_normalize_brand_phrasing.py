@@ -11,8 +11,8 @@ def normalize_brand_phrasing(apps, schema_editor):
         ('bookings', 'Tour'),
         ('testimonials', 'Testimonial'),
     ]
-    duplicate = 'Paradise Boat Rides Naivasha Naivasha'
-    brand = 'Paradise Boat Rides Naivasha'
+    duplicate = 'Mosety Boat Rides Naivasha Naivasha'
+    brand = 'Mosety Boat Rides Naivasha'
     for app_label, model_name in content_models:
         model = apps.get_model(app_label, model_name)
         text_fields = [

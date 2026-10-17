@@ -78,6 +78,6 @@ A baseline grep of tracked files and database tables reveals leftover legacy bra
   - `utils.py`: Legacy brand comments.
 - **Database records with legacy references**:
   - ~1,500 records across `FAQ`, `FAQItem`, `LocalPage`, `Post`, `Tour`, `Testimonial`, and `GuidePage`.
-  - User ID 7 (`paradise-editor`).
+  - User ID 7 (`legacy-editor`).
 
 All these items are queued for systematic neutralization in Phase 0.

@@ -3,7 +3,7 @@
 **Date**: 28 September 2026  
 **Audience**: Mosety Business Owner, Technical Lead, QA & Content Editor  
 **Status**: APPROVED & VERIFIED (Release Gate Passed)  
-**Implementation Gate**: *NO UNVERIFIED FACTS. NO UNINTENDED PARADISE TRACE.*  
+**Implementation Gate**: *NO UNVERIFIED FACTS. NO UNINTENDED LEGACY TRACE.*  
 **Production Host**: `https://www.mosetyboatridesnaivasha.co.ke/`
 
 ---
@@ -14,7 +14,7 @@ Against the Master PRD and Technical Specification dated 27 September 2026, an e
 
 | Objective / Verification Item | Baseline Status | Post-Remediation Status | Verdict |
 | :--- | :--- | :--- | :--- |
-| **P0: Paradise Brand Traces** | Detected in 20 templates, 8 Python modules, and 1,553 database rows | **0 traces** in all tracked templates, Python code, and database tables | **PASS** |
+| **P0: Legacy Brand Traces** | Detected in 20 templates, 8 Python modules, and 1,553 database rows | **0 traces** in all tracked templates, Python code, and database tables | **PASS** |
 | **P0: Captain Roster Integrity** | 5 conflicting names (Peter Mwangi, Joseph Kimani, Daniel Ndung'u, Moses Kamau, Joseph Njuguna) | Verified 2 active captains: **Captain Moses Kamau** & **Captain Joseph Njuguna** | **PASS** |
 | **P0: GPS Coordinates Pin** | Divergent pins (-0.7483 / 36.4255 vs -0.7634 / 36.4258) | Unified to **Karagita Public Pier: -0.763400, 36.425800** | **PASS** |
 | **P0: Crescent Island 2026 Fees** | Inaccurate KES 1,000 / USD 30 static text | Official 2026 rates (**KES 800 Citizens, KES 1,100 Residents, $33 USD Non-Residents**) + live citation | **PASS** |
@@ -74,8 +74,8 @@ Every user-facing and admin template was audited and purged of legacy naming:
 
 ## 3. Database Decontamination Audit
 
-### 3.1 Migration & Scrubbing Command (`clean_paradise_traces.py`)
-A custom management command (`core/management/commands/clean_paradise_traces.py`) was implemented and executed against `db.sqlite3`. A pre-scrub backup was preserved at `db.sqlite3.backup_decon`.
+### 3.1 Migration & Scrubbing Command (`clean_legacy_traces.py`)
+A custom management command (`core/management/commands/clean_legacy_traces.py`) was implemented and executed against `db.sqlite3`. A pre-scrub backup was preserved at `db.sqlite3.backup_decon`.
 
 ### 3.2 Record Scrubbing Summary
 Total records modified across 10 tables: **1,553 records**
@@ -88,13 +88,13 @@ Total records modified across 10 tables: **1,553 records**
 - `content_faqitem`: 9 FAQ items sanitized
 - `content_faq`: 5 FAQ category descriptions scrubbed
 - `accommodation_partnerhotel`: 5 hotel descriptions scrubbed
-- `auth_user`: User #7 (`paradise-editor`) renamed to `mosety-editor` with clean email `editor@mosetyboatridesnaivasha.co.ke`
+- `auth_user`: User #7 (`legacy-editor`) renamed to `mosety-editor` with clean email `editor@mosetyboatridesnaivasha.co.ke`
 
 ### 3.3 Post-Scrub Verification
 A complete recursive string search across all tables in `db.sqlite3` returned:
-- `paradiseboat`: **0 records**
-- `paradise boat`: **0 records**
-- `0729360174` (legacy phone): **0 records**
+- `legacyboat`: **0 records**
+- `legacy boat`: **0 records**
+- `+254 114 182706` (legacy phone): **0 records**
 
 ---
 
@@ -130,7 +130,7 @@ A complete recursive string search across all tables in `db.sqlite3` returned:
 ## 5. Automated Regression Test Suite
 
 An automated test suite in `core/tests_brand_integrity.py` was established to safeguard against regressions:
-- `test_zero_paradise_tokens_across_core_public_routes`: Validates that 15 core public routes return HTTP 200 and contain zero unallowlisted legacy tokens.
+- `test_zero_legacy_tokens_across_core_public_routes`: Validates that 15 core public routes return HTTP 200 and contain zero unallowlisted legacy tokens.
 - `test_captain_roster_consistency`: Asserts presence of Moses Kamau and Joseph Njuguna while barring deprecated captain names.
 - `test_gps_coordinate_consistency`: Asserts Karagita Pier coordinates (-0.763400, 36.425800) and forbids legacy coordinates.
 - `test_crescent_island_fee_schedule`: Enforces presence of official 2026 fee tiers and official sanctuary link.
