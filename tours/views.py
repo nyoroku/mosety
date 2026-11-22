@@ -5,6 +5,8 @@ from django.http import HttpResponse, JsonResponse
 from django.utils import timezone
 from .models import Tour, PriceTier
 from core.models import SiteSettings
+from content.models import GuideArticle
+from django.db.models import Q
 from seo.utils import build_faq_schema, render_json_ld
 
 
@@ -50,6 +52,7 @@ class TourDetailView(DetailView):
 
         context['related_tours'] = Tour.objects.filter(is_active=True).exclude(id=tour.id).order_by('sort_order')[:3]
         context['faqs'] = tour.faqs.filter(is_active=True)
+        context['related_articles'] = tour.guide_articles.filter(is_active=True).order_by('-is_featured', '-published_at')[:4]
 
         return context
 
@@ -198,9 +201,14 @@ class PricesPageView(TemplateView):
         site = SiteSettings.get_solo()
         tours = Tour.objects.filter(is_active=True).prefetch_related('price_tiers').order_by('sort_order')
         
+        pricing_articles = GuideArticle.objects.filter(is_active=True).filter(
+            Q(slug__icontains='price') | Q(slug__icontains='cost') | Q(slug__icontains='fee') | Q(slug__icontains='budget') | Q(slug__icontains='mpesa')
+        ).order_by('-is_featured', '-published_at')[:6]
+
         context.update({
             'site': site,
             'tours': tours,
+            'pricing_articles': pricing_articles,
             'meta_title': f"Lake Naivasha Boat Ride Prices & Calculator — {site.business_name}",
             'meta_description': (
                 "Transparent, dock-direct Lake Naivasha boat ride prices. "

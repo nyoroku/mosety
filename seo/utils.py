@@ -145,3 +145,40 @@ def build_breadcrumb_schema(breadcrumb_list, site):
         "@type": "BreadcrumbList",
         "itemListElement": elements
     }
+
+
+def build_article_schema(article, site):
+    """
+    Builds Article JSON-LD structured data optimized for SEO and GEO/AEO citation.
+    """
+    base_url = (site.base_url or "https://www.mosetyboatridesnaivasha.co.ke").rstrip('/')
+    article_url = f"{base_url}{article.get_absolute_url()}"
+    schema = {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": article_url,
+        },
+        "headline": article.seo_title or article.title,
+        "description": article.meta_description or article.excerpt,
+        "datePublished": article.published_at.isoformat() if article.published_at else "",
+        "dateModified": article.updated_at.isoformat() if article.updated_at else "",
+        "author": {
+            "@type": "Person" if "Captain" in (article.author_name or "") else "Organization",
+            "name": article.author_name or site.business_name,
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": site.business_name,
+            "url": f"{base_url}/",
+        },
+    }
+    if article.reviewer_name:
+        schema["reviewedBy"] = {
+            "@type": "Person",
+            "name": article.reviewer_name,
+        }
+    if article.hero_image:
+        schema["image"] = f"{base_url}{article.hero_image.url}"
+    return schema

@@ -7,22 +7,24 @@ import io
 import os
 
 KEYWORDS = {
-    "Lake Naivasha": "/lake-naivasha/",
-    "boat rides": "/tours/",
-    "sunset cruise": "/tours/sunset-cruise/",
-    "hippos": "/wildlife/",
-    "Crescent Island": "/destinations/crescent-island-naivasha/",
-    "bird watching": "/activities/bird-watching/",
-    "Naivasha": "/lake-naivasha/",
-    "private boat": "/tours/",
-    "family tour": "/tours/",
-    "wildlife safari": "/tours/hippo-safari-and-bird-watching/",
+    "Lake Naivasha": "/naivasha-guide/",
+    "boat rides": "/boat-rides/",
+    "boat ride prices": "/prices/",
+    "sunset cruise": "/boat-rides/sunset-cruise/",
+    "hippos": "/naivasha-guide/hippos/",
+    "Crescent Island": "/crescent-island/",
+    "bird watching": "/naivasha-guide/birds/",
+    "Naivasha": "/naivasha-guide/",
+    "private boat": "/boat-rides/private-boat/",
+    "family tour": "/boat-rides/family-boat-ride/",
+    "wildlife safari": "/boat-rides/hippo-bird-safari/",
 }
 
 
-def auto_link(html):
+def auto_link(html, exclude_url=None, max_links_per_keyword=1, max_total_links=12):
     """
-    Automatically wraps keywords in <a> tags using the InternalLink model.
+    Automatically wraps high-value keywords in <a> tags using the InternalLink model.
+    Respects heading tags, avoids self-linking, and caps link density for clean SEO.
     """
     if not html:
         return html
@@ -36,10 +38,18 @@ def auto_link(html):
 
     soup = BeautifulSoup(html, "html.parser")
 
-    # Match the longest phrases first in one pass.  This prevents a broad
+    norm_exclude = exclude_url.rstrip('/') if exclude_url else None
+
+    # Match the longest phrases first in one pass. This prevents a broad
     # phrase such as "Mosety Boat Rides" from being inserted inside a
     # longer link such as "Mosety Boat Rides Naivasha".
-    links = list(internal_links.values_list('keyword', 'url'))
+    links = [
+        (kw, url) for kw, url in internal_links.values_list('keyword', 'url')
+        if not (norm_exclude and url.rstrip('/') == norm_exclude)
+    ]
+    if not links:
+        return html
+
     links.sort(key=lambda item: len(item[0]), reverse=True)
     keyword_urls = {keyword.casefold(): url for keyword, url in links}
     pattern = re.compile(
@@ -47,11 +57,18 @@ def auto_link(html):
         flags=re.IGNORECASE,
     )
 
-    for text_node in soup.find_all(string=True):
-        parent = text_node.parent
+    skip_tags = {"a", "script", "style", "h1", "h2", "h3", "h4", "h5", "h6", "summary", "button", "code", "pre"}
+    used_urls = set()
+    used_keywords = {}
+    total_inserted = 0
 
-        # Never touch existing links or scripts/styles
-        if parent.name in ["a", "script", "style"]:
+    for text_node in soup.find_all(string=True):
+        if total_inserted >= max_total_links:
+            break
+
+        parent = text_node.parent
+        # Never touch existing links, headings, scripts, styles, or interactive controls
+        if not parent or parent.name in skip_tags or parent.find_parent(skip_tags):
             continue
 
         original_text = str(text_node)
@@ -61,15 +78,32 @@ def auto_link(html):
 
         fragments = []
         cursor = 0
+        node_changed = False
         for match in matches:
+            if total_inserted >= max_total_links:
+                break
+            keyword = match.group(0)
+            kw_key = keyword.casefold()
+            url = keyword_urls[kw_key]
+
+            # Avoid duplicate links to the same URL or repeated keyword links
+            if used_keywords.get(kw_key, 0) >= max_links_per_keyword or url.rstrip('/') in used_urls:
+                continue
+
             if match.start() > cursor:
                 fragments.append(escape(original_text[cursor:match.start()]))
-            keyword = match.group(0)
-            url = keyword_urls[keyword.casefold()]
             fragments.append(
-                f'<a href="{escape(url, quote=True)}">{escape(keyword)}</a>'
+                f'<a href="{escape(url, quote=True)}" class="internal-seo-link">{escape(keyword)}</a>'
             )
             cursor = match.end()
+            used_keywords[kw_key] = used_keywords.get(kw_key, 0) + 1
+            used_urls.add(url.rstrip('/'))
+            total_inserted += 1
+            node_changed = True
+
+        if not node_changed:
+            continue
+
         if cursor < len(original_text):
             fragments.append(escape(original_text[cursor:]))
 

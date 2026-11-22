@@ -37,13 +37,13 @@
                 @click="activeCategory = 'all'" 
                 :class="{ 'btn-forest': activeCategory === 'all', 'btn-outline': activeCategory !== 'all' }" 
                 class="btn btn-sm">
-          All Field Notes ({{ articles|length }})
+          All Guides ({{ articles|length }})
         </button>
         <button type="button" 
-                @click="activeCategory = 'wildlife'" 
-                :class="{ 'btn-forest': activeCategory === 'wildlife', 'btn-outline': activeCategory !== 'wildlife' }" 
+                @click="activeCategory = 'prices'" 
+                :class="{ 'btn-forest': activeCategory === 'prices', 'btn-outline': activeCategory !== 'prices' }" 
                 class="btn btn-sm">
-          Wildlife & Hippos
+          Prices &amp; Entry Fees
         </button>
         <button type="button" 
                 @click="activeCategory = 'crescent'" 
@@ -52,16 +52,28 @@
           Crescent Island
         </button>
         <button type="button" 
-                @click="activeCategory = 'photography'" 
-                :class="{ 'btn-forest': activeCategory === 'photography', 'btn-outline': activeCategory !== 'photography' }" 
+                @click="activeCategory = 'timing'" 
+                :class="{ 'btn-forest': activeCategory === 'timing', 'btn-outline': activeCategory !== 'timing' }" 
                 class="btn btn-sm">
-          Photography & Sunsets
+          Day Rides &amp; Timing
+        </button>
+        <button type="button" 
+                @click="activeCategory = 'reviews'" 
+                :class="{ 'btn-forest': activeCategory === 'reviews', 'btn-outline': activeCategory !== 'reviews' }" 
+                class="btn btn-sm">
+          Reviews &amp; Operators
+        </button>
+        <button type="button" 
+                @click="activeCategory = 'wildlife'" 
+                :class="{ 'btn-forest': activeCategory === 'wildlife', 'btn-outline': activeCategory !== 'wildlife' }" 
+                class="btn btn-sm">
+          Wildlife, Hippos &amp; Birds
         </button>
         <button type="button" 
                 @click="activeCategory = 'planning'" 
                 :class="{ 'btn-forest': activeCategory === 'planning', 'btn-outline': activeCategory !== 'planning' }" 
                 class="btn btn-sm">
-          Itineraries & Rates
+          Families &amp; Logistics
         </button>
       </div>
     </div>
@@ -71,11 +83,13 @@
       {% for article in articles %}
       <article class="card journal-card" 
                x-show="(activeCategory === 'all' || 
-                        (activeCategory === 'wildlife' && ('{{ article.slug }}'.includes('hippo') || '{{ article.slug }}'.includes('bird'))) || 
+                        (activeCategory === 'prices' && ('{{ article.slug }}'.includes('price') || '{{ article.slug }}'.includes('cost') || '{{ article.slug }}'.includes('fee') || '{{ article.slug }}'.includes('budget') || '{{ article.slug }}'.includes('mpesa'))) ||
                         (activeCategory === 'crescent' && '{{ article.slug }}'.includes('crescent')) || 
-                        (activeCategory === 'photography' && ('{{ article.slug }}'.includes('photography') || '{{ article.slug }}'.includes('sunset'))) || 
-                        (activeCategory === 'planning' && ('{{ article.slug }}'.includes('itinerary') || '{{ article.slug }}'.includes('price') || '{{ article.slug }}'.includes('guide')))) && 
-                       ('{{ article.title|lower }}'.includes(search.toLowerCase()) || '{{ article.excerpt|lower }}'.includes(search.toLowerCase()))"
+                        (activeCategory === 'timing' && ('{{ article.slug }}'.includes('time') || '{{ article.slug }}'.includes('day-boat') || '{{ article.slug }}'.includes('hour') || '{{ article.slug }}'.includes('sunrise') || '{{ article.slug }}'.includes('sunset') || '{{ article.slug }}'.includes('weather') || '{{ article.slug }}'.includes('season') || '{{ article.slug }}'.includes('itinerary'))) ||
+                        (activeCategory === 'reviews' && ('{{ article.slug }}'.includes('review') || '{{ article.slug }}'.includes('best-boat') || '{{ article.slug }}'.includes('operator') || '{{ article.slug }}'.includes('captain') || '{{ article.slug }}'.includes('private-boat') || '{{ article.slug }}'.includes('mistakes') || '{{ article.slug }}'.includes('pier-vs'))) ||
+                        (activeCategory === 'wildlife' && ('{{ article.slug }}'.includes('hippo') || '{{ article.slug }}'.includes('bird') || '{{ article.slug }}'.includes('eagle') || '{{ article.slug }}'.includes('pelican') || '{{ article.slug }}'.includes('oloidien') || '{{ article.slug }}'.includes('wildlife') || '{{ article.slug }}'.includes('photography') || '{{ article.slug }}'.includes('ethical'))) ||
+                        (activeCategory === 'planning' && ('{{ article.slug }}'.includes('family') || '{{ article.slug }}'.includes('kids') || '{{ article.slug }}'.includes('school') || '{{ article.slug }}'.includes('solo') || '{{ article.slug }}'.includes('wear') || '{{ article.slug }}'.includes('parking') || '{{ article.slug }}'.includes('nakuru') || '{{ article.slug }}'.includes('things-to-do') || '{{ article.slug }}'.includes('weekend')))) && 
+                       ('{{ article.title|lower|escapejs }}'.includes(search.toLowerCase()) || '{{ article.excerpt|lower|escapejs }}'.includes(search.toLowerCase()))"
                x-transition:enter="transition ease-out duration-200"
                x-transition:enter-start="opacity-0 transform scale-95"
                x-transition:enter-end="opacity-100 transform scale-100"

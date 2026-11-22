@@ -1,8 +1,9 @@
 from django.db import models
 from django.utils import timezone
+from django.utils.safestring import mark_safe
 from django.utils.text import slugify
 from seo.models import SEOMixin
-from utils import OptimizedImageMixin
+from utils import OptimizedImageMixin, auto_link
 
 
 class Captain(OptimizedImageMixin, models.Model):
@@ -81,9 +82,11 @@ class GuideArticle(OptimizedImageMixin, SEOMixin, models.Model):
             self.convert_to_webp(source_field_name='hero_image')
 
     def get_absolute_url(self):
-        if self.content_type == 'JOURNAL':
-            return f"/journal/{self.slug}/"
-        return f"/naivasha-guide/{self.slug}/"
+        return f"/journal/{self.slug}/"
+
+    @property
+    def linked_body(self):
+        return mark_safe(auto_link(self.body, exclude_url=self.get_absolute_url(), max_links_per_keyword=1, max_total_links=10))
 
 
 class QuestionAnswer(models.Model):

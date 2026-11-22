@@ -333,6 +333,28 @@
 
     </div>
 
+    {% if articles %}
+    <!-- Complete Journal & Answer Guides Directory -->
+    <div class="card" style="margin-top: 2.5rem; background: #ffffff; padding: 2rem; border-radius: 18px; border: 1px solid var(--border-subtle); box-shadow: var(--shadow-sm);">
+      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem; margin-bottom: 1.25rem;">
+        <div>
+          <span style="font-size: 0.6875rem; font-weight: 800; text-transform: uppercase; color: var(--lake-sage); letter-spacing: 0.08em;">Knowledge Hub ({{ articles|length }} Guides)</span>
+          <h2 style="font-size: 1.35rem; margin: 0; color: var(--ink-forest);">All Lake Naivasha Boat Ride Guides, Prices &amp; Q&amp;As</h2>
+        </div>
+        <a href="/journal/" style="font-weight: 700; font-size: 0.875rem; color: var(--rift-gold); text-decoration: none;">Open Field Journal Hub &rarr;</a>
+      </div>
+      <ul style="list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 0.65rem 1.5rem; font-size: 0.875rem;">
+        {% for article in articles %}
+        <li style="border-bottom: 1px dashed rgba(16, 39, 33, 0.08); padding-bottom: 0.45rem;">
+          <a href="{{ article.get_absolute_url }}" style="color: var(--ink-forest); font-weight: 600; text-decoration: none;">
+            {{ article.title }}
+          </a>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+
     <!-- Quick Assistance Closing Banner -->
     <div style="margin-top: 3.5rem; background: var(--papyrus-light); border: 2px solid var(--border-papyrus); border-radius: 20px; padding: 2.25rem; display: flex; flex-direction: column; @media(min-width: 768px){ flex-direction: row; } justify-content: space-between; align-items: center; gap: 1.5rem;">
       <div>

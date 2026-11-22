@@ -1,8 +1,14 @@
 {% extends 'base.html' %}
 {% load static humanize %}
 
-{% block meta_title %}Boat Rides on Lake Naivasha | Mosety Boat Rides Naivasha{% endblock %}
-{% block meta_description %}Discover Lake Naivasha with certified local captains. Wildlife boat safaris, Crescent Island transfers, private charters, and sunset cruises departing Karagita Pier with transparent pricing.{% endblock %}
+{% block meta_title %}Boat Rides on Lake Naivasha: 2026 Prices, Day Rides & Crescent Island | Mosety{% endblock %}
+{% block meta_description %}Compare 2026 Lake Naivasha boat ride prices from KES 3,500/boat (groups from KES 1,000/person). Day boat rides, hippo safaris, and Crescent Island trips departing Karagita Pier with certified local captains.{% endblock %}
+
+{% block extra_schema %}
+{% if faq_schema %}
+<script type="application/ld+json">{{ faq_schema|safe }}</script>
+{% endif %}
+{% endblock %}
 
 {% block content %}
 <!-- ==========================================================================
@@ -32,8 +38,8 @@
       Boat Rides on Lake Naivasha
     </h1>
 
-    <p style="font-size: clamp(1rem, 1.4vw, 1.2rem); color: rgba(251, 248, 242, 0.88); max-width: 62ch; margin-inline: auto; margin-bottom: 2.25rem; line-height: 1.55;">
-      Discover Lake Naivasha with local captains: wildlife boat safaris, Crescent Island walking trips, private rides and golden-hour cruises. Plan your departure from Karagita Pier and confirm pricing directly with Mosety.
+    <p style="font-size: clamp(1rem, 1.4vw, 1.2rem); color: rgba(251, 248, 242, 0.9); max-width: 66ch; margin-inline: auto; margin-bottom: 2.25rem; line-height: 1.55;">
+      Direct day boat rides, hippo &amp; bird safaris, private charters, and Crescent Island walking trips departing Karagita Pier daily (06:30 AM – 06:30 PM). Transparent 2026 pier rates from KES 3,500 per boat or KES 1,000 per person for groups — with no Lake Naivasha entry fee required.
     </p>
 
     <!-- GetYourGuide Floating Multi-Segment Search Widget -->
@@ -138,6 +144,57 @@
         </div>
       </div>
 
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================================================
+     SECTION 03B: GEO / AEO QUICK ANSWERS AT A GLANCE (DIRECT PAA ANSWERS)
+     ========================================================================== -->
+<section style="background: var(--ivory); padding-block: clamp(2.5rem, 4vw, 3.5rem); border-bottom: 1px solid var(--border-subtle);" aria-label="Lake Naivasha Boat Ride Quick Facts">
+  <div class="site-container">
+    <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 1rem; margin-bottom: 1.75rem;">
+      <div>
+        <p class="eyebrow eyebrow-gold" style="margin-bottom: 0.35rem;">2026 Visitor Quick Answers</p>
+        <h2 style="font-size: clamp(1.5rem, 2.4vw, 2rem); color: var(--ink-forest); margin: 0;">Lake Naivasha Boat Ride Prices, Times &amp; Entry Fees</h2>
+      </div>
+      <a href="/questions/" style="font-size: 0.875rem; font-weight: 700; color: var(--ink-forest); text-decoration: underline;">
+        View all Naivasha FAQs &rarr;
+      </a>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.25rem;">
+      <article style="background: #ffffff; border: 1px solid var(--border-subtle); border-top: 3px solid var(--rift-gold); border-radius: var(--radius-card); padding: 1.35rem;">
+        <h3 style="font-size: 1.02rem; color: var(--ink-forest); margin-bottom: 0.5rem;">How much is a boat ride at Lake Naivasha?</h3>
+        <p style="font-size: 0.875rem; color: var(--body-muted); line-height: 1.6; margin-bottom: 0.75rem;">
+          Private 1-hour boat rides start at <strong>KES 3,500 per boat</strong> (up to 7 guests). <a href="/boat-rides/crescent-island/" style="color: var(--ink-forest); text-decoration: underline;">Crescent Island transfers</a> are <strong>KES 5,000/boat</strong>, sunset cruises <strong>KES 6,000/boat</strong>, and group rides start at <strong>KES 1,000/person</strong>.
+        </p>
+        <a href="/prices/" style="font-size: 0.8125rem; font-weight: 700; color: var(--rift-gold);">Open 2026 Price Calculator &rarr;</a>
+      </article>
+
+      <article style="background: #ffffff; border: 1px solid var(--border-subtle); border-top: 3px solid var(--rift-gold); border-radius: var(--radius-card); padding: 1.35rem;">
+        <h3 style="font-size: 1.02rem; color: var(--ink-forest); margin-bottom: 0.5rem;">What are typical boat ride times?</h3>
+        <p style="font-size: 0.875rem; color: var(--body-muted); line-height: 1.6; margin-bottom: 0.75rem;">
+          Day boat rides depart daily from <strong>06:30 AM to 06:30 PM</strong>. Standard wildlife rides last <strong>1 hour</strong>, sunset cruises run <strong>1.5 hours</strong> (around 4:30 PM), and Crescent Island boat + walk trips take <strong>2.5–3 hours</strong>.
+        </p>
+        <a href="/plan-your-visit/best-time-to-go/" style="font-size: 0.8125rem; font-weight: 700; color: var(--rift-gold);">Best Departure Times &rarr;</a>
+      </article>
+
+      <article style="background: #ffffff; border: 1px solid var(--border-subtle); border-top: 3px solid var(--rift-gold); border-radius: var(--radius-card); padding: 1.35rem;">
+        <h3 style="font-size: 1.02rem; color: var(--ink-forest); margin-bottom: 0.5rem;">Is there an entry fee for Lake Naivasha?</h3>
+        <p style="font-size: 0.875rem; color: var(--body-muted); line-height: 1.6; margin-bottom: 0.75rem;">
+          <strong>No.</strong> There is no general KWS park entry fee to access Lake Naivasha or board at Karagita Public Pier. Separate gate fees apply only if you walk on <a href="/crescent-island/" style="color: var(--ink-forest); text-decoration: underline;">Crescent Island Sanctuary</a> (KES 800 citizen / KES 1,100 resident / $33 USD non-resident).
+        </p>
+        <a href="/journal/is-there-an-entry-fee-for-lake-naivasha/" style="font-size: 0.8125rem; font-weight: 700; color: var(--rift-gold);">Read Entry Fee Guide &rarr;</a>
+      </article>
+
+      <article style="background: #ffffff; border: 1px solid var(--border-subtle); border-top: 3px solid var(--rift-gold); border-radius: var(--radius-card); padding: 1.35rem;">
+        <h3 style="font-size: 1.02rem; color: var(--ink-forest); margin-bottom: 0.5rem;">How much does it cost to go to Naivasha?</h3>
+        <p style="font-size: 0.875rem; color: var(--body-muted); line-height: 1.6; margin-bottom: 0.75rem;">
+          A full day trip from Nairobi (matatu KES 400–600 each way or ~90-minute drive, boat safari, optional Crescent Island walk, and lakeside lunch) averages <strong>KES 3,000–6,500</strong> for Kenyan residents or <strong>$75–$130 USD</strong> for international visitors.
+        </p>
+        <a href="/journal/how-much-does-it-cost-to-go-to-naivasha/" style="font-size: 0.8125rem; font-weight: 700; color: var(--rift-gold);">Full Day-Trip Budget &rarr;</a>
+      </article>
     </div>
   </div>
 </section>
@@ -299,11 +356,11 @@
     
     <div style="display: flex; flex-direction: column; @media(min-width: 768px){ flex-direction: row; } justify-content: space-between; align-items: flex-start; margin-bottom: 2rem; gap: 1.5rem;">
       <div>
-        <p class="eyebrow eyebrow-gold">Top Things to Do in Lake Naivasha</p>
-        <h2 style="max-width: 26ch; color: var(--ink-forest);">Lake Naivasha boat rides &amp; wildlife safaris.</h2>
+        <p class="eyebrow eyebrow-gold">Day Boat Rides &amp; Private Charters</p>
+        <h2 style="max-width: 26ch; color: var(--ink-forest);">Best Lake Naivasha boat rides &amp; wildlife safaris.</h2>
       </div>
-      <p class="lead-text" style="max-width: 48ch;">
-        Every lake naivasha boat safari is piloted by licensed local captains at official Karagita Beach pier rates. Enjoy the finest boat rides naivasha has to offer with free cancellation.
+      <p class="lead-text" style="max-width: 50ch;">
+        Compare every day boat ride on Lake Naivasha — from 1-hour hippo safaris to <a href="/crescent-island/" style="color: var(--ink-forest); text-decoration: underline;">Crescent Island walking tours</a> and golden-hour sunset cruises. All departures leave Karagita Public Pier at <a href="/prices/" style="color: var(--ink-forest); text-decoration: underline;">published 2026 dock prices</a> with free cancellation up to 2 hours prior.
       </p>
     </div>
 
@@ -678,17 +735,19 @@
   </div>
 </section>
 
+
+
 <!-- ==========================================================================
      SECTION 07: PRICING SNAPSHOT
      ========================================================================== -->
 <section class="section-spacing" style="background: var(--papyrus-light);">
   <div class="site-container">
     
-    <div style="text-align: center; max-width: 650px; margin-inline: auto; margin-bottom: 3.5rem;">
-      <p class="eyebrow eyebrow-gold" style="justify-content: center;">Transparent Dock Fares</p>
-      <h2>Affordable boat rides Naivasha pier rates.</h2>
+    <div style="text-align: center; max-width: 720px; margin-inline: auto; margin-bottom: 3.5rem;">
+      <p class="eyebrow eyebrow-gold" style="justify-content: center;">2026 Transparent Dock Fares</p>
+      <h2>Lake Naivasha boat ride prices (direct pier rates).</h2>
       <p class="lead-text" style="margin-inline: auto;">
-        Clear prices before you arrive. Every Naivasha boat ride charter covers the complete boat, fuel, certified captain, and fitted life jackets with zero hidden fees.
+        Know your exact boat ride price before you arrive at Karagita Pier. Private boat charters cover up to 7 guests, fuel, a licensed captain, and fitted life vests with zero hidden charges — or split costs on a <a href="/boat-rides/groups-corporate/" style="color: var(--ink-forest); text-decoration: underline;">group ride from KES 1,000/person</a>.
       </p>
     </div>
 
@@ -720,10 +779,14 @@
     </div>
 
     <!-- Calculator Teaser Button -->
-    <div style="text-align: center;">
+    <div style="text-align: center; display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem;">
       <a href="/prices/" class="btn btn-primary">
         <i data-lucide="calculator" style="width: 18px; height: 18px;"></i>
         <span>Open Interactive Price Calculator</span>
+      </a>
+      <a href="/journal/boat-rides-naivasha-prices-private-vs-shared/" class="btn btn-outline">
+        <span>Private vs. Shared Price Guide</span>
+        <i data-lucide="arrow-right" style="width: 15px; height: 15px;"></i>
       </a>
     </div>
 
@@ -746,19 +809,24 @@
 
         <div class="quick-answer" style="margin-block: 1.5rem; padding: 1.25rem;">
           <h4 style="font-size: 0.9375rem; margin-bottom: 0.5rem; color: var(--ink-forest);">
-            How the Mosety Crescent Island Trip works:
+            How the Lake Naivasha Boat Ride &amp; Crescent Island Trip works:
           </h4>
           <ul class="quick-answer-list" style="font-size: 0.875rem;">
-            <li><strong>Boat charter:</strong> 25-minute scenic cruise from Karagita pier to the island.</li>
-            <li><strong>Waiting time:</strong> Your boat and captain wait at the pier while you take your 1.5 - 2 hour walking tour.</li>
-            <li><strong>Separate fee note:</strong> Sanctuary entry fees (KES 1,000 resident / $33 non-resident) are paid directly to the sanctuary gate upon arrival.</li>
+            <li><strong>Boat charter (KES 5,000/boat):</strong> 15–25 minute scenic cruise from Karagita Pier with hippo pod viewing en route.</li>
+            <li><strong>Waiting time included:</strong> Your boat and captain wait at the island jetty while you take a 1.5–2 hour guided walking safari.</li>
+            <li><strong>2026 Sanctuary gate fee (paid separately):</strong> Kenya Citizens KES 800 adult (KES 400 child), Kenya Residents KES 1,100 adult (KES 550 child), Non-Residents $33 USD adult ($22 student, $16 child; under 5 free).</li>
           </ul>
         </div>
 
-        <a href="/boat-rides/crescent-island/" class="btn btn-forest">
-          <span>Explore Crescent Island Trip</span>
-          <i data-lucide="arrow-right" style="width: 15px; height: 15px;"></i>
-        </a>
+        <div class="btn-row" style="gap: 0.75rem;">
+          <a href="/boat-rides/crescent-island/" class="btn btn-forest">
+            <span>Book Crescent Island Boat Ride</span>
+            <i data-lucide="arrow-right" style="width: 15px; height: 15px;"></i>
+          </a>
+          <a href="/crescent-island/" class="btn btn-outline">
+            <span>Full Sanctuary &amp; Fee Guide</span>
+          </a>
+        </div>
       </div>
 
       <div style="border-radius: var(--radius-card); overflow: hidden; box-shadow: var(--shadow-lg); background: var(--papyrus); aspect-ratio: 4 / 3;">
@@ -771,6 +839,8 @@
     </div>
   </div>
 </section>
+
+
 
 <!-- ==========================================================================
      SECTION 09: WHY MOSETY / SAFETY
@@ -817,10 +887,16 @@
 
     </div>
 
-    <a href="/safety/" class="btn btn-outline-light">
-      <span>Read Our Full Safety Standards</span>
-      <i data-lucide="arrow-right" style="width: 15px; height: 15px;"></i>
-    </a>
+    <div class="btn-row" style="gap: 1rem;">
+      <a href="/safety/" class="btn btn-outline-light">
+        <span>Read Our Full Safety Standards</span>
+        <i data-lucide="arrow-right" style="width: 15px; height: 15px;"></i>
+      </a>
+      <a href="/journal/best-boat-rides-naivasha-how-to-choose/" class="btn btn-outline-light">
+        <span>How to Choose a Naivasha Boat Operator</span>
+        <i data-lucide="arrow-right" style="width: 15px; height: 15px;"></i>
+      </a>
+    </div>
   </div>
 </section>
 
@@ -927,9 +1003,9 @@
             <i data-lucide="message-square" style="width: 14px; height: 14px;"></i>
             <span>Passenger Experiences on Lake Naivasha</span>
           </div>
-          <h2 style="color: var(--ink-forest); margin-bottom: 0.25rem;">Good days on the lake, told by our guests.</h2>
+          <h2 style="color: var(--ink-forest); margin-bottom: 0.25rem;">Lake Naivasha boat ride reviews from real guests.</h2>
           <p class="lead-text" style="margin-bottom: 0; font-size: 0.95rem;">
-            Honest feedback from Kenyan residents and international travelers on Lake Naivasha boat rides.
+            Honest feedback from Kenyan residents and international travelers on Mosety boat safaris and Crescent Island trips. <a href="/reviews/" style="color: var(--ink-forest); font-weight: 700; text-decoration: underline;">Read all reviews &rarr;</a>
           </p>
         </div>
 
@@ -1038,6 +1114,8 @@
   </div>
 </section>
 
+
+
 <!-- ==========================================================================
      SECTION 12: PLAN YOUR VISIT
      ========================================================================== -->
@@ -1098,6 +1176,8 @@
     </div>
   </div>
 </section>
+
+
 
 <!-- ==========================================================================
      SECTION 13: CAPTAINS JOURNAL & FIELD NOTES (Dynamic Blog & Field Guide)
@@ -1163,8 +1243,28 @@
       </div>
       {% endfor %}
     </div>
+
+    {% if popular_guides %}
+    <!-- Topic Cluster Internal Linking Hub -->
+    <div style="margin-top: 2.75rem; background: #ffffff; border: 1px solid var(--border-subtle); border-radius: var(--radius-card); padding: 1.75rem;">
+      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 0.75rem; margin-bottom: 1.15rem;">
+        <h3 style="font-size: 1.15rem; color: var(--ink-forest); margin: 0;">More Lake Naivasha Questions &amp; Planning Guides</h3>
+        <a href="/journal/" style="font-size: 0.85rem; font-weight: 700; color: var(--rift-gold);">Explore all 50+ guides &rarr;</a>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 0.75rem 1.5rem;">
+        {% for guide in popular_guides %}
+        <a href="{{ guide.get_absolute_url }}" style="font-size: 0.875rem; color: var(--ink-forest); font-weight: 600; text-decoration: none; display: flex; align-items: flex-start; gap: 0.45rem; padding-block: 0.25rem;">
+          <span style="color: var(--rift-gold); font-weight: 800;">&rarr;</span>
+          <span style="text-decoration: underline; text-decoration-color: rgba(16, 39, 33, 0.25);">{{ guide.title }}</span>
+        </a>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
   </div>
 </section>
+
+
 
 <!-- ==========================================================================
      SECTION 14: DIRECTIONS & MAP
@@ -1239,6 +1339,8 @@
   </div>
 </section>
 
+
+
 <!-- ==========================================================================
      SECTION 15: QUICK ANSWERS (FAQ)
      ========================================================================== -->
@@ -1267,7 +1369,11 @@
       {% endfor %}
     </div>
 
-    <div style="margin-top: 2.5rem; text-align: center;">
+    <div style="margin-top: 2.5rem; text-align: center; display: flex; flex-wrap: wrap; justify-content: center; gap: 0.85rem;">
+      <a href="/questions/" class="btn btn-forest btn-sm">
+        <span>Browse All Lake Naivasha FAQs</span>
+        <i data-lucide="arrow-right" style="width: 14px; height: 14px;"></i>
+      </a>
       <a href="{{ whatsapp_book_url }}" target="_blank" rel="noopener" class="btn btn-outline btn-sm">
         <i data-lucide="message-circle" style="width: 15px; height: 15px;"></i>
         <span>Still have questions? Ask on WhatsApp</span>
@@ -1308,4 +1414,6 @@
     </div>
   </div>
 </section>
+
+
 {% endblock %}

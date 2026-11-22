@@ -127,3 +127,44 @@ class BrandAndFactualIntegrityRegressionTests(TestCase):
         robots_content = robots_response.content.decode('utf-8')
         self.assertIn("Sitemap:", robots_content)
         self.assertNotIn("pythonanywhere.com", robots_content)
+
+    def test_homepage_geo_quick_answers_and_faq_schema(self):
+        from content.models import QuestionAnswer
+        QuestionAnswer.objects.create(
+            question="Is there an entry fee for Lake Naivasha?",
+            answer="No. There is no general KWS park entry fee to access Lake Naivasha.",
+            category="Pricing",
+            sort_order=1,
+            is_active=True,
+        )
+        resp = self.client.get('/')
+        self.assertEqual(resp.status_code, 200)
+        html = resp.content.decode('utf-8')
+        self.assertIn('How much is a boat ride at Lake Naivasha?', html)
+        self.assertIn('Is there an entry fee for Lake Naivasha?', html)
+        self.assertIn('How much does it cost to go to Naivasha?', html)
+        self.assertIn('"@type": "FAQPage"', html)
+
+    def test_journal_article_schema_and_safe_auto_linking(self):
+        from content.models import GuideArticle
+        from seo.models import InternalLink
+        InternalLink.objects.create(keyword="Lake Naivasha boat ride prices", url="/prices/", is_active=True)
+        InternalLink.objects.create(keyword="Self Link Phrase", url="/journal/sample-geo-guide/", is_active=True)
+        article = GuideArticle.objects.create(
+            title="Sample GEO Guide",
+            slug="sample-geo-guide",
+            excerpt="Quick answer summary.",
+            body="<h2>Lake Naivasha boat ride prices</h2><p>Compare Lake Naivasha boat ride prices and Self Link Phrase here.</p>",
+            content_type="PLANNING",
+            reviewer_name="Captain Moses Kamau",
+            is_active=True,
+        )
+        resp = self.client.get(article.get_absolute_url())
+        self.assertEqual(resp.status_code, 200)
+        html = resp.content.decode('utf-8')
+        self.assertIn('"@type": "Article"', html)
+        self.assertIn('"@type": "BreadcrumbList"', html)
+        # Heading must NOT be auto-linked, paragraph MUST be linked to /prices/, and self-link MUST be skipped
+        self.assertIn('<h2>Lake Naivasha boat ride prices</h2>', html)
+        self.assertIn('<a class="internal-seo-link" href="/prices/">Lake Naivasha boat ride prices</a>', html)
+        self.assertNotIn('href="/journal/sample-geo-guide/">Self Link Phrase</a>', html)

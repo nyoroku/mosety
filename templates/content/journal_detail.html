@@ -4,6 +4,15 @@
 {% block meta_title %}{{ article.seo_title|default:article.title }} — {{ site.business_name }}{% endblock %}
 {% block meta_description %}{{ article.meta_description|default:article.excerpt }}{% endblock %}
 
+{% block extra_schema %}
+{% if article_schema %}
+<script type="application/ld+json">{{ article_schema|safe }}</script>
+{% endif %}
+{% if breadcrumb_schema %}
+<script type="application/ld+json">{{ breadcrumb_schema|safe }}</script>
+{% endif %}
+{% endblock %}
+
 {% block content %}
 <section class="section-spacing" style="background: var(--ivory);">
   <div class="site-container-narrow">
@@ -11,16 +20,16 @@
     <!-- Breadcrumb Nav -->
     <nav style="font-size: 0.85rem; color: var(--lake-sage); margin-bottom: 1.5rem;" aria-label="Breadcrumb">
       <a href="/" style="color: var(--lake-sage);">Home</a> &rsaquo;
-      <a href="/journal/" style="color: var(--lake-sage);">Journal</a> &rsaquo;
+      <a href="/journal/" style="color: var(--lake-sage);">Field Journal &amp; Guides</a> &rsaquo;
       <span style="color: var(--ink-forest); font-weight: 600;">{{ article.title }}</span>
     </nav>
 
     <!-- Header & Meta -->
-    <div style="margin-bottom: 2.5rem;">
-      <p class="eyebrow eyebrow-gold">Captains Field Note</p>
+    <div style="margin-bottom: 2.25rem;">
+      <p class="eyebrow eyebrow-gold">{{ article.get_content_type_display|default:"Captains Field Note" }}</p>
       <h1 class="hero-h1" style="margin-bottom: 1rem;">{{ article.title }}</h1>
-      <div style="font-size: 0.875rem; color: var(--lake-sage); display: flex; flex-wrap: wrap; gap: 1rem; align-items: center;">
-        <span>Published {{ article.published_at|date:"d F Y" }}</span>
+      <div style="font-size: 0.875rem; color: var(--lake-sage); display: flex; flex-wrap: wrap; gap: 0.75rem 1rem; align-items: center;">
+        <span>Updated {{ article.last_verified_at|date:"d F Y" }}</span>
         <span>&bull;</span>
         <span>By {{ article.author_name }}</span>
         {% if article.reviewer_name %}
@@ -32,30 +41,45 @@
 
     <!-- Hero Image if present -->
     {% if article.hero_image %}
-    <div style="border-radius: var(--radius-card); overflow: hidden; box-shadow: var(--shadow-md); margin-bottom: 3rem; aspect-ratio: 16 / 9; background: var(--papyrus);">
+    <div style="border-radius: var(--radius-card); overflow: hidden; box-shadow: var(--shadow-md); margin-bottom: 2.5rem; aspect-ratio: 16 / 9; background: var(--papyrus);">
       <img src="{{ article.hero_image.url }}" alt="{{ article.title }}" style="width: 100%; height: 100%; object-fit: cover;">
     </div>
     {% endif %}
 
-    <!-- Article Body -->
-    <article class="article-content" style="color: var(--body-text); font-size: 1.05rem; line-height: 1.8; margin-bottom: 3.5rem;">
+    <!-- Article Body (with automatic contextual internal linking) -->
+    <article class="article-content" style="color: var(--body-text); font-size: 1.05rem; line-height: 1.8; margin-bottom: 3rem;">
       {% if '<h' in article.body or '<p' in article.body %}
-        {{ article.body|safe }}
+        {{ article.linked_body|safe }}
       {% else %}
-        {{ article.body|linebreaks }}
+        {{ article.linked_body|linebreaks }}
       {% endif %}
     </article>
 
+    <!-- Core Money Pages Quick-Links Strip -->
+    <div style="background: #ffffff; border: 1px solid var(--border-subtle); border-left: 4px solid var(--rift-gold); border-radius: var(--radius-card); padding: 1.5rem; margin-bottom: 2.5rem;">
+      <h2 style="font-size: 1.15rem; color: var(--ink-forest); margin-bottom: 0.75rem;">Plan Your Lake Naivasha Boat Ride</h2>
+      <div style="display: flex; flex-wrap: wrap; gap: 0.65rem;">
+        <a href="/prices/" class="btn btn-sm btn-forest">2026 Boat Ride Prices</a>
+        <a href="/boat-rides/" class="btn btn-sm btn-outline">Compare All 7 Boat Rides</a>
+        <a href="/crescent-island/" class="btn btn-sm btn-outline">Crescent Island Guide</a>
+        <a href="/reviews/" class="btn btn-sm btn-outline">Guest Reviews</a>
+        <a href="/plan-your-visit/best-time-to-go/" class="btn btn-sm btn-outline">Best Departure Times</a>
+        <a href="/contact/" class="btn btn-sm btn-outline">Karagita Pier Directions</a>
+      </div>
+    </div>
+
     <!-- Relevant Tours CTA if linked -->
     {% if article.related_tours.all %}
-    <div style="background: var(--papyrus-light); border-radius: var(--radius-card); padding: 2rem; margin-bottom: 3rem;">
-      <h3 style="font-size: 1.35rem; margin-bottom: 1rem; color: var(--ink-forest);">Related Boat Safaris</h3>
+    <div style="background: var(--papyrus-light); border-radius: var(--radius-card); padding: 2rem; margin-bottom: 2.75rem; border: 1px solid var(--border-papyrus);">
+      <h3 style="font-size: 1.35rem; margin-bottom: 1rem; color: var(--ink-forest);">Bookable Boat Rides Mentioned in This Guide</h3>
       <div style="display: flex; flex-direction: column; gap: 1rem;">
         {% for tour in article.related_tours.all %}
-        <div style="display: flex; justify-content: space-between; align-items: center; background: #ffffff; padding: 1.25rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem; background: #ffffff; padding: 1.25rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
           <div>
-            <strong style="color: var(--ink-forest); font-size: 1.05rem; display: block;">{{ tour.name }}</strong>
-            <span style="font-size: 0.8125rem; color: var(--lake-sage);">{{ tour.duration_display }} &bull; Starting KES {{ tour.starting_price_kes|intcomma }}</span>
+            <strong style="color: var(--ink-forest); font-size: 1.05rem; display: block;">
+              <a href="{{ tour.get_absolute_url }}" style="color: var(--ink-forest); text-decoration: none;">{{ tour.name }}</a>
+            </strong>
+            <span style="font-size: 0.8125rem; color: var(--lake-sage);">{{ tour.duration_display }} &bull; Starting KES {{ tour.starting_price_kes|floatformat:0|intcomma }} ({{ tour.pricing_mode_display }})</span>
           </div>
           <a href="{{ tour.get_absolute_url }}" class="btn btn-sm btn-forest">
             <span>View Experience</span>
@@ -67,15 +91,37 @@
     </div>
     {% endif %}
 
+    <!-- Topic-Matched Related Articles (Cluster Internal Linking) -->
+    {% if related_articles %}
+    <div style="margin-bottom: 3rem;">
+      <p class="eyebrow eyebrow-gold" style="margin-bottom: 0.35rem;">Continue Reading</p>
+      <h2 style="font-size: 1.5rem; color: var(--ink-forest); margin-bottom: 1.25rem;">Related Lake Naivasha Guides &amp; Answers</h2>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem;">
+        {% for rel in related_articles %}
+        <article style="background: #ffffff; border: 1px solid var(--border-subtle); border-radius: var(--radius-card); padding: 1.35rem; display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <span style="font-size: 0.7rem; font-weight: 800; text-transform: uppercase; color: var(--lake-sage); letter-spacing: 0.05em;">{{ rel.get_content_type_display|default:"Guide" }}</span>
+            <h3 style="font-size: 1.05rem; margin: 0.35rem 0 0.5rem; line-height: 1.35;">
+              <a href="{{ rel.get_absolute_url }}" style="color: var(--ink-forest); text-decoration: none;">{{ rel.title }}</a>
+            </h3>
+            <p style="font-size: 0.85rem; color: var(--body-muted); line-height: 1.55; margin-bottom: 0.85rem;">{{ rel.excerpt|truncatechars:120 }}</p>
+          </div>
+          <a href="{{ rel.get_absolute_url }}" style="font-size: 0.8125rem; font-weight: 700; color: var(--rift-gold); text-decoration: none;">Read guide &rarr;</a>
+        </article>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+
     <!-- Bottom Navigation -->
-    <div style="border-top: 1px solid var(--border-subtle); padding-top: 2rem; display: flex; justify-content: space-between; align-items: center;">
+    <div style="border-top: 1px solid var(--border-subtle); padding-top: 2rem; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem;">
       <a href="/journal/" class="btn btn-outline">
         <i data-lucide="arrow-left" style="width: 15px; height: 15px;"></i>
-        <span>Back to All Field Notes</span>
+        <span>Back to All Field Guides</span>
       </a>
       <a href="{{ whatsapp_book_url }}" target="_blank" rel="noopener" class="btn btn-primary">
         <i data-lucide="message-circle" style="width: 16px; height: 16px;"></i>
-        <span>Chat with Mosety</span>
+        <span>Chat with Mosety on WhatsApp</span>
       </a>
     </div>
 

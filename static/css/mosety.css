@@ -833,6 +833,51 @@ details[open] .faq-icon {
 .article-content strong {
   color: var(--ink-forest);
 }
+.article-content a {
+  color: var(--ink-forest);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: rgba(217, 164, 65, 0.75);
+  text-underline-offset: 3px;
+  transition: color 0.18s ease, text-decoration-color 0.18s ease;
+}
+.article-content a:hover {
+  color: var(--rift-gold);
+  text-decoration-color: var(--rift-gold);
+}
+.article-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-block: 1.75rem;
+  background: #ffffff;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  border: 1px solid var(--border-subtle);
+  font-size: 0.9375rem;
+}
+.article-content th {
+  background: var(--papyrus);
+  color: var(--ink-forest);
+  font-weight: 700;
+  text-align: left;
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid var(--border-papyrus);
+}
+.article-content td {
+  padding: 0.8rem 1rem;
+  border-bottom: 1px solid var(--border-subtle);
+  color: var(--body-text);
+}
+.article-content tr:last-child td {
+  border-bottom: none;
+}
+.article-content .quick-answer {
+  background: var(--papyrus-light);
+  border-left: 4px solid var(--rift-gold);
+  border-radius: 0 var(--radius-card) var(--radius-card) 0;
+  padding: 1.35rem 1.5rem;
+  margin-bottom: 2rem;
+}
 
 /* ---------------- FORM CONTROLS ---------------- */
 .form-input, .form-select, .form-textarea {

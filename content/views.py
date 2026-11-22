@@ -4,7 +4,7 @@ from django.views.generic import TemplateView, ListView, DetailView
 from core.models import SiteSettings
 from tours.models import Tour
 from .models import Captain, GuideArticle, QuestionAnswer, Testimonial
-from seo.utils import build_faq_schema
+from seo.utils import build_faq_schema, build_article_schema, build_breadcrumb_schema, render_json_ld
 
 
 class CrescentIslandView(TemplateView):
@@ -21,6 +21,7 @@ class CrescentIslandView(TemplateView):
             'tour': tour,
             'tour_whatsapp_url': site.build_whatsapp_url(wa_message),
             'faqs': QuestionAnswer.objects.filter(is_active=True, question__icontains='crescent')[:6],
+            'related_articles': GuideArticle.objects.filter(is_active=True, slug__icontains='crescent').order_by('-published_at')[:4],
             'meta_title': f"Crescent Island Boat Ride & Walking Safari Guide — {site.business_name}",
             'meta_description': (
                 "Complete guide to visiting Crescent Island Sanctuary on Lake Naivasha. "
@@ -317,16 +318,17 @@ class JournalListView(ListView):
     context_object_name = 'articles'
 
     def get_queryset(self):
-        return GuideArticle.objects.filter(is_active=True, content_type='JOURNAL').order_by('-published_at')
+        return GuideArticle.objects.filter(is_active=True).order_by('-is_featured', '-published_at')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         site = SiteSettings.get_solo()
         context.update({
             'site': site,
-            'meta_title': f"Captains Journal & Field Notes — {site.business_name}",
+            'meta_title': f"Lake Naivasha Boat Ride Guides, Prices & Field Notes — {site.business_name}",
             'meta_description': (
-                "First-hand observations, navigation notes, and wildlife tracking from local boat captains on Lake Naivasha."
+                "50+ practical guides to Lake Naivasha boat ride prices, Crescent Island walking safaris, "
+                "day boat schedules, wildlife sightings, and verified captain tips."
             ),
         })
         return context
@@ -338,13 +340,38 @@ class JournalDetailView(DetailView):
     context_object_name = 'article'
 
     def get_queryset(self):
-        return GuideArticle.objects.filter(is_active=True)
+        return GuideArticle.objects.filter(is_active=True).prefetch_related('related_tours')
+
+    def _get_related_articles(self, current, limit=6):
+        stop_words = {'the', 'and', 'for', 'with', 'how', 'much', 'what', 'are', 'your', 'from', 'lake', 'naivasha', 'boat', 'ride', 'rides', 'guide', '2026'}
+        tokens = [w for w in current.slug.split('-') if len(w) > 2 and w not in stop_words]
+        candidates = list(GuideArticle.objects.filter(is_active=True).exclude(id=current.id))
+        scored = []
+        for cand in candidates:
+            score = 0
+            cand_text = f"{cand.slug} {cand.title}".lower()
+            for tok in tokens:
+                if tok in cand_text:
+                    score += 2
+            if cand.content_type == current.content_type:
+                score += 1
+            scored.append((score, cand.published_at, cand))
+        scored.sort(key=lambda item: (item[0], item[1]), reverse=True)
+        return [item[2] for item in scored[:limit]]
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         site = SiteSettings.get_solo()
+        article = self.object
+        breadcrumbs = [
+            {'name': 'Home', 'url': '/'},
+            {'name': 'Field Journal & Guides', 'url': '/journal/'},
+            {'name': article.title, 'url': article.get_absolute_url()},
+        ]
         context.update({
             'site': site,
-            'related_articles': GuideArticle.objects.filter(is_active=True).exclude(id=self.object.id)[:3],
+            'related_articles': self._get_related_articles(article, limit=6),
+            'article_schema': render_json_ld(build_article_schema(article, site)),
+            'breadcrumb_schema': render_json_ld(build_breadcrumb_schema(breadcrumbs, site)),
         })
         return context

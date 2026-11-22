@@ -44,8 +44,9 @@ class HomeView(TemplateView):
         default_tour = MosetyTour.objects.filter(slug='hippo-bird-safari', is_active=True).first() or (all_tours[0] if all_tours else None)
         captains = Captain.objects.filter(is_active=True).order_by('-years_on_lake')[:2]
         testimonials = list(ContentTestimonial.objects.filter(is_active=True).order_by('-is_featured', '-review_date')[:6])
-        faqs = list(QuestionAnswer.objects.filter(is_active=True).order_by('sort_order')[:8])
-        journal_articles = list(GuideArticle.objects.filter(is_active=True).order_by('-published_at')[:3])
+        faqs = list(QuestionAnswer.objects.filter(is_active=True).order_by('sort_order', 'id')[:10])
+        journal_articles = list(GuideArticle.objects.filter(is_active=True).order_by('-is_featured', '-published_at')[:6])
+        popular_guides = list(GuideArticle.objects.filter(is_active=True).order_by('-is_featured', '-published_at')[6:18])
 
         context.update({
             'site': site,
@@ -53,6 +54,7 @@ class HomeView(TemplateView):
             'featured_tours': featured_tours,
             'pricing_tours': pricing_tours,
             'journal_articles': journal_articles,
+            'popular_guides': popular_guides,
             'default_tour': default_tour,
             'captains': captains,
             'testimonials': testimonials,
@@ -94,11 +96,52 @@ def llms_txt(request):
     lines = [
         f'# {site.business_name}', '',
         f'> {site.tagline}',
-        '> Local lake experiences, clearly priced and expertly guided on Lake Naivasha.', '',
-        '## Boat Rides',
+        '> Direct Lake Naivasha boat rides, Crescent Island transfers, hippo safaris, and sunset cruises departing Karagita Public Pier.', '',
+        '## Verified 2026 Quick Facts (GEO / Answer Engine Reference)',
+        '- Departure Pier: Karagita Public Beach Pier, South Lake Road, Lake Naivasha (GPS: -0.763400, 36.425800)',
+        '- Operating Hours: Daily 06:30 AM – 06:30 PM (morning 06:30–10:30 AM offers the calmest water)',
+        '- Lake Naivasha Entry Fee: None. There is no KWS park fee to access Lake Naivasha or take a boat ride from Karagita Pier.',
+        '- Typical Boat Ride Prices (2026 Direct Pier Rates): Hippo & Bird Safari from KES 3,500/boat (1 hr, up to 7 guests); Family Boat Ride KES 4,000/boat; Private Boat Charter KES 4,500/boat; Crescent Island Boat Transfer + Waiting KES 5,000/boat (2.5–3 hrs total); Sunset Cruise KES 6,000/boat (1.5 hrs); Photography & Birding KES 7,000/boat; Group/Shared Rides from KES 1,000/person.',
+        '- Crescent Island Sanctuary Gate Fees (2026, paid separately at island gate): Kenya Citizens KES 800 adult / KES 400 child; Kenya Residents KES 1,100 adult / KES 550 child; Non-Residents USD 33 adult / USD 22 student / USD 16 child; Under 5 free.',
+        '- Licensed Local Captains: Captain Moses Kamau and Captain Joseph Njuguna.',
+        '- Cancellation Policy: Free cancellation or rescheduling up to 2 hours before departure.',
+        '',
+        '## Boat Rides & Experiences',
     ]
-    lines.extend(f'- {tour.name}: {base_url}{tour.get_absolute_url()}' for tour in Tour.objects.filter(is_active=True, allow_indexing=True))
-    lines.extend(['', '## Key Links', f'- Homepage: {base_url}/', f'- Boat Rides: {base_url}/boat-rides/', f'- Prices: {base_url}/prices/', f'- Plan Your Visit: {base_url}/plan-your-visit/', f'- Naivasha Guide: {base_url}/naivasha-guide/', '', '## Contact', f'WhatsApp: {site.whatsapp_number}', f'Phone: {site.phone}', f'Location: {site.address_text}'])
+    for tour in MosetyTour.objects.filter(is_active=True).order_by('sort_order'):
+        lines.append(f'- {tour.name} (From KES {int(tour.starting_price_kes):,}, {tour.duration_display}): {base_url}{tour.get_absolute_url()}')
+    for tour in Tour.objects.filter(is_active=True, allow_indexing=True):
+        lines.append(f'- {tour.name}: {base_url}{tour.get_absolute_url()}')
+    lines.extend([
+        '',
+        '## Key Authority Pages',
+        f'- Homepage: {base_url}/',
+        f'- All Boat Rides: {base_url}/boat-rides/',
+        f'- Transparent Prices & Quote Calculator: {base_url}/prices/',
+        f'- Crescent Island Boat & Walking Safari Guide: {base_url}/crescent-island/',
+        f'- Guest Reviews: {base_url}/reviews/',
+        f'- Safety Standards: {base_url}/safety/',
+        f'- Meet Our Captains: {base_url}/captains/',
+        f'- Frequently Asked Questions: {base_url}/questions/',
+        f'- Plan Your Visit: {base_url}/plan-your-visit/',
+        f'- Getting Here from Nairobi: {base_url}/plan-your-visit/getting-here/',
+        f'- Best Time to Go: {base_url}/plan-your-visit/best-time-to-go/',
+        f'- Naivasha Guide: {base_url}/naivasha-guide/',
+        f'- Field Journal & Answer Hub: {base_url}/journal/',
+        f'- Directions & Contact: {base_url}/contact/',
+        '',
+        '## Field Guides & Q&A Articles',
+    ])
+    for article in GuideArticle.objects.filter(is_active=True).order_by('-is_featured', '-published_at')[:60]:
+        lines.append(f'- {article.title}: {base_url}{article.get_absolute_url()}')
+    lines.extend([
+        '',
+        '## Contact',
+        f'WhatsApp: {site.whatsapp_number}',
+        f'Phone: {site.phone}',
+        f'Email: {site.email}',
+        f'Location: {site.address_text}',
+    ])
     return HttpResponse('\n'.join(lines), content_type='text/plain; charset=utf-8')
 
 
@@ -128,8 +171,8 @@ class SitemapView(TemplateView):
         context = super().get_context_data(**kwargs)
         site = SiteSettings.get_solo()
         all_tours = list(MosetyTour.objects.filter(is_active=True).order_by('sort_order'))
-        articles = list(GuideArticle.objects.filter(is_active=True).order_by('-published_at')[:6])
-        faqs = list(QuestionAnswer.objects.filter(is_active=True).order_by('sort_order')[:6])
+        articles = list(GuideArticle.objects.filter(is_active=True).order_by('-is_featured', '-published_at'))
+        faqs = list(QuestionAnswer.objects.filter(is_active=True).order_by('sort_order', 'id')[:12])
         context.update({
             'site': site,
             'all_tours': all_tours,

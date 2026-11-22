@@ -238,10 +238,13 @@
         <!-- Related Quick Links -->
         <div style="margin-top: 1.5rem; padding: 1.5rem; background: var(--papyrus-light); border-radius: var(--radius-card);">
           <strong style="color: var(--ink-forest); font-size: 0.95rem; display: block; margin-bottom: 0.75rem;">Related Lake Guides</strong>
-          <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.875rem;">
-            <li><a href="/prices/" style="color: var(--ink-forest); text-decoration: underline;">Transparent Rate Matrix & Calculator &rarr;</a></li>
+          <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 0.55rem; font-size: 0.875rem;">
+            <li><a href="/prices/" style="color: var(--ink-forest); text-decoration: underline;">Transparent Rate Matrix &amp; Calculator &rarr;</a></li>
             <li><a href="/plan-your-visit/getting-here/" style="color: var(--ink-forest); text-decoration: underline;">Getting to Karagita Pier from Nairobi &rarr;</a></li>
-            <li><a href="/safety/" style="color: var(--ink-forest); text-decoration: underline;">Hippo Safety & Boat Protocols &rarr;</a></li>
+            <li><a href="/safety/" style="color: var(--ink-forest); text-decoration: underline;">Hippo Safety &amp; Boat Protocols &rarr;</a></li>
+            {% for article in related_articles %}
+            <li><a href="{{ article.get_absolute_url }}" style="color: var(--ink-forest); text-decoration: underline;">{{ article.title }} &rarr;</a></li>
+            {% endfor %}
           </ul>
         </div>
       </aside>

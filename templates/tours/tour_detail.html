@@ -387,6 +387,31 @@
       </article>
       {% endfor %}
     </div>
+
+    {% if related_articles %}
+    <div style="margin-top: 3rem; padding-top: 2.5rem; border-top: 1px solid var(--border-subtle);">
+      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
+        <div>
+          <p class="eyebrow eyebrow-gold" style="margin-bottom: 0.25rem;">Helpful Guides</p>
+          <h2 style="font-size: 1.45rem; color: var(--ink-forest); margin: 0;">Planning Guides for {{ tour.short_name }}</h2>
+        </div>
+        <a href="/journal/" style="font-size: 0.875rem; font-weight: 700; color: var(--ink-forest); text-decoration: underline;">All 50+ Lake Naivasha Guides &rarr;</a>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.25rem;">
+        {% for article in related_articles %}
+        <article style="background: #ffffff; border: 1px solid var(--border-subtle); border-radius: var(--radius-card); padding: 1.35rem; display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <h3 style="font-size: 1.02rem; margin-bottom: 0.45rem; line-height: 1.35;">
+              <a href="{{ article.get_absolute_url }}" style="color: var(--ink-forest); text-decoration: none;">{{ article.title }}</a>
+            </h3>
+            <p style="font-size: 0.85rem; color: var(--body-muted); line-height: 1.55; margin-bottom: 0.75rem;">{{ article.excerpt|truncatechars:120 }}</p>
+          </div>
+          <a href="{{ article.get_absolute_url }}" style="font-size: 0.8125rem; font-weight: 700; color: var(--rift-gold);">Read guide &rarr;</a>
+        </article>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
   </div>
 </section>
 {% endif %}
